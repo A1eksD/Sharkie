@@ -21,8 +21,8 @@ class World {
         this.ctx.clearRect(0, 0, canvas.width, this.canvas.height);
 
         this.addToMap(this.character);
-        addObjectsToMap(this.enemies);
-        addObjectsToMap(this.backgroundObjrct);
+        this.addObjectsToMap(this.enemies);
+        this.addObjectsToMap(this.backgroundObjrct);
 
         let self = this;
         requestAnimationFrame(function(){
@@ -32,7 +32,7 @@ class World {
 
 
     addObjectsToMap(objects){
-        objects.forEach(o => {
+        this. objects.forEach(o => {
             addToMap(o);
         });
     }
