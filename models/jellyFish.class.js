@@ -14,17 +14,12 @@ class JellyFish extends MovableObject{
         super().loadImage('../img/2.Enemy/2 Jelly fish/Súper dangerous/Pink 1.png');
         this.loadImages(this.IMAGES_WALIKNG);
         this.x = 350 + Math.random() * 500;
-        // this.moveLeftJellyFish();
+        this.speed = 1 + Math.random() * 0.5;
         this.animate();
     }
 
-    // moveLeftJellyFish(){
-    //     setInterval(() => {
-    //         this.x -=3;
-    //     }, 1000 / 60);
-    // }
-
     animate(){
+        this.moveLeft();
         setInterval( () => {
             // let i = 0 % 6; -> 0, Rest 0 / wenn 5 % 6 -> 0, Rest 5 / wenn 6 % 6 -> 1, Rest 0 / wenn 7 % 6 -> 1, Rest 1
             let i = this.currentImage % this.IMAGES_WALIKNG.length; 
@@ -33,6 +28,5 @@ class JellyFish extends MovableObject{
             this.img = this.imageChache[path];
             this.currentImage++;
         }, 180 );
-        
     }
 }

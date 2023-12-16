@@ -3,6 +3,7 @@ class MovableObject{
     y = 250;
     img;
     imageChache = {};
+    speed = 3;
 
     loadImage(path){
         this.img = new Image(); //this.img = document.getElementById('image') --- <img id="image" src>
@@ -26,6 +27,8 @@ class MovableObject{
     }
 
     moveLeft(){
-
+        setInterval(() => {
+            this.x -= this.speed;
+        }, 1000 / 60);
     }
 }
