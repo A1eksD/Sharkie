@@ -12,22 +12,22 @@ function init(){
 
 window.addEventListener('keydown', (e) => {
     console.log(e)
-    if (e.keyCode === 38) { // 38 = +y
+    if (e.keyCode === 38 || e.keyCode === 87) { // 38 = +y
         keyboard.UP = true;
         setInterval(() => {
             this.y -= 10;
         }, 1000 / 60);
-    } else if(e.keyCode === 40){ // 40 = -y
+    } else if(e.keyCode === 40 || e.keyCode === 83){ // 40 = -y
         keyboard.DOWN = true;
         setInterval(() => {
           this.y += 10;
         }, 1000 / 60);
-    } else if (e.keyCode === 37){ // 37 = -x
+    } else if (e.keyCode === 37 || e.keyCode === 65){ // 37 = -x
         keyboard.LEFT = true;
         setInterval(() => {
           this.x -= 10;
         }, 1000 / 60);
-    } else if (e.keyCode === 39){ // 39 = +x
+    } else if (e.keyCode === 39 || e.keyCode === 68){ // 39 = +x
         keyboard.RIGHT = true;
         setInterval(() => {
           this.x -= 10;
@@ -43,22 +43,22 @@ window.addEventListener('keydown', (e) => {
 
 window.addEventListener('keyup', (e) => {
     console.log(e)
-    if (e.keyCode === 38) { // 38 = +y
+    if (e.keyCode === 38 || e.keyCode === 87) { // 38 = +y
         keyboard.UP = false;
         setInterval(() => {
             this.y -= 10;
         }, 1000 / 60);
-    } else if(e.keyCode === 40){ // 40 = -y
+    } else if(e.keyCode === 40 || e.keyCode === 83){ // 40 = -y
         keyboard.DOWN = false;
         setInterval(() => {
           this.y += 10;
         }, 1000 / 60);
-    } else if (e.keyCode === 37){ // 37 = -x
+    } else if (e.keyCode === 37 || e.keyCode === 65){ // 37 = -x
         keyboard.LEFT = false;
         setInterval(() => {
           this.x -= 10;
         }, 1000 / 60);
-    } else if (e.keyCode === 39){ // 39 = +x
+    } else if (e.keyCode === 39 || e.keyCode === 68){ // 39 = +x
         keyboard.RIGHT = false;
         setInterval(() => {
           this.x -= 10;

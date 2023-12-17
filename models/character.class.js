@@ -23,7 +23,7 @@ class Character extends MovableObject{
     animate(){
 
         setInterval(() => {
-            if (this.world.keyboard.RIGHT ) {
+            if (this.world.keyboard.RIGHT) {
                 this.x += this.speed;
                 this.otherDirection = false;
             }
@@ -37,24 +37,14 @@ class Character extends MovableObject{
             if (this.world.keyboard.DOWN ) {
                 this.y += this.speed;
             }
+            this.world.camera_x = -this.x; //camera bewegt sich mit dem character zusammen in der x-Achse
         }, 1000 / 60);
 
         setInterval( () => {
-            if (this.world.keyboard.RIGHT ) {
-                this.x += this.speed;
-                this.moveCharacter();
-            }
-            if (this.world.keyboard.LEFT ) {
-                this.moveCharacter();
-            }
-            if (this.world.keyboard.UP ) {
-                this.moveCharacter();
-            }
-            if (this.world.keyboard.DOWN ) {
+            if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP || this.world.keyboard.DOWN ) {
                 this.moveCharacter();
             }
         }, 120);
-        
     }
 
 

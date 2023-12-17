@@ -15,6 +15,7 @@ class World {
         new BackgroundObjext('../img/3. Background/Layers/1. Light/1.png', 0, 0)
     ];
     keyboard;
+    camera_x = 0;
 
 
     constructor(canvas, keyboard){
@@ -34,10 +35,14 @@ class World {
     draw(){
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-        this.addObjectsToMap(this.backgroundObjrct);
-        this.addObjectsToMap(this.enemies);
-        this.addToMap(this.character);
+        this.ctx.translate(this.camera_x, 0); //verschiebt die camera, wegen einer schleife wird die camera immer um 100px weiter zu seite gerendert
 
+        this.addObjectsToMap(this.backgroundObjrct); //rendert hintergrund
+        this.addObjectsToMap(this.enemies); // rendert feinde
+        this.addToMap(this.character); // rendert character
+
+
+        this.ctx.translate(-this.camera_x, 0); //verschiebt die camera zurück, sodass die sie camera die nicht in einer schleife befindet
         let self = this;
         requestAnimationFrame(function(){
             self.draw();
@@ -59,7 +64,9 @@ class World {
             this.ctx.scale(-1, 1);
             movObj.x = movObj.x * -1;
         }
+
         this.ctx.drawImage(movObj.img, movObj.x, movObj.y, movObj.width, movObj.height);
+
         if (movObj.otherDirection) {
             this.ctx.restore();
             movObj.x = movObj.x * -1;
