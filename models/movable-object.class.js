@@ -1,5 +1,5 @@
 class MovableObject{
-    x = 120;
+    x = 200;
     y = 250;
     img;
     imageChache = {};

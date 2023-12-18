@@ -1,21 +1,10 @@
 class World {
     character = new Character();
-    enemies = [
-        new JellyFish(),
-        new JellyFish(),
-        new JellyFish(),
-    ];
+    level = level1;
     canvas;
     ctx;
-    backgroundObjrct = [
-        new BackgroundObjext('../img/3. Background/Layers/5. Water/L1.png', 0, 0),
-        new BackgroundObjext('../img/3. Background/Layers/3.Fondo 1/L1.png', 0, 0),
-        new BackgroundObjext('../img/3. Background/Layers/4.Fondo 2/L1.png', 0, 0),
-        new BackgroundObjext('../img/3. Background/Layers/2. Floor/D1.png', 0, 0),
-        new BackgroundObjext('../img/3. Background/Layers/1. Light/1.png', 0, 0)
-    ];
     keyboard;
-    camera_x = 0;
+    camera_x = 10;
 
 
     constructor(canvas, keyboard){
@@ -37,8 +26,8 @@ class World {
 
         this.ctx.translate(this.camera_x, 0); //verschiebt die camera, wegen einer schleife wird die camera immer um 100px weiter zu seite gerendert
 
-        this.addObjectsToMap(this.backgroundObjrct); //rendert hintergrund
-        this.addObjectsToMap(this.enemies); // rendert feinde
+        this.addObjectsToMap(this.level.backgroundObjrct); //rendert hintergrund
+        this.addObjectsToMap(this.level.enemies); // rendert feinde
         this.addToMap(this.character); // rendert character
 
 

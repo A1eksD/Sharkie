@@ -23,11 +23,13 @@ class Character extends MovableObject{
     animate(){
 
         setInterval(() => {
-            if (this.world.keyboard.RIGHT) {
+            // console.log(this.world.level.levelEndX);
+            if (this.world.keyboard.RIGHT && this.x < this.world.level.levelEndX) {
                 this.x += this.speed;
                 this.otherDirection = false;
             }
-            if (this.world.keyboard.LEFT ) {
+            // console.log(this.x );
+            if (this.world.keyboard.LEFT && this.x > 0 ) { // this.x > 0 steht für- bis der character pixel 0 vom ersten bild erreicht hat
                 this.x -= this.speed;
                 this.otherDirection = true;
             }
@@ -37,7 +39,7 @@ class Character extends MovableObject{
             if (this.world.keyboard.DOWN ) {
                 this.y += this.speed;
             }
-            this.world.camera_x = -this.x; //camera bewegt sich mit dem character zusammen in der x-Achse
+            this.world.camera_x = -this.x + 120; //camera bewegt sich mit dem character zusammen in der x-Achse/ +120, damit der charcter weiter rechts angezeigt wird
         }, 1000 / 60);
 
         setInterval( () => {
