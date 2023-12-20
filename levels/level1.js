@@ -2,7 +2,8 @@ const level1 = new Level(
     [
         new JellyFish(),
         new JellyFish(),
-        new JellyFish()
+        new JellyFish(),
+        new Endboss()
     ],
     [ // alle 720px wird eine neuer Hinterund gerendert
         new BackgroundObjext('../img/3. Background/Layers/5. Water/L2.png', -720, 0),

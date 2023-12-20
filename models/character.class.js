@@ -13,6 +13,8 @@ class Character extends MovableObject{
     ];
     currentImage = 0;
     world;
+    swimmingCharacter = new Audio('../audio/creek-swimming.mp3');
+
 
     constructor(){
         super().loadImage('../img/1.Sharkie/3.Swim/1.png');
@@ -23,21 +25,26 @@ class Character extends MovableObject{
     animate(){
 
         setInterval(() => {
+            this.swimmingCharacter.pause();
             // console.log(this.world.level.levelEndX);
             if (this.world.keyboard.RIGHT && this.x < this.world.level.levelEndX) {
                 this.x += this.speed;
                 this.otherDirection = false;
+                this.swimmingCharacter.play();
             }
             // console.log(this.x );
             if (this.world.keyboard.LEFT && this.x > 0 ) { // this.x > 0 steht für- bis der character pixel 0 vom ersten bild erreicht hat
                 this.x -= this.speed;
                 this.otherDirection = true;
+                this.swimmingCharacter.play();
             }
             if (this.world.keyboard.UP ) {
                 this.y -= this.speed;
+                this.swimmingCharacter.play();
             }
             if (this.world.keyboard.DOWN ) {
                 this.y += this.speed;
+                this.swimmingCharacter.play();
             }
             this.world.camera_x = -this.x + 120; //camera bewegt sich mit dem character zusammen in der x-Achse/ +120, damit der charcter weiter rechts angezeigt wird
         }, 1000 / 60);
@@ -51,12 +58,7 @@ class Character extends MovableObject{
 
 
     moveCharacter(){
-        // let i = 0 % 6; -> 0, Rest 0 / wenn 5 % 6 -> 0, Rest 5 / wenn 6 % 6 -> 1, Rest 0 / wenn 7 % 6 -> 1, Rest 1
-        let i = this.currentImage % this.IMAGES_WALIKNG.length; 
-        //let i = 0, 1, 2, 3, 4, 5, 6, 0
-        let path = this.IMAGES_WALIKNG[i];
-        this.img = this.imageChache[path];
-        this.currentImage++;
+        this.playAnimation(this.IMAGES_WALIKNG);
     }
 
 }

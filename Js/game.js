@@ -5,13 +5,10 @@ let keyboard = new KeyBoard();
 function init(){
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
-
-    console.log('My Character is', world.character);
 }
 
 
 window.addEventListener('keydown', (e) => {
-    console.log(e)
     if (e.keyCode === 38 || e.keyCode === 87) { // 38 = +y
         keyboard.UP = true;
         setInterval(() => {
@@ -42,7 +39,6 @@ window.addEventListener('keydown', (e) => {
 
 
 window.addEventListener('keyup', (e) => {
-    console.log(e)
     if (e.keyCode === 38 || e.keyCode === 87) { // 38 = +y
         keyboard.UP = false;
         setInterval(() => {
