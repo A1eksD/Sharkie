@@ -1,6 +1,6 @@
 class World {
     character = new Character();
-    level = level1;
+    level = loadLevel;
     canvas;
     ctx;
     keyboard;
@@ -33,7 +33,7 @@ class World {
 
         this.ctx.translate(-this.camera_x, 0); //verschiebt die camera zurück, sodass die sie camera die nicht in einer schleife befindet
         let self = this;
-        requestAnimationFrame(function(){
+        requestAnimationFrame(function(){ // rufe draw() wieder auf
             self.draw();
         });
     }
@@ -48,17 +48,26 @@ class World {
 
     addToMap(movObj){
         if (movObj.otherDirection) {
-            this.ctx.save();
-            this.ctx.translate(movObj.width, 0);
-            this.ctx.scale(-1, 1);
-            movObj.x = movObj.x * -1;
+            this.flipImg(movObj);
         }
 
-        this.ctx.drawImage(movObj.img, movObj.x, movObj.y, movObj.width, movObj.height);
-
+        movObj.draw(this.ctx);
+        movObj.drawFrame(this.ctx);
+        
         if (movObj.otherDirection) {
-            this.ctx.restore();
-            movObj.x = movObj.x * -1;
+            this.flipImgBack(movObj);
         }
+    }
+
+    flipImg(movObj){
+        this.ctx.save();
+        this.ctx.translate(movObj.width, 0);
+        this.ctx.scale(-1, 1);
+        movObj.x = movObj.x * -1;
+    }
+
+    flipImgBack(movObj){
+        this.ctx.restore();
+        movObj.x = movObj.x * -1;
     }
 }

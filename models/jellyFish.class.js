@@ -19,8 +19,11 @@ class JellyFish extends MovableObject{
     }
 
     animate(){
-        this.moveLeft();
-        setInterval( () => {
+        setInterval(() => { //gegener soll sich nach links bewegen mit 60fps
+            this.moveLeft();
+        }, 1000 / 60);
+
+        setInterval( () => { // gegener soll alle 0.1s seim img ändern
             this.playAnimation(this.IMAGES_WALIKNG);
         }, 180 );
     }

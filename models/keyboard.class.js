@@ -5,5 +5,5 @@ class KeyBoard {
     UP = false;
     SHOOT = false;
     HIT = false;
-
+    JUMP = false;
 }
