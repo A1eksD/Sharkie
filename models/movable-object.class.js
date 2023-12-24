@@ -7,6 +7,7 @@ class MovableObject{
     otherDirection = false;
     speedY = 0; //für springen
     acceleration = 2; //für springen
+    energy = 100;
 
 
     loadImage(path){
@@ -66,10 +67,38 @@ class MovableObject{
     }
 
     drawFrame(ctx){
-        ctx.beginPath(); 
-        ctx.lineWidth = '2';
-        ctx.strokeStyle = 'blue';
-        ctx.rect(this.x, this.y, this.width, this.height);
-        ctx.stroke();
+        //zeichne nur den ramen, wenn man die instanz von character oder fish ist
+        if (this instanceof Character || this instanceof Fish) {
+            ctx.beginPath(); 
+            ctx.lineWidth = '2';
+            ctx.strokeStyle = 'blue';
+            ctx.rect(this.x, this.y, this.width, this.height);
+            ctx.stroke();   
+        }
+    }
+
+
+    /**
+     * Die Funktion `isColliding` überprüft, ob das aktuelle `MovableObject` 
+     * mit einem anderen beweglichen Objekt (`movObj`) kollidiert, indem sie die Positionen und Abmessungen beider Objekte vergleicht.
+     */
+    isColliding(movObj) {
+        return  this.x + this.width > movObj.x && 
+                this.y + this.height > movObj.y &&
+                this.x < movObj.x &&
+                this.y < movObj.y + movObj.height;
+    }
+
+
+    hit(){
+        this.energy -= 5; // wenn collision = true=> -5 vom aktuellem Energiewert
+        if (this.energy <= 0) {
+            this.energy = 0;
+        }
+    }
+
+
+    isDead(){
+        return this.energy == 0;
     }
 }

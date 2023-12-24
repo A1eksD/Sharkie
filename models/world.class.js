@@ -13,6 +13,7 @@ class World {
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
+        this.checkCollisions();
     }
 
 
@@ -59,6 +60,7 @@ class World {
         }
     }
 
+
     flipImg(movObj){
         this.ctx.save();
         this.ctx.translate(movObj.width, 0);
@@ -66,8 +68,21 @@ class World {
         movObj.x = movObj.x * -1;
     }
 
+
     flipImgBack(movObj){
         this.ctx.restore();
         movObj.x = movObj.x * -1;
+    }
+
+
+    checkCollisions(){ // überprüfe ob der feind mit charachter kollediert anhand isColliding(enemy)
+        setInterval(() => {
+            this.level.enemies.forEach((enemy) => {
+                if (this.character.isColliding(enemy)) {
+                    this.character.hit(); // wenn collision = true=> hit()
+                    console.log('Collision with Character, energy', this.character.energy);
+                }
+            })
+        }, 200);
     }
 }
