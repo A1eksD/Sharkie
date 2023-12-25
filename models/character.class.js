@@ -30,6 +30,14 @@ class Character extends MovableObject{
         'img/1.Sharkie/6.dead/1.Poisoned/11.png',
         'img/1.Sharkie/6.dead/1.Poisoned/12.png'
     ];
+    IMAGES_LIFE = [
+        'img/4.Marcadores/green/Life/0_copia3.png',
+        'img/4.Marcadores/green/Life/20_copia4.png',
+        'img/4.Marcadores/green/Life/40_copia3.png',
+        'img/4.Marcadores/green/Life/60_copia3.png',
+        'img/4.Marcadores/green/Life/80_copia3.png',
+        'img/4.Marcadores/green/Life/100_copia3.png'
+    ];
     currentImage = 0;
     world;
     swimmingCharacter = new Audio('audio/creek-swimming.mp3');
@@ -45,8 +53,8 @@ class Character extends MovableObject{
         // this.showDeadAnimation();
     }
 
-    animate(){
 
+    animate(){
         setInterval(() => {
             this.swimmingCharacter.pause();
             this.swimmingCharacter.volume = 0.1;
@@ -79,9 +87,9 @@ class Character extends MovableObject{
         }, 1000 / 60);
 
         setInterval( () => {
-
             if(this.isDead()){
                 this.playAnimation(this.IMAGES_DEAD);
+                this.isHurt();
             }else if (this.isAboveGround()) { //der erste if Pasrt ist für jump - später entvernen
                 this.playAnimation(this.IMAGES_JUMP);
             }else{
@@ -97,11 +105,26 @@ class Character extends MovableObject{
         this.playAnimation(this.IMAGES_WALIKNG);
     }
 
+    isHurt(){
+        if (this.energy === 100) {
+            this.IMAGES_LIFE[5];
+        }else if (this.energy === 80) {
+            this.IMAGES_LIFE[4];
+        }else if (this.energy === 60) {
+            this.IMAGES_LIFE[3];
+        }else if (this.energy === 40) {
+            this.IMAGES_LIFE[2];
+        }else if (this.energy === 20) {
+            this.IMAGES_LIFE[1];
+        }else if (this.energy === 40) {
+            this.IMAGES_LIFE[0];
+            this.playAnimation(this.IMAGES_DEAD);
+        }
+    }
     // showDeadAnimation(){
     //     if (this.isDead) {
     //         this.loadImage(this.IMAGES_DEAD[0]);
     //         this.loadImages(this.IMAGES_DEAD);
     //     }
     // }
-
 }
