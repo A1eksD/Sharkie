@@ -1,31 +1,11 @@
-class MovableObject{
-    x = 200;
-    y = 350;
-    img;
-    imageChache = {};
+class MovableObject extends drawebleObject{
     speed = 3;
     otherDirection = false;
     speedY = 0; //für springen
     acceleration = 2; //für springen
     energy = 100;
+    lastHit = 0;
 
-
-    loadImage(path){
-        this.img = new Image(); //this.img = document.getElementById('image') --- <img id="image" src>
-        this.img.src = path;
-    }
-
-
-    /**
-     * @param {Array} arrey -[img1.png, img2.png .....]
-     */
-    loadImages(arrey){
-        arrey.forEach((path) => {
-            let img = new Image();
-            img.src = path;
-            this.imageChache[path] = img;
-        });
-    }
 
     moveRight() {
         this.x += this.speed;
@@ -62,21 +42,6 @@ class MovableObject{
         this.speedY = 20; //verändere den wert um höher zu springen
     }
 
-    draw(ctx){
-        ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
-    }
-
-    drawFrame(ctx){
-        //zeichne nur den ramen, wenn man die instanz von character oder fish ist
-        if (this instanceof Character || this instanceof Fish) {
-            ctx.beginPath(); 
-            ctx.lineWidth = '2';
-            ctx.strokeStyle = 'blue';
-            ctx.rect(this.x, this.y, this.width, this.height);
-            ctx.stroke();   
-        }
-    }
-
 
     /**
      * Die Funktion `isColliding` überprüft, ob das aktuelle `MovableObject` 
@@ -94,8 +59,35 @@ class MovableObject{
         this.energy -= 5; // wenn collision = true=> -5 vom aktuellem Energiewert
         if (this.energy <= 0) {
             this.energy = 0;
+        } else {
+            this.lastHit = new Date().getTime();
         }
     }
+
+
+    isHurt(){
+        let timePassed = new Date().getTime() - this.lastHit; //differenz in ms
+        timePassed = timePassed / 1000; // differenz in s
+        // console.log(timePassed);
+        return timePassed < 1; // gebe den value true aus, wenn der Wert 1s überschreitet. ansonsten false
+    }
+
+    // showHP(){
+    //     if (this.energy === 100) {
+    //         this.IMAGES_LIFE[5];
+    //     }else if (this.energy === 80) {
+    //         this.IMAGES_LIFE[4];
+    //     }else if (this.energy === 60) {
+    //         this.IMAGES_LIFE[3];
+    //     }else if (this.energy === 40) {
+    //         this.IMAGES_LIFE[2];
+    //     }else if (this.energy === 20) {
+    //         this.IMAGES_LIFE[1];
+    //     }else if (this.energy === 40) {
+    //         this.IMAGES_LIFE[0];
+    //         this.playAnimation(this.IMAGES_DEAD);
+    //     }
+    // }
 
 
     isDead(){

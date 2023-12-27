@@ -5,7 +5,10 @@ class World {
     ctx;
     keyboard;
     camera_x = 10;
-
+    statusBar = new StatusBar();
+    IMAGES_LIFE = [
+        'img/4.Marcadores/green/Life/100_copia3.png'
+    ];
 
     constructor(canvas, keyboard){
         this.ctx = canvas.getContext('2d');
@@ -24,15 +27,17 @@ class World {
 
     draw(){
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
         this.ctx.translate(this.camera_x, 0); //verschiebt die camera, wegen einer schleife wird die camera immer um 100px weiter zu seite gerendert
 
         this.addObjectsToMap(this.level.backgroundObjrct); //rendert hintergrund
         this.addObjectsToMap(this.level.enemies); // rendert feinde
+        this.addToMap(this.statusBar); // rendert HP-Anzeige
         this.addToMap(this.character); // rendert character
 
 
         this.ctx.translate(-this.camera_x, 0); //verschiebt die camera zurück, sodass die sie camera die nicht in einer schleife befindet
+        // console.log(this.IMAGES_LIFE);
+        // this.ctx.drawImage(this.IMAGES_LIFE, 20, 20);
         let self = this;
         requestAnimationFrame(function(){ // rufe draw() wieder auf
             self.draw();
@@ -80,9 +85,10 @@ class World {
             this.level.enemies.forEach((enemy) => {
                 if (this.character.isColliding(enemy)) {
                     this.character.hit(); // wenn collision = true=> hit()
-                    console.log('Collision with Character, energy', this.character.energy);
+                    // console.log('Collision with Character, energy', this.character.energy);
                 }
             })
         }, 200);
     }
+    
 }
