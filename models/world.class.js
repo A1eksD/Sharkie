@@ -31,10 +31,14 @@ class World {
 
         this.addObjectsToMap(this.level.backgroundObjrct); //rendert hintergrund
         this.addObjectsToMap(this.level.enemies); // rendert feinde
+
+        //----- space for fixed objects-----------
+        this.ctx.translate(-this.camera_x, 0); //verschiebt die camera zurück, sodass die sie camera die nicht in einer schleife befindet
         this.addToMap(this.statusBar); // rendert HP-Anzeige
+        this.ctx.translate(this.camera_x, 0); //verschiebt die camera, wegen einer schleife wird die camera immer um 100px weiter zu seite gerendert
+
+
         this.addToMap(this.character); // rendert character
-
-
         this.ctx.translate(-this.camera_x, 0); //verschiebt die camera zurück, sodass die sie camera die nicht in einer schleife befindet
         // console.log(this.IMAGES_LIFE);
         // this.ctx.drawImage(this.IMAGES_LIFE, 20, 20);
@@ -86,6 +90,7 @@ class World {
                 if (this.character.isColliding(enemy)) {
                     this.character.hit(); // wenn collision = true=> hit()
                     // console.log('Collision with Character, energy', this.character.energy);
+                    this.statusBar.setPercenetage(this.character.energy); //verändere hp anzeige, wenn hit(); | greift auf energy zu, weil char mir movObj verknüpft ist
                 }
             })
         }, 200);
