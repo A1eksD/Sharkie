@@ -6,10 +6,13 @@ class World {
     keyboard;
     camera_x = 10;
     statusBar = new StatusBar();
-    bottles = [new TrowableObjct()];
-    IMAGES_LIFE = [
-        'img/4.Marcadores/green/Life/100_copia3.png'
+    bottles = [
+        new TrowableObjct(), 
+        new TrowableObjct(), 
+        new TrowableObjct(), 
+        new TrowableObjct()
     ];
+
 
     constructor(canvas, keyboard){
         this.ctx = canvas.getContext('2d');
@@ -43,7 +46,6 @@ class World {
         this.addToMap(this.character); // rendert character
         this.ctx.translate(-this.camera_x, 0); //verschiebt die camera zurück, sodass die sie camera die nicht in einer schleife befindet
         // console.log(this.IMAGES_LIFE);
-        // this.ctx.drawImage(this.IMAGES_LIFE, 20, 20);
         let self = this;
         requestAnimationFrame(function(){ // rufe draw() wieder auf
             self.draw();
