@@ -1,10 +1,10 @@
 class Level {
     enemies;
-    backgroundObjrct;
+    backgroundObject;
     levelEndX = 1900; // ende der x-Achse
 
-    constructor(enemies, backgroundObjrct){
+    constructor(enemies, backgroundObject){
         this.enemies = enemies;
-        this.backgroundObjrct = backgroundObjrct;
+        this.backgroundObject = backgroundObject;
     }
 }

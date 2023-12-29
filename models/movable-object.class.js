@@ -20,7 +20,7 @@ class MovableObject extends drawebleObject{
         let i = this.currentImage % imges.length; 
         //let i = 0, 1, 2, 3, 4, 5, 6, 0
         let path = imges[i];
-        this.img = this.imageChache[path];
+        this.img = this.imageCache[path];
         this.currentImage++;
     }
 

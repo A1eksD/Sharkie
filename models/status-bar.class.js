@@ -25,7 +25,7 @@ class StatusBar extends drawebleObject {
     setPercenetage(percentace){
         this.percentace = percentace;
         let imagePath = this.IMAGES_LIFE[this.resolveImagesIndex()];
-        this.img = this.imageChache[imagePath];
+        this.img = this.imageCache[imagePath];
     }
 
 

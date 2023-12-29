@@ -6,6 +6,7 @@ class World {
     keyboard;
     camera_x = 10;
     statusBar = new StatusBar();
+    bottles = [new TrowableObjct()];
     IMAGES_LIFE = [
         'img/4.Marcadores/green/Life/100_copia3.png'
     ];
@@ -29,8 +30,9 @@ class World {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.translate(this.camera_x, 0); //verschiebt die camera, wegen einer schleife wird die camera immer um 100px weiter zu seite gerendert
 
-        this.addObjectsToMap(this.level.backgroundObjrct); //rendert hintergrund
+        this.addObjectsToMap(this.level.backgroundObject); //rendert hintergrund
         this.addObjectsToMap(this.level.enemies); // rendert feinde
+        this.addObjectsToMap(this.bottles); // rendert flachen
 
         //----- space for fixed objects-----------
         this.ctx.translate(-this.camera_x, 0); //verschiebt die camera zurück, sodass die sie camera die nicht in einer schleife befindet

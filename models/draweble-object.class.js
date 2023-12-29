@@ -1,6 +1,6 @@
 class drawebleObject{
     img;
-    imageChache = {};
+    imageCache = {};
     x = 200;
     y = 350;
     currentImage = 0;
@@ -19,7 +19,7 @@ class drawebleObject{
         arrey.forEach((path) => {
             let img = new Image();
             img.src = path;
-            this.imageChache[path] = img;
+            this.imageCache[path] = img;
         })
     }
 

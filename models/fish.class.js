@@ -14,8 +14,8 @@ class Fish extends MovableObject{
     constructor(){
         super().loadImage(this.IMAGES_WALIKNG[0]);
         this.loadImages(this.IMAGES_WALIKNG);
-        this.x = 350 + Math.random() * 500;
-        this.speed = 0.5 + Math.random() * 0.5;
+        this.x = 550 + Math.random() * 1000;
+        this.speed = 0.5 + Math.random() * 1;
         this.animate();
     }
 
