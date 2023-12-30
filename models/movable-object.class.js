@@ -38,7 +38,7 @@ class MovableObject extends drawebleObject{
     }
 
     isAboveGround(){ //für springen
-        if ((this instanceof TrowableObjct)) { // TrowableObjct sollte immer fallen
+        if (this instanceof TrowableObjct) { // TrowableObjct sollte immer fallen
             return true;
         } else {
             return this.y < 280;   

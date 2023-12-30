@@ -3,8 +3,8 @@ class TrowableObjct extends MovableObject {
     IMAGES_BUBBLE = ['img/1.Sharkie/4.Attack/Bubble trap/Bubble.png'];   
     height = 50;
     width = 50;
-    speedY = 0;
-    speedX = 0;
+    // speedY = 0;
+    // speedX = 0;
 
     //in checkShootBubble(world) wierden die parameter festgesetzt und übergeben
     constructor(x, y){ 
@@ -14,7 +14,7 @@ class TrowableObjct extends MovableObject {
         this.y = y; // parameter übergeben
         this.acceleration = 2;
         // weil die parameter im constructor übergeben werden, muss man sie hie rnicht nochmal extra auflisten
-        this.trow(); 
+        this.trow(x, y); 
     }
 
 

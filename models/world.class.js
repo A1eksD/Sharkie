@@ -110,7 +110,7 @@ class World {
 
     checkShootBubble(){
         if (this.keyboard.SHOOT) {
-            let bubble = new TrowableObjct(this.character.x + 100, this.character.y + 150);
+            let bubble = new TrowableObjct(this.character.x + 100, this.character.y + 60);
             this.bubble.push(bubble);
         }
     }
