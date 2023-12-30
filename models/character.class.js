@@ -36,14 +36,16 @@ class Character extends MovableObject{
         'img/1.Sharkie/5.Hurt/1.Poisoned/3.png',
         'img/1.Sharkie/5.Hurt/1.Poisoned/4.png'
     ];
-    // IMAGES_LIFE = [
-    //     'img/4.Marcadores/green/Life/0_copia3.png',
-    //     'img/4.Marcadores/green/Life/20_copia4.png',
-    //     'img/4.Marcadores/green/Life/40_copia3.png',
-    //     'img/4.Marcadores/green/Life/60_copia3.png',
-    //     'img/4.Marcadores/green/Life/80_copia3.png',
-    //     'img/4.Marcadores/green/Life/100_copia3.png'
-    // ];
+    IMAGES_SHOOT = [
+        'img/1.Sharkie/4.Attack/Bubble trap/For Whale/1.png',
+        'img/1.Sharkie/4.Attack/Bubble trap/For Whale/2.png',
+        'img/1.Sharkie/4.Attack/Bubble trap/For Whale/3.png',
+        'img/1.Sharkie/4.Attack/Bubble trap/For Whale/4.png',
+        'img/1.Sharkie/4.Attack/Bubble trap/For Whale/5.png',
+        'img/1.Sharkie/4.Attack/Bubble trap/For Whale/6.png',
+        'img/1.Sharkie/4.Attack/Bubble trap/For Whale/7.png',
+        'img/1.Sharkie/4.Attack/Bubble trap/For Whale/8.png'
+    ];
     world;
     swimmingCharacter = new Audio('audio/creek-swimming.mp3');
     
@@ -89,6 +91,9 @@ class Character extends MovableObject{
             if (this.world.keyboard.JUMP && !this.isAboveGround()) { // wenn x = klick und keine fall-function ausgeführt wird, dann jump
                 this.jump();
             }
+            // if (this.world.keyboard.SHOOT) { // wenn x = klick und keine fall-function ausgeführt wird, dann jump
+            //     this.trow();
+            // }
             this.world.camera_x = -this.x + 200; //camera bewegt sich mit dem character zusammen in der x-Achse/ +200, damit der charcter weiter rechts angezeigt wird
         }, 1000 / 60);
 
@@ -100,7 +105,9 @@ class Character extends MovableObject{
                 // this.showHP();
             }else if (this.isAboveGround()) { //der erste if Pasrt ist für jump - später entvernen
                 this.playAnimation(this.IMAGES_JUMP);
-            }else{
+            // }else if (this.trow()) {
+            //     this.playAnimation(this.IMAGES_SHOOT);
+            } else {
                 if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP || this.world.keyboard.DOWN ) {
                 this.moveCharacter();
                 }

@@ -11,9 +11,11 @@ class MovableObject extends drawebleObject{
         this.x += this.speed;
     }
 
+
     moveLeft(){
         this.x -= this.speed;
     }
+
 
     playAnimation(imges){
         // let i = 0 % 6; -> 0, Rest 0 / wenn 5 % 6 -> 0, Rest 5 / wenn 6 % 6 -> 1, Rest 0 / wenn 7 % 6 -> 1, Rest 1
@@ -23,6 +25,7 @@ class MovableObject extends drawebleObject{
         this.img = this.imageCache[path];
         this.currentImage++;
     }
+
 
     applyGravity(){ //für springen -- fall zu boden
         setInterval(() => {
@@ -35,8 +38,13 @@ class MovableObject extends drawebleObject{
     }
 
     isAboveGround(){ //für springen
-        return this.y < 280;
+        if ((this instanceof TrowableObjct)) { // TrowableObjct sollte immer fallen
+            return true;
+        } else {
+            return this.y < 280;   
+        }
     }
+
 
     jump(){//für springen
         this.speedY = 20; //verändere den wert um höher zu springen
@@ -72,21 +80,21 @@ class MovableObject extends drawebleObject{
         return timePassed < 1; // gebe den value true aus, wenn der Wert 1s überschreitet. ansonsten false
     }
 
-    // showHP(){
-    //     if (this.energy === 100) {
-    //         this.IMAGES_LIFE[5];
-    //     }else if (this.energy === 80) {
-    //         this.IMAGES_LIFE[4];
-    //     }else if (this.energy === 60) {
-    //         this.IMAGES_LIFE[3];
-    //     }else if (this.energy === 40) {
-    //         this.IMAGES_LIFE[2];
-    //     }else if (this.energy === 20) {
-    //         this.IMAGES_LIFE[1];
-    //     }else if (this.energy === 40) {
-    //         this.IMAGES_LIFE[0];
-    //         this.playAnimation(this.IMAGES_DEAD);
-    //     }
+    // trow(){
+    //     this.speedTrowY = 10;
+    //     this.speedTrowX = 10;
+    //     this.showTrowAimation();
+    // }
+    
+
+    // showTrowAimation(){
+    //     setInterval(() => {
+    //         if (this.speedTrowY > 0) {
+    //             // bei jedem durchlauf wird immer +(-2px) dazuaddiert/die summe addiert sich, bis y-Wert(von MovableObject in isAboveGround) erreicht ist
+    //             this.speedTrowY -= this.acceleration;
+    //             this.speedTrowX += this.acceleration;
+    //         }
+    //     }, 1000 / 25);
     // }
 
 

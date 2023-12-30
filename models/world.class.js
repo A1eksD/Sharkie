@@ -7,11 +7,12 @@ class World {
     camera_x = 10;
     statusBar = new StatusBar();
     bottles = [
-        new TrowableObjct(), 
-        new TrowableObjct(), 
-        new TrowableObjct(), 
-        new TrowableObjct()
+        new Bottles(), 
+        new Bottles(), 
+        new Bottles(), 
+        new Bottles()
     ];
+    bubble = [new TrowableObjct()];
 
 
     constructor(canvas, keyboard){
@@ -20,7 +21,7 @@ class World {
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
-        this.checkCollisions();
+        this.run();
     }
 
 
@@ -36,6 +37,7 @@ class World {
         this.addObjectsToMap(this.level.backgroundObject); //rendert hintergrund
         this.addObjectsToMap(this.level.enemies); // rendert feinde
         this.addObjectsToMap(this.bottles); // rendert flachen
+        this.addObjectsToMap(this.bubble); // rendert die blase
 
         //----- space for fixed objects-----------
         this.ctx.translate(-this.camera_x, 0); //verschiebt die camera zurück, sodass die sie camera die nicht in einer schleife befindet
@@ -88,16 +90,28 @@ class World {
     }
 
 
-    checkCollisions(){ // überprüfe ob der feind mit charachter kollediert anhand isColliding(enemy)
+    run(){ // überprüfe ob der feind mit charachter kollediert anhand isColliding(enemy)
         setInterval(() => {
-            this.level.enemies.forEach((enemy) => {
-                if (this.character.isColliding(enemy)) {
-                    this.character.hit(); // wenn collision = true=> hit()
-                    // console.log('Collision with Character, energy', this.character.energy);
-                    this.statusBar.setPercenetage(this.character.energy); //verändere hp anzeige, wenn hit(); | greift auf energy zu, weil char mir movObj verknüpft ist
-                }
-            })
+            this.checkCollisions();
+            this.checkShootBubble();
         }, 200);
     }
+
+    checkCollisions(){
+        this.level.enemies.forEach((enemy) => {
+            if (this.character.isColliding(enemy)) {
+                this.character.hit(); // wenn collision = true=> hit()
+                // console.log('Collision with Character, energy', this.character.energy);
+                this.statusBar.setPercenetage(this.character.energy); //verändere hp anzeige, wenn hit(); | greift auf energy zu, weil char mir movObj verknüpft ist
+            }
+        });
+    }
     
+
+    checkShootBubble(){
+        if (this.keyboard.SHOOT) {
+            let bubble = new TrowableObjct(this.character.x + 100, this.character.y + 150);
+            this.bubble.push(bubble);
+        }
+    }
 }

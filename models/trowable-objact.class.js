@@ -1,31 +1,30 @@
 class TrowableObjct extends MovableObject {
-    IMAGES_BOTTLES = [
-        'img/4.Marcadores/Posión/Dark-Left.png',
-        'img/4.Marcadores/Posión/Dark-Right.png'
-    ];   
-    height = 80;
-    width = 60;
-    speedY = 5;
-    speedX = 20;
 
-    constructor(){
-        super().loadImage(this.IMAGES_BOTTLES[0]);
-        this.loadImages(this.IMAGES_BOTTLES);
-        this.x = (200 + Math.random() * 500) * 2;
-        this.y = 360;
-        this.animate();
-        this.trow();
+    IMAGES_BUBBLE = ['img/1.Sharkie/4.Attack/Bubble trap/Bubble.png'];   
+    height = 50;
+    width = 50;
+    speedY = 0;
+    speedX = 0;
+
+    //in checkShootBubble(world) wierden die parameter festgesetzt und übergeben
+    constructor(x, y){ 
+        super().loadImage(this.IMAGES_BUBBLE);
+        this.loadImages(this.IMAGES_BUBBLE);
+        this.x = x; // parameter übergeben
+        this.y = y; // parameter übergeben
+        this.acceleration = 2;
+        // weil die parameter im constructor übergeben werden, muss man sie hie rnicht nochmal extra auflisten
+        this.trow(); 
     }
 
 
-    animate(){
-        setInterval( () => { //  alle 0.1s img ändern werdend
-            this.playAnimation(this.IMAGES_BOTTLES);
-        }, 350 );
-    }
-
-
-    trow(){
-        
+    trow(x, y){ //übergabe parameter im constructor 
+        this.x = x;
+        this.y = y;
+        this.speedY = 30;
+        this.applyGravity();
+        setInterval(() => {
+            this.x += 10;
+        }, 25);
     }
 }

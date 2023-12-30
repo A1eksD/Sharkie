@@ -31,7 +31,7 @@ class drawebleObject{
 
     drawFrame(ctx){
         //zeichne nur den ramen, wenn man die instanz von character oder fish ist
-        if (this instanceof Character || this instanceof Fish) {
+        if (this instanceof Character || this instanceof Fish || this instanceof TrowableObjct) {
             ctx.beginPath(); 
             ctx.lineWidth = '2';
             ctx.strokeStyle = 'blue';
