@@ -1,7 +1,7 @@
 class Character extends MovableObject{
     height = 180;
     width = 180;
-    y = 10;
+    y = 50;
     speed = 7;
     IMAGES_WALIKNG = [
         'img/1.Sharkie/3.Swim/1.png',
@@ -11,11 +11,11 @@ class Character extends MovableObject{
         'img/1.Sharkie/3.Swim/5.png',
         'img/1.Sharkie/3.Swim/6.png' 
     ];
-    IMAGES_JUMP = [ // spter entfernen
-        'img/1.Sharkie/5.Hurt/2.Electric_shock/1.png',
-        'img/1.Sharkie/5.Hurt/2.Electric_shock/2.png',
-        'img/1.Sharkie/5.Hurt/2.Electric_shock/3.png'
-    ];
+    // IMAGES_JUMP = [ // spter entfernen
+    //     'img/1.Sharkie/5.Hurt/2.Electric_shock/1.png',
+    //     'img/1.Sharkie/5.Hurt/2.Electric_shock/2.png',
+    //     'img/1.Sharkie/5.Hurt/2.Electric_shock/3.png'
+    // ];
     IMAGES_DEAD = [
         'img/1.Sharkie/6.dead/1.Poisoned/1.png',
         'img/1.Sharkie/6.dead/1.Poisoned/2.png',
@@ -48,23 +48,22 @@ class Character extends MovableObject{
     ];
     world;
     swimmingCharacter = new Audio('audio/creek-swimming.mp3');
-    
+    offset = {
+            x: 30, 
+            y: 85, 
+            frameWidth: 115,
+            frameHeight: 50
+        }
 
     constructor(){
         super().loadImage('img/1.Sharkie/3.Swim/1.png');
         this.loadImages(this.IMAGES_WALIKNG);
-        this.loadImages(this.IMAGES_JUMP);
+        // this.loadImages(this.IMAGES_JUMP);
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_HURT);
-        this.applyGravity();
+        // this.applyGravity();
         this.animate();
-        this.offset = {
-            top: 60,
-            bottom: 60,
-            right: 100,
-            left: 100
-        }
-        // this.showDeadAnimation();
+
     }
 
 
@@ -94,9 +93,9 @@ class Character extends MovableObject{
             }
 
             // für jump - später löschen
-            if (this.world.keyboard.JUMP && !this.isAboveGround()) { // wenn x = klick und keine fall-function ausgeführt wird, dann jump
-                this.jump();
-            }
+            // if (this.world.keyboard.JUMP && !this.isAboveGround()) { // wenn x = klick und keine fall-function ausgeführt wird, dann jump
+            //     this.jump();
+            // }
             // if (this.world.keyboard.SHOOT) { // wenn x = klick und keine fall-function ausgeführt wird, dann jump
             //     this.trow();
             // }
@@ -109,13 +108,13 @@ class Character extends MovableObject{
             }else if (this.isHurt()) { // siehe movObj-class
                 this.playAnimation(this.IMAGES_HURT);
                 // this.showHP();
-            }else if (this.isAboveGround()) { //der erste if Pasrt ist für jump - später entvernen
-                this.playAnimation(this.IMAGES_JUMP);
+            }else{
+            //  if (this.isAboveGround()) { //der erste if Pasrt ist für jump - später entvernen
+            //     this.playAnimation(this.IMAGES_JUMP);
             // }else if (this.trow()) {
             //     this.playAnimation(this.IMAGES_SHOOT);
-            } else {
                 if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP || this.world.keyboard.DOWN ) {
-                this.moveCharacter();
+                    this.moveCharacter();
                 }
             }
         }, 120);
@@ -126,10 +125,5 @@ class Character extends MovableObject{
         this.playAnimation(this.IMAGES_WALIKNG);
     }
 
-    // showDeadAnimation(){
-    //     if (this.isDead) {
-    //         this.loadImage(this.IMAGES_DEAD[0]);
-    //         this.loadImages(this.IMAGES_DEAD);
-    //     }
-    // }
+
 }

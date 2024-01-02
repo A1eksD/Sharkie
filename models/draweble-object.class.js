@@ -4,7 +4,12 @@ class drawebleObject{
     x = 200;
     y = 350;
     currentImage = 0;
-
+    offset = {
+        x: 0,
+        y: 0,
+        frameWidth: 0,
+        frameHeight: 0
+    };
 
     loadImage(path){
         this.img = new Image(); //this.img = document.getElementById('image') --- <img id="image" src>
@@ -31,7 +36,7 @@ class drawebleObject{
 
     drawFrame(ctx){
         //zeichne nur den ramen, wenn man die instanz von character oder fish ist
-        if (this instanceof Character || this instanceof Fish || this instanceof TrowableObjct || this instanceof Endboss) {
+        if (this.getInstanceForDrawFrame()) {
             ctx.beginPath(); 
             ctx.lineWidth = '2';
             ctx.strokeStyle = 'blue';
@@ -40,12 +45,19 @@ class drawebleObject{
         }
     }
 
-    drawFrameCharacter(ctx){
-        if (this instanceof Character) {
+
+    getInstanceForDrawFrame(){
+        return this instanceof Character || this instanceof Fish ||
+        this instanceof TrowableObjct || this instanceof Endboss || this instanceof Bottles
+    }
+
+
+    drawFrameRedFrame(ctx){
+        if (this.getInstanceForDrawFrame()) {
             ctx.beginPath(); 
             ctx.lineWidth = '2';
             ctx.strokeStyle = 'red';
-            ctx.rect(this.offset.top, this.offset.bottom, this.offset.right, this.offset.left);
+            ctx.rect((this.x + this.offset.x), (this.y + this.offset.y), this.offset.frameWidth, this.offset.frameHeight);
             ctx.stroke();   
         }
     }

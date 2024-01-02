@@ -29,11 +29,11 @@ window.addEventListener('keydown', (e) => {
         setInterval(() => {
           this.x -= 10;
         }, 1000 / 60);
-    } else if (e.keyCode === 88){ //  88 = x
-        keyboard.JUMP = true;
-        setInterval(() => {
-          this.y -= 10;
-        }, 1000 / 60);
+    // } else if (e.keyCode === 88){ //  88 = x
+    //     keyboard.JUMP = true;
+    //     setInterval(() => {
+    //       this.y -= 10;
+    //     }, 1000 / 60);
     } else if (e.keyCode === 32){ // 32 = space 
         keyboard.SHOOT = true;
     }
@@ -61,11 +61,11 @@ window.addEventListener('keyup', (e) => {
         setInterval(() => {
           this.x -= 10;
         }, 1000 / 60);
-    } else if (e.keyCode === 88){ //  88 = x
-        keyboard.JUMP = false;
-        setInterval(() => {
-          this.y -= 10;
-        }, 1000 / 60);
+    // } else if (e.keyCode === 88){ //  88 = x
+    //     keyboard.JUMP = false;
+    //     setInterval(() => {
+    //       this.y -= 10;
+    //     }, 1000 / 60);
     } else if (e.keyCode === 32){ // 32 = space 
         keyboard.SHOOT = false;
     }

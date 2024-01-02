@@ -9,6 +9,12 @@ class Fish extends MovableObject{
         'img/2.Enemy/1.Puffer_fish/1.Swim/2.swim4.png',
         'img/2.Enemy/1.Puffer_fish/1.Swim/2.swim5.png'
     ];
+    offset = {
+        x: 1, 
+        y: 5, 
+        frameWidth: 60,
+        frameHeight: 50
+    }
 
 
     constructor(){
