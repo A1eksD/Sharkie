@@ -31,11 +31,21 @@ class drawebleObject{
 
     drawFrame(ctx){
         //zeichne nur den ramen, wenn man die instanz von character oder fish ist
-        if (this instanceof Character || this instanceof Fish || this instanceof TrowableObjct) {
+        if (this instanceof Character || this instanceof Fish || this instanceof TrowableObjct || this instanceof Endboss) {
             ctx.beginPath(); 
             ctx.lineWidth = '2';
             ctx.strokeStyle = 'blue';
             ctx.rect(this.x, this.y, this.width, this.height);
+            ctx.stroke();   
+        }
+    }
+
+    drawFrameCharacter(ctx){
+        if (this instanceof Character) {
+            ctx.beginPath(); 
+            ctx.lineWidth = '2';
+            ctx.strokeStyle = 'red';
+            ctx.rect(this.offset.top, this.offset.bottom, this.offset.right, this.offset.left);
             ctx.stroke();   
         }
     }

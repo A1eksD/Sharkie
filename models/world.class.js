@@ -69,6 +69,7 @@ class World {
 
         movObj.draw(this.ctx);
         movObj.drawFrame(this.ctx);
+        movObj.drawFrameCharacter(this.ctx);
         
         if (movObj.otherDirection) {
             this.flipImgBack(movObj);

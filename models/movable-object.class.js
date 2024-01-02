@@ -5,6 +5,12 @@ class MovableObject extends drawebleObject{
     acceleration = 2; //für springen
     energy = 100;
     lastHit = 0;
+    offset = {
+        top: 0,
+        bottom: 0,
+        right: 0,
+        left: 0
+    };
 
 
     moveRight() {
@@ -56,11 +62,18 @@ class MovableObject extends drawebleObject{
      * mit einem anderen beweglichen Objekt (`movObj`) kollidiert, indem sie die Positionen und Abmessungen beider Objekte vergleicht.
      */
     isColliding(movObj) {
-        return  this.x + this.width > movObj.x && 
-                this.y + this.height > movObj.y &&
-                this.x < movObj.x &&
-                this.y < movObj.y + movObj.height;
+        return  this.x + this.width - this.offset.right > movObj.x + movObj.offset.left && 
+                this.y + this.height - this.offset.bottom > movObj.y + movObj.offset.top &&
+                this.x + this.offset.left < movObj.x + movObj.width - movObj.offset.right &&
+                this.y + this.offset.top < movObj.y + movObj.height - movObj.offset.bottom;
     }
+    // isColliding (movObj) {
+    //     return  (this.X + this.width) >= movObj.X && this.X <= (movObj.X + movObj.width) && 
+    //             (this.Y + this.offsetY + this.height) >= movObj.Y &&
+    //             (this.Y + this.offsetY) <= (movObj.Y + movObj.height) && 
+    //             movObj.onCollisionCourse; // Optional: hiermit könnten wir schauen, ob ein Objekt sich in die richtige Richtung bewegt. Nur dann kollidieren wir. Nützlich bei Gegenständen, auf denen man stehen kann.
+
+    // }
 
 
     hit(){
