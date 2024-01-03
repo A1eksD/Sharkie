@@ -6,14 +6,18 @@ class World {
     keyboard;
     camera_x = 10;
     statusBar = new StatusBar();
+    coinBar = new CoinBar();
+    toxixBottles = new ToxixBottles();
     bottles = [
+        new Bottles(), 
         new Bottles(), 
         new Bottles(), 
         new Bottles(), 
         new Bottles()
     ];
     bubble = [new TrowableObjct()];
-
+    bottleValue = 0;
+    bottleCache = {};
 
     constructor(canvas, keyboard){
         this.ctx = canvas.getContext('2d');
@@ -22,6 +26,7 @@ class World {
         this.draw();
         this.setWorld();
         this.run();
+        this.fillBottlesBar();
     }
 
 
@@ -42,6 +47,8 @@ class World {
         //----- space for fixed objects-----------
         this.ctx.translate(-this.camera_x, 0); //verschiebt die camera zurück, sodass die sie camera die nicht in einer schleife befindet
         this.addToMap(this.statusBar); // rendert HP-Anzeige
+        this.addToMap(this.coinBar); // rendert coin-Anzeige
+        this.addToMap(this.toxixBottles); // rendert flaschen-Anzeige
         this.ctx.translate(this.camera_x, 0); //verschiebt die camera, wegen einer schleife wird die camera immer um 100px weiter zu seite gerendert
 
 
@@ -113,6 +120,25 @@ class World {
         if (this.keyboard.SHOOT) {
             let bubble = new TrowableObjct(this.character.x + 100, this.character.y + 60);
             this.bubble.push(bubble);
+        }
+    }
+
+
+    fillBottlesBar(){
+        setInterval(() => {
+            this.bottles.forEach(element => {
+                if (this.character.isColliding(element)) {
+                    this.bottleValue ++;
+                    this.spliceElemnt(element);
+                }
+            });
+        }, 50);
+    }
+
+
+    spliceElemnt(element){
+        if (element) {
+            this.bottles.splice(element, 1);
         }
     }
 }

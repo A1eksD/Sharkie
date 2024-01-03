@@ -49,10 +49,10 @@ class Character extends MovableObject{
     world;
     swimmingCharacter = new Audio('audio/creek-swimming.mp3');
     offset = {
-            x: 30, 
-            y: 85, 
-            frameWidth: 115,
-            frameHeight: 50
+            x: 35, 
+            y: 90, 
+            frameWidth: 35,
+            frameHeight: 68
         }
 
     constructor(){

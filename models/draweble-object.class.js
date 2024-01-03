@@ -29,10 +29,14 @@ class drawebleObject{
     }
 
     
-    
     draw(ctx){
-        ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+        try {
+            ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+        } catch (e) {
+            console.log('This Img could´t be found', this.img);
+        }
     }
+
 
     drawFrame(ctx){
         //zeichne nur den ramen, wenn man die instanz von character oder fish ist
@@ -57,7 +61,8 @@ class drawebleObject{
             ctx.beginPath(); 
             ctx.lineWidth = '2';
             ctx.strokeStyle = 'red';
-            ctx.rect((this.x + this.offset.x), (this.y + this.offset.y), this.offset.frameWidth, this.offset.frameHeight);
+            // console.log((this.x - this.offset.x), (this.y - this.offset.y), (this.x + this.width - this.offset.frameWidth) - (this.x - this.offset.x), (this.y + this.height - this.offset.frameHeight) - (this.y + this.offset.frameHeight));
+            ctx.rect((this.x + this.offset.x), (this.y + this.offset.y), (this.x + this.width - this.offset.frameWidth) - (this.x + this.offset.frameWidth), (this.y + this.height - this.offset.frameHeight) - (this.y + this.offset.frameHeight));
             ctx.stroke();   
         }
     }

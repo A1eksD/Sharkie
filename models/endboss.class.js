@@ -20,16 +20,16 @@ class Endboss extends MovableObject {
     ];
     offset = {
         x: 20, 
-        y: 145, 
-        frameWidth: 250,
-        frameHeight: 90
+        y: 150, 
+        frameWidth: 30,
+        frameHeight: 105
     }
 
 
     constructor() {
         super().loadImage(this.IMAGES_WALIKNG[0]);
         this.loadImages(this.IMAGES_WALIKNG);
-        this.x = 700;
+        this.x = 400;
         // this.playAnimation(this.IMAGES_WALIKNG);
         this.animate();
     }

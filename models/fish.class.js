@@ -10,10 +10,10 @@ class Fish extends MovableObject{
         'img/2.Enemy/1.Puffer_fish/1.Swim/2.swim5.png'
     ];
     offset = {
-        x: 1, 
+        x: 5, 
         y: 5, 
-        frameWidth: 60,
-        frameHeight: 50
+        frameWidth: 10,
+        frameHeight: 15
     }
 
 
@@ -22,7 +22,7 @@ class Fish extends MovableObject{
         this.loadImages(this.IMAGES_WALIKNG);
         this.x = 550 + Math.random() * 1000;
         this.speed = 0.5 + Math.random() * 1;
-        this.animate();
+        // this.animate();
     }
 
     animate(){
