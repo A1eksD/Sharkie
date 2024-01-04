@@ -7,8 +7,8 @@ class drawebleObject{
     offset = {
         x: 0,
         y: 0,
-        frameWidth: 0,
-        frameHeight: 0
+        frameHeight: 0,
+        frameWidth: 0
     };
 
     loadImage(path){
@@ -33,7 +33,7 @@ class drawebleObject{
         try {
             ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
         } catch (e) {
-            console.log('This Img could´t be found', this.img);
+            console.log('This Img couldnt be load', this.img);
         }
     }
 
@@ -62,7 +62,7 @@ class drawebleObject{
             ctx.lineWidth = '2';
             ctx.strokeStyle = 'red';
             // console.log((this.x - this.offset.x), (this.y - this.offset.y), (this.x + this.width - this.offset.frameWidth) - (this.x - this.offset.x), (this.y + this.height - this.offset.frameHeight) - (this.y + this.offset.frameHeight));
-            ctx.rect((this.x + this.offset.x), (this.y + this.offset.y), (this.x + this.width - this.offset.frameWidth) - (this.x + this.offset.frameWidth), (this.y + this.height - this.offset.frameHeight) - (this.y + this.offset.frameHeight));
+            ctx.rect(this.x + this.offset.x, this.y + this.offset.y, (this.x + this.width - this.offset.frameHeight) - (this.x + this.offset.x), (this.y + this.height - this.offset.frameWidth) - (this.y + this.offset.y));
             ctx.stroke();   
         }
     }

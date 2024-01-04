@@ -37,22 +37,24 @@ class Character extends MovableObject{
         'img/1.Sharkie/5.Hurt/1.Poisoned/4.png'
     ];
     IMAGES_SHOOT = [
-        'img/1.Sharkie/4.Attack/Bubble trap/For Whale/1.png',
-        'img/1.Sharkie/4.Attack/Bubble trap/For Whale/2.png',
-        'img/1.Sharkie/4.Attack/Bubble trap/For Whale/3.png',
-        'img/1.Sharkie/4.Attack/Bubble trap/For Whale/4.png',
-        'img/1.Sharkie/4.Attack/Bubble trap/For Whale/5.png',
-        'img/1.Sharkie/4.Attack/Bubble trap/For Whale/6.png',
-        'img/1.Sharkie/4.Attack/Bubble trap/For Whale/7.png',
-        'img/1.Sharkie/4.Attack/Bubble trap/For Whale/8.png'
+        'img/1.Sharkie/4.Attack/Bubble_trap/For_Whale/1.png',
+        'img/1.Sharkie/4.Attack/Bubble_trap/For_Whale/2.png',
+        'img/1.Sharkie/4.Attack/Bubble_trap/For_Whale/3.png',
+        'img/1.Sharkie/4.Attack/Bubble_trap/For_Whale/4.png',
+        'img/1.Sharkie/4.Attack/Bubble_trap/For_Whale/5.png',
+        'img/1.Sharkie/4.Attack/Bubble_trap/For_Whale/6.png',
+        'img/1.Sharkie/4.Attack/Bubble_trap/For_Whale/7.png',
+        'img/1.Sharkie/4.Attack/Bubble_trap/For_Whale/8.png'
+
     ];
     world;
     swimmingCharacter = new Audio('audio/creek-swimming.mp3');
+    shootCharacter = new Audio('audio/shootingBubble2.mp3');
     offset = {
             x: 35, 
-            y: 90, 
-            frameWidth: 35,
-            frameHeight: 68
+            y: 85, 
+            frameHeight: 35,
+            frameWidth: 45
         }
 
     constructor(){
@@ -61,9 +63,9 @@ class Character extends MovableObject{
         // this.loadImages(this.IMAGES_JUMP);
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_HURT);
+        this.loadImages(this.IMAGES_SHOOT);
         // this.applyGravity();
         this.animate();
-
     }
 
 
@@ -71,6 +73,7 @@ class Character extends MovableObject{
         setInterval(() => {
             this.swimmingCharacter.pause();
             this.swimmingCharacter.volume = 0.1;
+
             // console.log(this.world.level.levelEndX);
             if (this.world.keyboard.RIGHT && this.x < this.world.level.levelEndX) {
                 this.moveRight();
@@ -108,7 +111,11 @@ class Character extends MovableObject{
             }else if (this.isHurt()) { // siehe movObj-class
                 this.playAnimation(this.IMAGES_HURT);
                 // this.showHP();
-            }else{
+            }else 
+            // if (this.checkShootBubble()) { // siehe movObj-class
+            //     this.playAnimation(this.IMAGES_SHOOT);
+            // }else
+            {
             //  if (this.isAboveGround()) { //der erste if Pasrt ist für jump - später entvernen
             //     this.playAnimation(this.IMAGES_JUMP);
             // }else if (this.trow()) {

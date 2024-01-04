@@ -1,6 +1,6 @@
 class TrowableObjct extends MovableObject {
 
-    IMAGES_BUBBLE = ['img/1.Sharkie/4.Attack/Bubble trap/Bubble.png'];   
+    IMAGES_BUBBLE = ['img/1.Sharkie/4.Attack/Bubble_trap/Poisoned_Bubble.png'];   
     height = 50;
     width = 50;
     // speedY = 0;

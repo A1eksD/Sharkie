@@ -7,7 +7,7 @@ class World {
     camera_x = 10;
     statusBar = new StatusBar();
     coinBar = new CoinBar();
-    toxixBottles = new ToxixBottles();
+    toxicBottlesBar = new toxicBottlesBar();
     bottles = [
         new Bottles(), 
         new Bottles(), 
@@ -16,17 +16,17 @@ class World {
         new Bottles()
     ];
     bubble = [new TrowableObjct()];
-    bottleValue = 0;
     bottleCache = {};
+    i = 0;
 
     constructor(canvas, keyboard){
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
+        this.bottleValue;
         this.draw();
         this.setWorld();
         this.run();
-        this.fillBottlesBar();
     }
 
 
@@ -48,7 +48,7 @@ class World {
         this.ctx.translate(-this.camera_x, 0); //verschiebt die camera zurück, sodass die sie camera die nicht in einer schleife befindet
         this.addToMap(this.statusBar); // rendert HP-Anzeige
         this.addToMap(this.coinBar); // rendert coin-Anzeige
-        this.addToMap(this.toxixBottles); // rendert flaschen-Anzeige
+        this.addToMap(this.toxicBottlesBar); // rendert flaschen-Anzeige
         this.ctx.translate(this.camera_x, 0); //verschiebt die camera, wegen einer schleife wird die camera immer um 100px weiter zu seite gerendert
 
 
@@ -89,6 +89,7 @@ class World {
         this.ctx.translate(movObj.width, 0);
         this.ctx.scale(-1, 1);
         movObj.x = movObj.x * -1;
+        
     }
 
 
@@ -102,8 +103,10 @@ class World {
         setInterval(() => {
             this.checkCollisions();
             this.checkShootBubble();
+            this.fillBottlesBar();
         }, 200);
     }
+
 
     checkCollisions(){
         this.level.enemies.forEach((enemy) => {
@@ -117,28 +120,34 @@ class World {
     
 
     checkShootBubble(){
-        if (this.keyboard.SHOOT) {
-            let bubble = new TrowableObjct(this.character.x + 100, this.character.y + 60);
-            this.bubble.push(bubble);
+        if (this.keyboard.SHOOT && this.bottleValue > 0) {
+            let bubble = new TrowableObjct(this.character.x + 140, this.character.y + 50);
+            this.bubble.push(bubble); 
+            this.character.shootCharacter.play();
+            this.character.shootCharacter.volume = 0.05;  
         }
     }
 
 
     fillBottlesBar(){
-        setInterval(() => {
-            this.bottles.forEach(element => {
-                if (this.character.isColliding(element)) {
-                    this.bottleValue ++;
-                    this.spliceElemnt(element);
-                }
-            });
-        }, 50);
+        this.bottles.forEach((currentBottle) => {
+            if (this.character.isColliding(currentBottle)) {
+                this.toxicBottlesBar.bottleValue ++;
+                this.toxicBottlesBar.getValueToxicBar(this.toxicBottlesBar.bottleValue);
+                this.spliceElemnt(currentBottle);
+            }
+        });
+
     }
 
 
-    spliceElemnt(element){
-        if (element) {
-            this.bottles.splice(element, 1);
+    spliceElemnt(currentBottle){
+        for (let i = 0; i < this.bottles.length; i++) {
+            const bottleValue = this.bottles[i].x;
+            let vlaueX = currentBottle.x;
+            if (bottleValue === vlaueX) {
+                this.bottles.splice(i, 1);   
+            }
         }
     }
 }

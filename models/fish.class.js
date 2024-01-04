@@ -12,8 +12,8 @@ class Fish extends MovableObject{
     offset = {
         x: 5, 
         y: 5, 
-        frameWidth: 10,
-        frameHeight: 15
+        frameHeight: 10,
+        frameWidth: 15
     }
 
 

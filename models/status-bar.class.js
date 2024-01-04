@@ -42,7 +42,6 @@ class StatusBar extends drawebleObject {
             return 1;
         }else{
             return 0;
-            // this.playAnimation(this.IMAGES_DEAD);
         }
     }
 }

@@ -5,6 +5,7 @@ class MovableObject extends drawebleObject{
     acceleration = 0.1; //für springen
     energy = 100;
     lastHit = 0;
+    bottleValue = 0;
 
 
     moveRight() {
