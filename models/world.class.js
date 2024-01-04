@@ -120,11 +120,13 @@ class World {
     
 
     checkShootBubble(){
-        if (this.keyboard.SHOOT && this.bottleValue > 0) {
+        if (this.keyboard.SHOOT && this.toxicBottlesBar.bottleValue > 0) {
             let bubble = new TrowableObjct(this.character.x + 140, this.character.y + 50);
             this.bubble.push(bubble); 
             this.character.shootCharacter.play();
-            this.character.shootCharacter.volume = 0.05;  
+            this.character.shootCharacter.volume = 0.05;
+            this.toxicBottlesBar.bottleValue --;
+            this.toxicBottlesBar.getValueToxicBar(this.toxicBottlesBar.bottleValue);
         }
     }
 
