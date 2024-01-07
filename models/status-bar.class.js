@@ -1,4 +1,4 @@
-class StatusBar extends drawebleObject {
+class StatusBar extends drawableObject {
     
     height = 40;
     width = 150;

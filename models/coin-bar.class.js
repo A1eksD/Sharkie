@@ -1,4 +1,4 @@
-class CoinBar extends drawebleObject {
+class CoinBar extends drawableObject {
     IMAGES_COINS = [
         'img/4.Marcadores/green/Coin/0_copia4.png',
         'img/4.Marcadores/green/Coin/20_copia2.png',

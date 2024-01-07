@@ -56,6 +56,7 @@ class Character extends MovableObject{
             frameHeight: 35,
             frameWidth: 45
         }
+    shootAnimation = false;
 
     constructor(){
         super().loadImage('img/1.Sharkie/3.Swim/1.png');
@@ -110,12 +111,9 @@ class Character extends MovableObject{
                 this.playAnimation(this.IMAGES_DEAD);
             }else if (this.isHurt()) { // siehe movObj-class
                 this.playAnimation(this.IMAGES_HURT);
-                // this.showHP();
-            }else 
-            // if (this.checkShootBubble()) { // siehe movObj-class
-            //     this.playAnimation(this.IMAGES_SHOOT);
-            // }else
-            {
+            }else if (this.shootAnimation) {
+                this.shootAnimation = this.playAnimationFirstToLast(this.IMAGES_SHOOT);
+            } else{
             //  if (this.isAboveGround()) { //der erste if Pasrt ist für jump - später entvernen
             //     this.playAnimation(this.IMAGES_JUMP);
             // }else if (this.trow()) {

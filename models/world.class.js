@@ -121,12 +121,16 @@ class World {
 
     checkShootBubble(){
         if (this.keyboard.SHOOT && this.toxicBottlesBar.bottleValue > 0) {
-            let bubble = new TrowableObjct(this.character.x + 140, this.character.y + 50);
-            this.bubble.push(bubble); 
-            this.character.shootCharacter.play();
-            this.character.shootCharacter.volume = 0.05;
+            this.character.shootAnimation = true;
+            this.character.currentImage = 0;
             this.toxicBottlesBar.bottleValue --;
             this.toxicBottlesBar.getValueToxicBar(this.toxicBottlesBar.bottleValue);
+            setTimeout(() => {
+                this.character.shootCharacter.play();
+                this.character.shootCharacter.volume = 0.05;
+                let bubble = new TrowableObjct(this.character.x + 140, this.character.y + 70);
+                this.bubble.push(bubble); 
+            }, 1000);
         }
     }
 

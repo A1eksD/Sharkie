@@ -1,4 +1,4 @@
-class MovableObject extends drawebleObject{
+class MovableObject extends drawableObject{
     speed = 3;
     otherDirection = false;
     speedY = 0; //für springen
@@ -25,6 +25,18 @@ class MovableObject extends drawebleObject{
         let path = imges[i];
         this.img = this.imageCache[path];
         this.currentImage++;
+    }
+
+
+    playAnimationFirstToLast(imges){
+        this.playAnimation(imges);
+  
+        if (this.currentImage >= imges.length) {
+            // Animation abbrechen
+            return false;
+        } else {
+            return true;
+        }
     }
 
 
@@ -88,6 +100,7 @@ class MovableObject extends drawebleObject{
         // console.log(timePassed);
         return timePassed < 1; // gebe den value true aus, wenn der Wert 1s überschreitet. ansonsten false
     }
+
 
     // trow(){
     //     this.speedTrowY = 10;
