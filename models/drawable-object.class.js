@@ -5,10 +5,10 @@ class drawableObject{
     y = 350;
     currentImage = 0;
     offset = {
-        x: 0,
-        y: 0,
-        frameHeight: 0,
-        frameWidth: 0
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0
     };
 
     loadImage(path){
@@ -51,8 +51,8 @@ class drawableObject{
 
 
     getInstanceForDrawFrame(){
-        return this instanceof Character || this instanceof Fish ||
-        this instanceof TrowableObjct || this instanceof Endboss || this instanceof Bottles
+        return this instanceof Character || this instanceof Fish || this instanceof Coin || 
+        this instanceof TrowableObjct || this instanceof Endboss || this instanceof Bottles 
     }
 
 
@@ -61,8 +61,7 @@ class drawableObject{
             ctx.beginPath(); 
             ctx.lineWidth = '2';
             ctx.strokeStyle = 'red';
-            // console.log((this.x - this.offset.x), (this.y - this.offset.y), (this.x + this.width - this.offset.frameWidth) - (this.x - this.offset.x), (this.y + this.height - this.offset.frameHeight) - (this.y + this.offset.frameHeight));
-            ctx.rect(this.x + this.offset.x, this.y + this.offset.y, (this.x + this.width - this.offset.frameHeight) - (this.x + this.offset.x), (this.y + this.height - this.offset.frameWidth) - (this.y + this.offset.y));
+            ctx.rect(this.x + this.offset.top, this.y + this.offset.left, (this.x + this.width - this.offset.right) - (this.x + this.offset.top), (this.y + this.height - this.offset.bottom) - (this.y + this.offset.left));
             ctx.stroke();   
         }
     }

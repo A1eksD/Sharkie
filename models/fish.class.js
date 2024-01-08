@@ -10,10 +10,10 @@ class Fish extends MovableObject{
         'img/2.Enemy/1.Puffer_fish/1.Swim/2.swim5.png'
     ];
     offset = {
-        x: 5, 
-        y: 5, 
-        frameHeight: 10,
-        frameWidth: 15
+        top: 5, 
+        left: 5, 
+        right: 10,
+        bottom: 15
     }
 
 

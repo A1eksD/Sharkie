@@ -51,10 +51,10 @@ class Character extends MovableObject{
     swimmingCharacter = new Audio('audio/creek-swimming.mp3');
     shootCharacter = new Audio('audio/shootingBubble2.mp3');
     offset = {
-            x: 35, 
-            y: 85, 
-            frameHeight: 35,
-            frameWidth: 45
+            top: 35, 
+            left: 85, 
+            right: 35,
+            bottom: 45
         }
     shootAnimation = false;
 
@@ -108,7 +108,9 @@ class Character extends MovableObject{
 
         setInterval( () => {
             if(this.isDead()){
-                this.playAnimation(this.IMAGES_DEAD);
+                // this.playAnimationFirstToLast(this.IMAGES_DEAD);
+                this.playAnimationFirstToLast(this.IMAGES_DEAD);
+                // this.playAnimation(this.IMAGES_DEAD);
             }else if (this.isHurt()) { // siehe movObj-class
                 this.playAnimation(this.IMAGES_HURT);
             }else if (this.shootAnimation) {

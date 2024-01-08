@@ -19,10 +19,10 @@ class Endboss extends MovableObject {
         'img/2.Enemy/3_Final_Enemy/2.floating/13.png'
     ];
     offset = {
-        x: 25, 
-        y: 145, 
-        frameHeight: 25,
-        frameWidth: 60
+        left: 145, 
+        top: 25, 
+        right: 25,
+        bottom: 60
     }
 
 

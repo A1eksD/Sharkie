@@ -70,18 +70,11 @@ class MovableObject extends drawableObject{
      * mit einem anderen beweglichen Objekt (`movObj`) kollidiert, indem sie die Positionen und Abmessungen beider Objekte vergleicht.
      */
     isColliding(movObj) {
-        return  this.x + this.width - this.offset.frameWidth > movObj.x + movObj.offset.y && 
-                this.y + this.height - this.offset.frameHeight > movObj.y + movObj.offset.x &&
-                this.x + this.offset.y < movObj.x + movObj.width - movObj.offset.frameWidth &&
-                this.y + this.offset.x < movObj.y + movObj.height - movObj.offset.frameHeight;
+        return  this.x + this.width - this.offset.right > movObj.x + movObj.offset.top && 
+                this.y + this.height - this.offset.bottom > movObj.y + movObj.offset.left &&
+                this.x + this.offset.top < movObj.x + movObj.width - movObj.offset.right &&
+                this.y + this.offset.left < movObj.y + movObj.height - movObj.offset.bottom;
     }
-    // isColliding (movObj) {
-    //     return  (this.x + this.width) >= movObj.x && this.x <= (movObj.x + movObj.width) && 
-    //             (this.y + this.offset.y + this.height) >= movObj.y &&
-    //             (this.y + this.offset.y) <= (movObj.y + movObj.height) && 
-    //             movObj.onCollisionCourse; // Optional: hiermit könnten wir schauen, ob ein Objekt sich in die richtige Richtung bewegt. Nur dann kollidieren wir. Nützlich bei Gegenständen, auf denen man stehen kann.
-
-    // }
 
 
     hit(){

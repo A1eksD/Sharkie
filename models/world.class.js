@@ -16,8 +16,13 @@ class World {
         new Bottles()
     ];
     bubble = [new TrowableObjct()];
-    bottleCache = {};
-    i = 0;
+    coins = [
+        new Coin(),
+        new Coin(),
+        new Coin(),
+        new Coin(),
+        new Coin()
+    ];
 
     constructor(canvas, keyboard){
         this.ctx = canvas.getContext('2d');
@@ -43,6 +48,7 @@ class World {
         this.addObjectsToMap(this.level.enemies); // rendert feinde
         this.addObjectsToMap(this.bottles); // rendert flachen
         this.addObjectsToMap(this.bubble); // rendert die blase
+        this.addObjectsToMap(this.coins); // rendert die münzen
 
         //----- space for fixed objects-----------
         this.ctx.translate(-this.camera_x, 0); //verschiebt die camera zurück, sodass die sie camera die nicht in einer schleife befindet
@@ -54,7 +60,7 @@ class World {
 
         this.addToMap(this.character); // rendert character
         this.ctx.translate(-this.camera_x, 0); //verschiebt die camera zurück, sodass die sie camera die nicht in einer schleife befindet
-        // console.log(this.IMAGES_LIFE);
+
         let self = this;
         requestAnimationFrame(function(){ // rufe draw() wieder auf
             self.draw();
