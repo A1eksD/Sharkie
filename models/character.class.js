@@ -57,6 +57,11 @@ class Character extends MovableObject{
             bottom: 45
         }
     shootAnimation = false;
+    someHP = false;
+    isDeadProcessed = false;
+    chrackterDied = true;
+
+
 
     constructor(){
         super().loadImage('img/1.Sharkie/3.Swim/1.png');
@@ -106,25 +111,30 @@ class Character extends MovableObject{
             this.world.camera_x = -this.x + 200; //camera bewegt sich mit dem character zusammen in der x-Achse/ +200, damit der charcter weiter rechts angezeigt wird
         }, 1000 / 60);
 
-        setInterval( () => {
-            if(this.isDead()){
+        setInterval(() => {
+            if (this.someHP) {
                 // this.playAnimationFirstToLast(this.IMAGES_DEAD);
-                this.playAnimationFirstToLast(this.IMAGES_DEAD);
-                // this.playAnimation(this.IMAGES_DEAD);
-            }else if (this.isHurt()) { // siehe movObj-class
+                this.someHP = this.playAnimationnnn(this.IMAGES_DEAD);
+                if (!this.someHP) {
+                    this.chrackterDied = false;
+                }
+            } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
-            }else if (this.shootAnimation) {
+            } else if (this.shootAnimation) {
                 this.shootAnimation = this.playAnimationFirstToLast(this.IMAGES_SHOOT);
-            } else{
-            //  if (this.isAboveGround()) { //der erste if Pasrt ist für jump - später entvernen
-            //     this.playAnimation(this.IMAGES_JUMP);
-            // }else if (this.trow()) {
-            //     this.playAnimation(this.IMAGES_SHOOT);
-                if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP || this.world.keyboard.DOWN ) {
+            } else if (this.chrackterDied) {
+                if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP || this.world.keyboard.DOWN) {
                     this.moveCharacter();
                 }
             }
         }, 120);
+
+        // --------- für jump ----------
+        //  if (this.isAboveGround()) { //der erste if Pasrt ist für jump - später entvernen
+        //     this.playAnimation(this.IMAGES_JUMP);
+        // } else if (this.trow()) {
+        //     this.playAnimation(this.IMAGES_SHOOT);
+        
     }
 
 

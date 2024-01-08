@@ -24,6 +24,8 @@ class World {
         new Coin()
     ];
 
+
+
     constructor(canvas, keyboard){
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
@@ -110,6 +112,8 @@ class World {
             this.checkCollisions();
             this.checkShootBubble();
             this.fillBottlesBar();
+            this.fillCoinBar();
+            this.checkIfIsDead();
         }, 200);
     }
 
@@ -146,20 +150,56 @@ class World {
             if (this.character.isColliding(currentBottle)) {
                 this.toxicBottlesBar.bottleValue ++;
                 this.toxicBottlesBar.getValueToxicBar(this.toxicBottlesBar.bottleValue);
-                this.spliceElemnt(currentBottle);
+                this.spliceBottleElemnt(currentBottle);
+                this.toxicBottlesBar.getBottle.play();
+                this.toxicBottlesBar.getBottlevolume = 0.01;
             }
         });
 
     }
 
 
-    spliceElemnt(currentBottle){
+    spliceBottleElemnt(currentBottle){
         for (let i = 0; i < this.bottles.length; i++) {
             const bottleValue = this.bottles[i].x;
             let vlaueX = currentBottle.x;
             if (bottleValue === vlaueX) {
-                this.bottles.splice(i, 1);   
+                this.bottles.splice(i, 1);
             }
         }
     }
+
+
+    fillCoinBar(){
+        this.coins.forEach((currentCoir) => {
+            if (this.character.isColliding(currentCoir)) {
+                this.coinBar.oneCoin ++;
+                this.coinBar.getValueToxicBar(this.coinBar.oneCoin);
+                this.spliceCoinElemnt(currentCoir);
+                this.coinBar.pickUpCoin.play();
+                this.coinBar.pickUpCoin.volume = 0.05;
+            }
+        });
+    }
+
+
+    spliceCoinElemnt(currentCoin){
+        for (let i = 0; i < this.coins.length; i++) {
+            const coinValue = this.coins[i].x;
+            let vlaueX = currentCoin.x;
+            if (coinValue === vlaueX) {
+                this.coins.splice(i, 1);   
+            }
+        }
+    }
+
+
+    checkIfIsDead() {
+        if (this.character.isDead() && !this.character.isDeadProcessed) {
+            this.character.currentImage = 0;
+            this.character.someHP = true;
+            this.character.isDeadProcessed = true;
+        }
+    }
+    
 }

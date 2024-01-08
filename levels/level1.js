@@ -37,6 +37,6 @@ const loadLevel = new Level(
         new BackgroundObjext('img/3.Background/Layers/4.Fondo_2/L2.png', 720*3, 0),
         new BackgroundObjext('img/3.Background/Layers/2.Floor/D2.png', 720*3, 0),
         new BackgroundObjext('img/3.Background/Layers/1.Light/2.png', 720*3, 0),
-        new BackgroundObjext('img/shipwreckRechts.png', 720*3, 0),
+        new BackgroundObjext('img/shipwreckRechts.png', (720*3) - 100, 0),
     ]
 );

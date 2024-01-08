@@ -5,6 +5,12 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
+    color: black;
+}
+
+.background{
+    background-image: url('img/background.jpg');
+    background-size: cover;
 }
 
 .mainPositionCanvasHeadline{

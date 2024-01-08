@@ -6,6 +6,8 @@ class MovableObject extends drawableObject{
     energy = 100;
     lastHit = 0;
     bottleValue = 0;
+    oneCoin = 0;
+
 
 
     moveRight() {
@@ -31,6 +33,23 @@ class MovableObject extends drawableObject{
     playAnimationFirstToLast(imges){
         this.playAnimation(imges);
   
+        if (this.currentImage >= imges.length) {
+            // Animation abbrechen
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+
+    playAnimationnnn(imges){
+
+        let i = this.currentImage % imges.length; 
+        //let i = 0, 1, 2, 3, 4, 5, 6, 0
+        let path = imges[i];
+        this.img = this.imageCache[path];
+        this.currentImage++;
+
         if (this.currentImage >= imges.length) {
             // Animation abbrechen
             return false;
