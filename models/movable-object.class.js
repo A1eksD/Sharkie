@@ -42,23 +42,6 @@ class MovableObject extends drawableObject{
     }
 
 
-    playAnimationnnn(imges){
-
-        let i = this.currentImage % imges.length; 
-        //let i = 0, 1, 2, 3, 4, 5, 6, 0
-        let path = imges[i];
-        this.img = this.imageCache[path];
-        this.currentImage++;
-
-        if (this.currentImage >= imges.length) {
-            // Animation abbrechen
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-
     applyGravity(){ //für springen -- fall zu boden
         setInterval(() => {
             // if (this.isAboveGround() || this.speedY > 0) {

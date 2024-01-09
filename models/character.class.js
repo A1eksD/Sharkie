@@ -57,9 +57,10 @@ class Character extends MovableObject{
             bottom: 45
         }
     shootAnimation = false;
-    someHP = false;
+    characterHaveHP = false;
     isDeadProcessed = false;
-    chrackterDied = true;
+    charcterIsDead = false;
+    charcterDied = true;
 
 
 
@@ -81,22 +82,22 @@ class Character extends MovableObject{
             this.swimmingCharacter.volume = 0.1;
 
             // console.log(this.world.level.levelEndX);
-            if (this.world.keyboard.RIGHT && this.x < this.world.level.levelEndX) {
+            if (!this.charcterIsDead && this.world.keyboard.RIGHT && this.x < this.world.level.levelEndX) {
                 this.moveRight();
                 this.otherDirection = false;
                 this.swimmingCharacter.play();
             }
             // console.log(this.x );
-            if (this.world.keyboard.LEFT && this.x > 0 ) { // this.x > 0 steht für- bis der character pixel 0 vom ersten bild erreicht hat
+            if (!this.charcterIsDead && this.world.keyboard.LEFT && this.x > 0 ) { // this.x > 0 steht für- bis der character pixel 0 vom ersten bild erreicht hat
                 this.moveLeft();
                 this.otherDirection = true;
                 this.swimmingCharacter.play();
             }
-            if (this.world.keyboard.UP ) {
+            if (!this.charcterIsDead && this.world.keyboard.UP ) {
                 this.y -= this.speed;
                 this.swimmingCharacter.play();
             }
-            if (this.world.keyboard.DOWN ) {
+            if (!this.charcterIsDead && this.world.keyboard.DOWN ) {
                 this.y += this.speed;
                 this.swimmingCharacter.play();
             }
@@ -112,19 +113,17 @@ class Character extends MovableObject{
         }, 1000 / 60);
 
         setInterval(() => {
-            if (this.someHP) {
-                // this.playAnimationFirstToLast(this.IMAGES_DEAD);
-                this.someHP = this.playAnimationnnn(this.IMAGES_DEAD);
-                if (!this.someHP) {
-                    this.chrackterDied = false;
-                }
+            if (this.characterHaveHP) {
+                this.characterHaveHP = this.playAnimationFirstToLast(this.IMAGES_DEAD);
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
             } else if (this.shootAnimation) {
                 this.shootAnimation = this.playAnimationFirstToLast(this.IMAGES_SHOOT);
-            } else if (this.chrackterDied) {
+            } else {
                 if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP || this.world.keyboard.DOWN) {
-                    this.moveCharacter();
+                    if (!this.charcterIsDead) {
+                        this.moveCharacter();   
+                    }
                 }
             }
         }, 120);

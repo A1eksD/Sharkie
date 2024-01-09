@@ -197,8 +197,9 @@ class World {
     checkIfIsDead() {
         if (this.character.isDead() && !this.character.isDeadProcessed) {
             this.character.currentImage = 0;
-            this.character.someHP = true;
+            this.character.characterHaveHP = true;
             this.character.isDeadProcessed = true;
+            this.character.charcterIsDead = true;
         }
     }
     
