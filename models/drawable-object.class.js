@@ -10,6 +10,7 @@ class drawableObject{
         right: 0,
         bottom: 0
     };
+    
 
 
     loadImage(path){

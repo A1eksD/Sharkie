@@ -9,12 +9,12 @@ function init(){
 
 
 window.addEventListener('keydown', (e) => {
-    if (e.keyCode === 38 || e.keyCode === 87) { // 38 = +y
+    if (e.keyCode === 38 || e.keyCode === 87) { // 38 = -y
         keyboard.UP = true;
         setInterval(() => {
             this.y -= 10;
         }, 1000 / 60);
-    } else if(e.keyCode === 40 || e.keyCode === 83){ // 40 = -y
+    } else if(e.keyCode === 40 || e.keyCode === 83){ // 40 = +y
         keyboard.DOWN = true;
         setInterval(() => {
           this.y += 10;
@@ -29,6 +29,8 @@ window.addEventListener('keydown', (e) => {
         setInterval(() => {
           this.x -= 10;
         }, 1000 / 60);
+    } else if (e.keyCode === 67){ // 67 = c
+        keyboard.HIT = true;
     // } else if (e.keyCode === 88){ //  88 = x
     //     keyboard.JUMP = true;
     //     setInterval(() => {
@@ -61,6 +63,8 @@ window.addEventListener('keyup', (e) => {
         setInterval(() => {
           this.x -= 10;
         }, 1000 / 60);
+    } else if (e.keyCode === 67){ // 67 = c
+        keyboard.HIT = false;
     // } else if (e.keyCode === 88){ //  88 = x
     //     keyboard.JUMP = false;
     //     setInterval(() => {

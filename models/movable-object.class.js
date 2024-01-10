@@ -10,6 +10,7 @@ class MovableObject extends drawableObject{
 
 
 
+
     moveRight() {
         this.x += this.speed;
     }
@@ -117,5 +118,24 @@ class MovableObject extends drawableObject{
 
     isDead(){
         return this.energy == 0;
+    }
+
+
+    dontChangePosition() {
+        let initialPositionX = this.x;
+        let initialPositionY = this.y;
+    
+        this.stayOnSameSpot = setTimeout(() => {
+            this.currentPositionY = this.y;
+            this.currentPositionX = this.x;
+        }, 3000);
+
+        if (initialPositionX === this.currentPositionX && initialPositionY === this.currentPositionY) {
+            console.log("Position changed");
+            return 1;
+        } else {
+            console.log("Position not changed");
+            return 0;
+        }
     }
 }

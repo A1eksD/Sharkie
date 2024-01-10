@@ -97,7 +97,6 @@ class World {
         this.ctx.translate(movObj.width, 0);
         this.ctx.scale(-1, 1);
         movObj.x = movObj.x * -1;
-        
     }
 
 
@@ -138,8 +137,15 @@ class World {
             setTimeout(() => {
                 this.character.shootCharacter.play();
                 this.character.shootCharacter.volume = 0.05;
-                let bubble = new TrowableObjct(this.character.x + 140, this.character.y + 70);
-                this.bubble.push(bubble); 
+                if (!this.character.otherDirection) {
+                    let valueBubble = this.character.otherDirection;
+                    let bubble = new TrowableObjct(this.character.x + 140, this.character.y + 80, valueBubble);
+                    this.bubble.push(bubble);
+                } else {
+                    let valueBubble = this.character.otherDirection;
+                    let bubble = new TrowableObjct(this.character.x, this.character.y + 80, valueBubble);
+                    this.bubble.push(bubble);
+                }
             }, 1000);
         }
     }
