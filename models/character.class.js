@@ -58,6 +58,25 @@ class Character extends MovableObject{
         'img/1.Sharkie/4.Attack/Fin_slap/8.png'
     ];
     IMAGES_STAY = [
+        'img/1.Sharkie/1.IDLE/1.png',
+        'img/1.Sharkie/1.IDLE/2.png',
+        'img/1.Sharkie/1.IDLE/3.png',
+        'img/1.Sharkie/1.IDLE/4.png',
+        'img/1.Sharkie/1.IDLE/5.png',
+        'img/1.Sharkie/1.IDLE/6.png',
+        'img/1.Sharkie/1.IDLE/7.png',
+        'img/1.Sharkie/1.IDLE/8.png',
+        'img/1.Sharkie/1.IDLE/9.png',
+        'img/1.Sharkie/1.IDLE/10.png',
+        'img/1.Sharkie/1.IDLE/12.png',
+        'img/1.Sharkie/1.IDLE/13.png',
+        'img/1.Sharkie/1.IDLE/14.png',
+        'img/1.Sharkie/1.IDLE/15.png',
+        'img/1.Sharkie/1.IDLE/16.png',
+        'img/1.Sharkie/1.IDLE/17.png',
+        'img/1.Sharkie/1.IDLE/18.png'
+    ];
+    IMAGES_SLEEP = [
         'img/1.Sharkie/2.Long_IDLE/i1.png',
         'img/1.Sharkie/2.Long_IDLE/I2.png',
         'img/1.Sharkie/2.Long_IDLE/I3.png',
@@ -84,12 +103,15 @@ class Character extends MovableObject{
             bottom: 45
         }
     shootAnimation = false;
-    characterHaveHP = false;
+    characterHaveLowHP = false;
     isDeadProcessed = false;
     charcterIsDead = false;
     charcterDied = true;
-    soundPlayed = false;
-    isStanding = false; 
+    isSleepingValue = 0; 
+    isStandingValue = 0;
+    standingValue = true;
+    setTimeout4Sleep = true;
+    
 
 
     constructor(){
@@ -100,6 +122,7 @@ class Character extends MovableObject{
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_SHOOT);
         this.loadImages(this.IMAGES_STAY);
+        this.loadImages(this.IMAGES_SLEEP);
         // this.applyGravity();
         this.animate();
     }
@@ -114,27 +137,32 @@ class Character extends MovableObject{
                 this.moveRight();
                 this.otherDirection = false;
                 this.swimmingCharacter.play();
+                this.resetSleepTimeout();
             }
             if (!this.charcterIsDead && this.world.keyboard.LEFT && this.x > -25 ) { // this.x > 0 steht für- bis der character pixel 0 vom ersten bild erreicht hat
                 this.moveLeft();
                 this.otherDirection = true;
                 this.swimmingCharacter.play();
+                this.resetSleepTimeout();
             }
             if (!this.charcterIsDead && this.world.keyboard.UP ) {
                 this.y -= this.speed;
                 this.swimmingCharacter.play();
+                this.resetSleepTimeout();
             }
             if (!this.charcterIsDead && this.world.keyboard.DOWN ) {
                 this.y += this.speed;
                 this.swimmingCharacter.play();
+                this.resetSleepTimeout();
             }
             if (!this.charcterIsDead && this.world.keyboard.SHOOT ) {
+
                 //hier nicht mehr schießen künnen -- nachtragen
             }
             if (!this.charcterIsDead && this.world.keyboard.HIT ) {
+
                 //hier nicht mehr schlagen künnen -- nachtragen
             }
-
             // für jump - später löschen
             // if (this.world.keyboard.JUMP && !this.isAboveGround()) { // wenn x = klick und keine fall-function ausgeführt wird, dann jump
             //     this.jump();
@@ -146,24 +174,41 @@ class Character extends MovableObject{
         }, 1000 / 60);
 
         setInterval(() => {
-            if (this.characterHaveHP) {
-                this.characterHaveHP = this.playAnimationFirstToLast(this.IMAGES_DEAD);
-            } else if (this.isHurt()) {
+            if (this.characterHaveLowHP) { // ------------ died
+                // this.resetPositionCheck();
+                this.characterHaveLowHP = this.playAnimationFirstToLast(this.IMAGES_DEAD);
+
+            } else if (this.isHurt()) { // ------------ get dmg
+                // this.resetPositionCheck();
+
                 this.playAnimation(this.IMAGES_HURT);
                 this.characterGetHit.loop = false;
                 this.characterGetHit.play();
                 this.characterGetHit.volume = 0.05;
-            } else if (!this.shootAnimation) {
+
+            } else if (this.shootAnimation) { // ------------ shoot
+                // this.resetPositionCheck();
+
                 this.shootAnimation = this.playAnimationFirstToLast(this.IMAGES_SHOOT);
-            } else if (this.dontChangePosition() > 0){
-                this.resetPositionCheck();
-                this.playAnimation(this.IMAGES_STAY);    
-            } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP || this.world.keyboard.DOWN) {
+
+
+            } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP || this.world.keyboard.DOWN) { // ------------ move
                 if (!this.charcterIsDead) {
-                    this.resetPositionCheck();
-                    this.moveCharacter();
+                    this.setTimeout4Sleep = false;
+                    this.playAnimation(this.IMAGES_WALIKNG);
                 }
-            }
+
+            } else if (this.characterIsStamding() <= this.isStandingValue && !this.shootAnimation && this.characterHaveLowHP){ // -- stay
+                this.playAnimation(this.IMAGES_STAY);
+                // this.setTimeout4Sleep = true;
+
+            } 
+            // else if (this.setTimeout4Sleep && this.characterIsStamding() <= this.isStandingValue){ // ------------ sleep
+            //     console.log(this.world.character.setTimeout4Sleep);
+            //     // this.sleepTimeoutCharacter = setTimeout(() => {
+            //         this.playAnimation(this.IMAGES_SLEEP);
+            //     // }, 3000);
+            // }       
         }, 120);
 
         // --------- für jump ----------
@@ -175,12 +220,8 @@ class Character extends MovableObject{
     }
 
 
-    moveCharacter(){
-        this.playAnimation(this.IMAGES_WALIKNG);
-    }
 
-
-    resetPositionCheck() {
-        clearTimeout(this.stayOnSameSpot);
+    resetSleepTimeout() {
+        clearInterval(this.sleepTimeoutCharacter);
     }
 }
