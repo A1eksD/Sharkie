@@ -113,6 +113,7 @@ class World {
             this.fillBottlesBar();
             this.fillCoinBar();
             this.checkIfIsDead();
+            this.checkCollisionWithCharacter();
         }, 200);
     }
 
@@ -207,6 +208,19 @@ class World {
             this.character.isDeadProcessed = true;
             this.character.charcterIsDead = true;
         }
+    }
+
+
+    checkCollisionWithCharacter(){
+        this.level.enemies.forEach((JellFish) => {
+            if (this.character.isColliding(JellFish)) {
+                if (this.level.enemies.randomNumber === 0) {
+                    this.character.isInstandDead();
+                } else {
+                    this.character.isDead();
+                }
+            }
+        });
     }
     
 }

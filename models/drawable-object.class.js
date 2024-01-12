@@ -54,7 +54,7 @@ class drawableObject{
 
     getInstanceForDrawFrame(){
         return this instanceof Character || this instanceof Fish || this instanceof Coin || 
-        this instanceof TrowableObjct || this instanceof Endboss || this instanceof Bottles 
+        this instanceof TrowableObjct || this instanceof Endboss || this instanceof Bottles || this instanceof JellFish
     }
 
 

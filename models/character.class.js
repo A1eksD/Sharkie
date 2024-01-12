@@ -30,6 +30,18 @@ class Character extends MovableObject{
         'img/1.Sharkie/6.dead/1.Poisoned/11.png',
         'img/1.Sharkie/6.dead/1.Poisoned/12.png'
     ];
+    IMAGES_INSTAND_DEAD = [
+        'img/1.Sharkie/6.dead/2.Electro_shock/1.png',
+        'img/1.Sharkie/6.dead/2.Electro_shock/2.png',
+        'img/1.Sharkie/6.dead/2.Electro_shock/3.png',
+        'img/1.Sharkie/6.dead/2.Electro_shock/4.png',
+        'img/1.Sharkie/6.dead/2.Electro_shock/5.png',
+        'img/1.Sharkie/6.dead/2.Electro_shock/6.png',
+        'img/1.Sharkie/6.dead/2.Electro_shock/7.png',
+        'img/1.Sharkie/6.dead/2.Electro_shock/8.png',
+        'img/1.Sharkie/6.dead/2.Electro_shock/9.png',
+        'img/1.Sharkie/6.dead/2.Electro_shock/10.png'
+    ];
     IMAGES_HURT = [
         'img/1.Sharkie/5.Hurt/1.Poisoned/1.png',
         'img/1.Sharkie/5.Hurt/1.Poisoned/2.png',
@@ -110,8 +122,12 @@ class Character extends MovableObject{
     isSleepingValue = 0; 
     isStandingValue = 0;
     standingValue = true;
-    setTimeout4Sleep = true;
-    
+    setTimeout4Sleep = false;
+    isInstandDead = true;
+    electricDead = true;
+    counter = 0;
+
+
 
 
     constructor(){
@@ -137,26 +153,22 @@ class Character extends MovableObject{
                 this.moveRight();
                 this.otherDirection = false;
                 this.swimmingCharacter.play();
-                this.resetSleepTimeout();
             }
             if (!this.charcterIsDead && this.world.keyboard.LEFT && this.x > -25 ) { // this.x > 0 steht für- bis der character pixel 0 vom ersten bild erreicht hat
                 this.moveLeft();
                 this.otherDirection = true;
                 this.swimmingCharacter.play();
-                this.resetSleepTimeout();
             }
             if (!this.charcterIsDead && this.world.keyboard.UP ) {
                 this.y -= this.speed;
                 this.swimmingCharacter.play();
-                this.resetSleepTimeout();
             }
             if (!this.charcterIsDead && this.world.keyboard.DOWN ) {
                 this.y += this.speed;
                 this.swimmingCharacter.play();
-                this.resetSleepTimeout();
             }
             if (!this.charcterIsDead && this.world.keyboard.SHOOT ) {
-
+                this.setTimeout4Sleep = false;
                 //hier nicht mehr schießen künnen -- nachtragen
             }
             if (!this.charcterIsDead && this.world.keyboard.HIT ) {
@@ -176,40 +188,46 @@ class Character extends MovableObject{
         setInterval(() => {
             if (this.characterHaveLowHP) { // ------------ died
                 // this.resetPositionCheck();
+                this.standingValue = false;
                 this.characterHaveLowHP = this.playAnimationFirstToLast(this.IMAGES_DEAD);
 
-            } else if (this.isHurt()) { // ------------ get dmg
-                // this.resetPositionCheck();
+            } else
 
+            if (this.isHurt()) { // ------------ get dmg
+                // this.resetPositionCheck();
                 this.playAnimation(this.IMAGES_HURT);
                 this.characterGetHit.loop = false;
                 this.characterGetHit.play();
                 this.characterGetHit.volume = 0.05;
+                this.resetSleepTimeout();
+            } else
 
-            } else if (this.shootAnimation) { // ------------ shoot
+            if (this.isInstandDead() && this.standingValue &&  this.electricDead) { // ------------ instand died
+                this.standingValue = false;
+                this.electricDead = this.playAnimationFirstToLast(this.IMAGES_SHOOT);
+            } else 
+
+            if (this.shootAnimation) { // ------------ shoot
                 // this.resetPositionCheck();
-
                 this.shootAnimation = this.playAnimationFirstToLast(this.IMAGES_SHOOT);
+                this.resetSleepTimeout();
+            } else 
 
-
-            } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP || this.world.keyboard.DOWN) { // ------------ move
+            if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP || this.world.keyboard.DOWN) { // ------------ move
                 if (!this.charcterIsDead) {
                     this.setTimeout4Sleep = false;
                     this.playAnimation(this.IMAGES_WALIKNG);
+                    this.resetSleepTimeout();
                 }
+            } else
 
-            } else if (this.characterIsStamding() <= this.isStandingValue && !this.shootAnimation && this.characterHaveLowHP){ // -- stay
+            if (this.characterIsStamding() <= this.isStandingValue && !this.shootAnimation && !this.characterHaveLowHP && this.standingValue){ // -- stay
                 this.playAnimation(this.IMAGES_STAY);
-                // this.setTimeout4Sleep = true;
-
-            } 
-            // else if (this.setTimeout4Sleep && this.characterIsStamding() <= this.isStandingValue){ // ------------ sleep
-            //     console.log(this.world.character.setTimeout4Sleep);
-            //     // this.sleepTimeoutCharacter = setTimeout(() => {
-            //         this.playAnimation(this.IMAGES_SLEEP);
-            //     // }, 3000);
-            // }       
-        }, 120);
+                this.counter ++;
+                this.changeValueToTrue();// ------------ sleep
+                
+            }       
+        }, 140);
 
         // --------- für jump ----------
         //  if (this.isAboveGround()) { //der erste if Pasrt ist für jump - später entvernen
@@ -220,8 +238,18 @@ class Character extends MovableObject{
     }
 
 
+    changeValueToTrue() {
+        if (this.counter >= 40 && this.standingValue) {
+            this.playAnimation(this.IMAGES_SLEEP);
+
+        } 
+    }
+      
+    
 
     resetSleepTimeout() {
-        clearInterval(this.sleepTimeoutCharacter);
+        clearTimeout(this.sleepTimeoutCharacter);
+        this.setTimeout4Sleep = false; 
+        this.counter = 0;
     }
 }

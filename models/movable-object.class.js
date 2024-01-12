@@ -9,6 +9,7 @@ class MovableObject extends drawableObject{
     oneCoin = 0;
     standingCharacter = 0;
     standing3Sek = 3;
+    randomNumber = 0;
 
 
 
@@ -120,36 +121,10 @@ class MovableObject extends drawableObject{
     isDead(){
         return this.energy == 0;
     }
-
-
-    // dontChangePosition() {
-    //     let initialPositionX = this.x;
-    //     let initialPositionY = this.y;
     
-    //     this.stayOnSameSpot = setTimeout(() => {
-    //         this.currentPositionY = this.y;
-    //         this.currentPositionX = this.x;
-    //         console.log("akteulle werte", initialPositionX + initialPositionY ,"und after some time",  this.currentPositionY + this.currentPositionX);
-    //     }, 2000);
-
-    //     if (initialPositionX === this.currentPositionX && initialPositionY === this.currentPositionY) {
-    //         // console.log("Position changed");
-    //         return 1;
-    //     } else {
-    //         // console.log("Position not changed");
-    //         return 0;
-    //     }
-    // }
-
-
-    dontChangePosition(){
-        
-        if (this.standing3Sek === 0) {
-            this.standingValue = true;
-        } else {
-            this.standing3Sek--;
-            setTimeout(dontChangePosition, 1000);
-        }
+    
+    isInstandDead(){
+        return this.energy == 0;
     }
     
 
@@ -159,6 +134,5 @@ class MovableObject extends drawableObject{
         } else {
             return this.standingCharacter = 0;
         }
-
     }
 }
