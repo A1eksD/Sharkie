@@ -121,11 +121,12 @@ class MovableObject extends drawableObject{
     isDead(){
         return this.energy == 0;
     }
-    
-    
-    isInstandDead(){
-        return this.energy == 0;
+
+
+    isDeadByJellyFish(){
+        this.energy = 0;
     }
+    
     
 
     characterIsStamding(){

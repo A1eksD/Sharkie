@@ -1,4 +1,4 @@
-class JellFish extends MovableObject {
+class JellyFish extends MovableObject {
     IMAGES_WALIKNG = [
         'img/2.Enemy/2_Jelly_fish/Regular_damage/Lila1.png',
         'img/2.Enemy/2_Jelly_fish/Regular_damage/Lila2.png',

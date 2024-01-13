@@ -3,9 +3,9 @@ const loadLevel = new Level(
         new Fish(),
         new Fish(),
         new Fish(),
-        new JellFish(),
-        new JellFish(),
-        new JellFish(),
+        new JellyFish(),
+        new JellyFish(),
+        new JellyFish(),
         new Endboss()
     ],
     [ // alle 720px wird eine neuer Hinterund gerendert

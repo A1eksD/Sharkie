@@ -202,7 +202,7 @@ class Character extends MovableObject{
                 this.resetSleepTimeout();
             } else
 
-            if (this.isInstandDead() && this.standingValue &&  this.electricDead) { // ------------ instand died
+            if (this.isDead() && this.standingValue &&  this.electricDead) { // ------------ instand died
                 this.standingValue = false;
                 this.electricDead = this.playAnimationFirstToLast(this.IMAGES_SHOOT);
             } else 

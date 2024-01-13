@@ -113,7 +113,7 @@ class World {
             this.fillBottlesBar();
             this.fillCoinBar();
             this.checkIfIsDead();
-            this.checkCollisionWithCharacter();
+            this.checkJellyFishCollisionWithCharacter();
         }, 200);
     }
 
@@ -211,13 +211,15 @@ class World {
     }
 
 
-    checkCollisionWithCharacter(){
+    checkJellyFishCollisionWithCharacter(){
         this.level.enemies.forEach((JellFish) => {
             if (this.character.isColliding(JellFish)) {
-                if (this.level.enemies.randomNumber === 0) {
-                    this.character.isInstandDead();
+                if (JellFish.randomNumber === 0) {
+                    this.character.isHurt();
                 } else {
-                    this.character.isDead();
+                    this.character.isDeadByJellyFish();
+                    this.statusBar.setPercenetage(this.character.energy);
+                    //noch wert ändern auf true für andere animation
                 }
             }
         });
