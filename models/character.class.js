@@ -123,8 +123,9 @@ class Character extends MovableObject{
     isStandingValue = 0;
     standingValue = true;
     setTimeout4Sleep = false;
-    isInstandDead = true;
-    electricDead = true;
+    isInstandDead = false;
+    electricDeath = true;
+    otherDeath = false;
     counter = 0;
 
 
@@ -139,6 +140,7 @@ class Character extends MovableObject{
         this.loadImages(this.IMAGES_SHOOT);
         this.loadImages(this.IMAGES_STAY);
         this.loadImages(this.IMAGES_SLEEP);
+        this.loadImages(this.IMAGES_INSTAND_DEAD);
         // this.applyGravity();
         this.animate();
     }
@@ -186,14 +188,18 @@ class Character extends MovableObject{
         }, 1000 / 60);
 
         setInterval(() => {
-            if (this.characterHaveLowHP) { // ------------ died
+            if (this.characterHaveLowHP && !this.otherDeath) { // ------------ died
                 // this.resetPositionCheck();
                 this.standingValue = false;
-                this.characterHaveLowHP = this.playAnimationFirstToLast(this.IMAGES_DEAD);
+                this.characterHaveLowHP = this.playAnimationFirstToLastImg(this.IMAGES_DEAD);
 
             } else
 
-            if (this.isHurt()) { // ------------ get dmg
+            if (this.isInstandDead  &&  this.electricDeath && this.otherDeath) { // ------------ instand died
+                this.electricDeath = this.playAnimationFirstToLastImg(this.IMAGES_INSTAND_DEAD);
+            } else 
+
+            if (this.isHurt() && !this.isInstandDead) { // ------------ get dmg
                 // this.resetPositionCheck();
                 this.playAnimation(this.IMAGES_HURT);
                 this.characterGetHit.loop = false;
@@ -202,14 +208,9 @@ class Character extends MovableObject{
                 this.resetSleepTimeout();
             } else
 
-            if (this.isDead() && this.standingValue &&  this.electricDead) { // ------------ instand died
-                this.standingValue = false;
-                this.electricDead = this.playAnimationFirstToLast(this.IMAGES_SHOOT);
-            } else 
-
             if (this.shootAnimation) { // ------------ shoot
                 // this.resetPositionCheck();
-                this.shootAnimation = this.playAnimationFirstToLast(this.IMAGES_SHOOT);
+                this.shootAnimation = this.playAnimationFirstToLastImg(this.IMAGES_SHOOT);
                 this.resetSleepTimeout();
             } else 
 

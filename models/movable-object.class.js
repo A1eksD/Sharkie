@@ -33,7 +33,7 @@ class MovableObject extends drawableObject{
     }
 
 
-    playAnimationFirstToLast(imges){
+    playAnimationFirstToLastImg(imges){
         this.playAnimation(imges);
   
         if (this.currentImage >= imges.length) {

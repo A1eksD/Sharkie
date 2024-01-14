@@ -219,7 +219,8 @@ class World {
                 } else {
                     this.character.isDeadByJellyFish();
                     this.statusBar.setPercenetage(this.character.energy);
-                    //noch wert ändern auf true für andere animation
+                    this.character.isInstandDead = true;
+                    this.character.otherDeath = true;
                 }
             }
         });
