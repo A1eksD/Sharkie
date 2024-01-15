@@ -34,6 +34,7 @@ class World {
         this.draw();
         this.setWorld();
         this.run();
+        // this.functionsWithHigherInterval();
     }
 
 
@@ -114,8 +115,16 @@ class World {
             this.fillCoinBar();
             this.checkIfIsDead();
             this.checkJellyFishCollisionWithCharacter();
+            this.characterSlep();
         }, 200);
     }
+
+
+    // functionsWithHigherInterval(){
+    //     setInterval(() => {
+    //         this.characterSlep();
+    //     }, 100);
+    // }
 
 
     checkCollisions(){
@@ -181,7 +190,7 @@ class World {
         this.coins.forEach((currentCoir) => {
             if (this.character.isColliding(currentCoir)) {
                 this.coinBar.oneCoin ++;
-                this.coinBar.getValueToxicBar(this.coinBar.oneCoin);
+                this.coinBar.getValueCoinBar(this.coinBar.oneCoin);
                 this.spliceCoinElemnt(currentCoir);
                 this.coinBar.pickUpCoin.play();
                 this.coinBar.pickUpCoin.volume = 0.05;
@@ -226,4 +235,12 @@ class World {
         });
     }
     
+
+    characterSlep(){
+        if (this.keyboard.HIT) {
+            this.character.charcterStrikes = true;
+            this.character.charcterStrikesValue = true;
+            this.character.currentImage = 0;
+        }
+    }
 }

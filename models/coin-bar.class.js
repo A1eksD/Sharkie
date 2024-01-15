@@ -16,12 +16,11 @@ class CoinBar extends MovableObject {
         this.loadImages(this.IMAGES_COINS);
         this.x = 10;
         this.y = 40;
-        this.getValueToxicBar(this.oneCoin);
+        this.getValueCoinBar(this.oneCoin);
     }
 
 
-    getValueToxicBar(oneCoin){
-        this.oneCoin = oneCoin;
+    getValueCoinBar(oneCoin){
         let imagePath = this.IMAGES_COINS[this.loadValue(oneCoin)];
         this.img = this.imageCache[imagePath];
     }

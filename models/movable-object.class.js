@@ -136,4 +136,13 @@ class MovableObject extends drawableObject{
             return this.standingCharacter = 0;
         }
     }
+
+
+    // characterDoFinStrike(){
+    //     if (this.world.keyboard.HIT) {
+    //         return this.charcterStrikes = true;
+    //     } else {
+    //         return this.charcterStrikes = false;
+    //     }
+    // }
 }
