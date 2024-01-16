@@ -10,6 +10,8 @@ class MovableObject extends drawableObject{
     standingCharacter = 0;
     standing3Sek = 3;
     randomNumber = 0;
+    enemyGetHit = false;
+    changeDirectionHittedEnemy = true;
 
 
 
@@ -138,11 +140,11 @@ class MovableObject extends drawableObject{
     }
 
 
-    // characterDoFinStrike(){
-    //     if (this.world.keyboard.HIT) {
-    //         return this.charcterStrikes = true;
-    //     } else {
-    //         return this.charcterStrikes = false;
+    // changeDirectionByHit(){
+    //     if (this.character.changeDirectionHittedEnemy = false) {
+    //         return true;
+    //     } else if (this.character.changeDirectionHittedEnemy = true) {
+    //         return false;
     //     }
     // }
 }

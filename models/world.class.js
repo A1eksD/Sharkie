@@ -115,14 +115,14 @@ class World {
             this.fillCoinBar();
             this.checkIfIsDead();
             this.checkJellyFishCollisionWithCharacter();
-            this.characterSlep();
+            this.characterPlaySlepAnimation();
         }, 200);
     }
 
 
     // functionsWithHigherInterval(){
     //     setInterval(() => {
-    //         this.characterSlep();
+    //         this.characterIsSlepping();
     //     }, 100);
     // }
 
@@ -139,7 +139,7 @@ class World {
     
 
     checkShootBubble(){
-        if (this.keyboard.SHOOT && this.toxicBottlesBar.bottleValue > 0) {
+        if (this.keyboard.SHOOT && this.toxicBottlesBar.bottleValue > 0 && this.isInstandDead && this.istHitting) {
             this.character.shootAnimation = true;
             this.character.currentImage = 0;
             this.toxicBottlesBar.bottleValue --;
@@ -223,24 +223,42 @@ class World {
     checkJellyFishCollisionWithCharacter(){
         this.level.enemies.forEach((JellFish) => {
             if (this.character.isColliding(JellFish)) {
-                if (JellFish.randomNumber === 0) {
+                if (JellFish.randomNumber === 0 ) {
                     this.character.isHurt();
                 } else {
                     this.character.isDeadByJellyFish();
                     this.statusBar.setPercenetage(this.character.energy);
                     this.character.isInstandDead = true;
                     this.character.otherDeath = true;
+                    if (!this.character.electricShock) {
+                        this.character.currentImage = 0;
+                    }   
                 }
             }
         });
     }
     
 
-    characterSlep(){
+    characterPlaySlepAnimation(){
         if (this.keyboard.HIT) {
-            this.character.charcterStrikes = true;
-            this.character.charcterStrikesValue = true;
+            this.character.characterStrikes = true;
+            this.character.characterStrikesValue = true;
             this.character.currentImage = 0;
+            this.character.istHitting = true;
         }
+    }
+
+
+    characterIsSlepping(){
+        this.level.enemies.forEach((enemy) => {
+            if (this.character.isColliding(enemy)) {
+                console.log(enemy.x)
+                if (this.character.isStriking && enemy instanceof Fish) {
+                    console.log('strike')
+                    enemy.enemyGetHit = true;
+                    enemy.changeDirectionHittedEnemy = this.character.otherDirection;
+                }
+            }
+        });
     }
 }

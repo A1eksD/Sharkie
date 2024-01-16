@@ -10,7 +10,13 @@ class JellyFish extends MovableObject {
         'img/2.Enemy/2_Jelly_fish/Súper_dangerous/Pink2.png',
         'img/2.Enemy/2_Jelly_fish/Súper_dangerous/Pink3.png',
         'img/2.Enemy/2_Jelly_fish/Súper_dangerous/Pink4.png'
-    ]
+    ];
+    IMAGES_DIED = [
+        'img/2.Enemy/2_Jelly_fish/Dead/Pink/P1.png',
+        'img/2.Enemy/2_Jelly_fish/Dead/Pink/P2.png',
+        'img/2.Enemy/2_Jelly_fish/Dead/Pink/P3.png',
+        'img/2.Enemy/2_Jelly_fish/Dead/Pink/P4.png'
+    ];
     width = 80;
     height = 80;
     y = 200;
@@ -39,6 +45,10 @@ class JellyFish extends MovableObject {
         //     this.moveLeft();
         // }, 1000 / 60);
 
+        setInterval(() => {
+            this.checkIfBubbleHit();
+        }, 50);
+
         setInterval( () => { // gegener soll alle 0.1s seim img ändern
             if (this.randomNumber === 0) {
                 this.playAnimation(this.IMAGES_WALIKNG);
@@ -63,4 +73,7 @@ class JellyFish extends MovableObject {
         }
     }
 
+
+    checkIfBubbleHit(){
+    }
 }
