@@ -22,7 +22,6 @@ class toxicBottlesBar extends MovableObject {
 
 
     getValueToxicBar(bottleValue){
-        this.bottleValue = bottleValue;
         let imagePath = this.IMAGES_TOXIC_BOTTLES[this.loadValue(bottleValue)];
         this.img = this.imageCache[imagePath];
     }

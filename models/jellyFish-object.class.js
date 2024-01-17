@@ -12,10 +12,10 @@ class JellyFish extends MovableObject {
         'img/2.Enemy/2_Jelly_fish/Súper_dangerous/Pink4.png'
     ];
     IMAGES_DIED = [
-        'img/2.Enemy/2_Jelly_fish/Dead/Pink/P1.png',
-        'img/2.Enemy/2_Jelly_fish/Dead/Pink/P2.png',
-        'img/2.Enemy/2_Jelly_fish/Dead/Pink/P3.png',
-        'img/2.Enemy/2_Jelly_fish/Dead/Pink/P4.png'
+        'img/2.Enemy/2_Jelly_fish/Dead/Lila/L1.png',
+        'img/2.Enemy/2_Jelly_fish/Dead/Lila/L2.png',
+        'img/2.Enemy/2_Jelly_fish/Dead/Lila/L3.png',
+        'img/2.Enemy/2_Jelly_fish/Dead/Lila/L4.png'
     ];
     width = 80;
     height = 80;
@@ -26,7 +26,8 @@ class JellyFish extends MovableObject {
         right: 15,
         bottom: 10
     }
-
+    enemySpaledAway = false;
+    // changeAnimation = false;
 
 
     constructor(){
@@ -36,9 +37,13 @@ class JellyFish extends MovableObject {
         this.x = 55 + Math.random() * 500;
         // this.x = 550 + Math.random() * 1000;
         this.speed = 0.5 + Math.random() * 1;
+        // this.enemyGetHit;
+        // this.changeDirectionHittedEnemy;
+        // this.changeAnimation;
+        // this.enemyGetSlap();
         this.animate();
-        
     }
+
 
     animate(){
         // setInterval(() => { //gegener soll sich nach links bewegen mit 60fps
@@ -46,15 +51,11 @@ class JellyFish extends MovableObject {
         // }, 1000 / 60);
 
         setInterval(() => {
-            this.checkIfBubbleHit();
-        }, 50);
+            this.loadFlowAnimation();
+        },  1000 / 60);
 
         setInterval( () => { // gegener soll alle 0.1s seim img ändern
-            if (this.randomNumber === 0) {
-                this.playAnimation(this.IMAGES_WALIKNG);
-            } else {
-                this.playAnimation(this.IMAGES_WALIKNG_DANGEROUS);
-            }
+            this.walkingAnimation();
         }, 180 );
 
         setInterval( () => {
@@ -73,7 +74,22 @@ class JellyFish extends MovableObject {
         }
     }
 
+    walkingAnimation(){
+        if (this.randomNumber === 0) {
+            this.playAnimation(this.IMAGES_WALIKNG);
+        } else {
+            this.playAnimation(this.IMAGES_WALIKNG_DANGEROUS);
+        }
+    }
 
-    checkIfBubbleHit(){
+    loadFlowAnimation(){
+        if (this.randomNumber === 0 && this.enemyGetHit) {
+            this.enemySpaledAway = true;
+            this.enemyGetSlap();
+        } else {
+            this.enemyGetHit = false;
+        }
+        // this.enemySpaledAway = true;
+        // this.enemyGetSlap();
     }
 }

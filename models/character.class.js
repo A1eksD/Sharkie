@@ -105,9 +105,11 @@ class Character extends MovableObject{
         'img/1.Sharkie/2.Long_IDLE/I14.png'
     ];
     world;
-    swimmingCharacter = new Audio('audio/creek-swimming.mp3');
-    shootCharacter = new Audio('audio/shootingBubble2.mp3');
-    characterGetHit = new Audio('audio/classic_hurt.mp3');
+    swimmingCharacterAudio = new Audio('audio/creek-swimming.mp3');
+    shootCharacterAudio = new Audio('audio/shootingBubble2.mp3');
+    characterGetHitAudio = new Audio('audio/classic_hurt.mp3');
+    characterSlapAudio = new Audio('audio/fin_slap.mp3');
+    characterGetElectricShockAudio = new Audio('audio/electric_zap.mp3');
     offset = {
             top: 35, 
             left: 85, 
@@ -131,6 +133,7 @@ class Character extends MovableObject{
     electricShock = false;
     istHitting = false;
     isStriking = false;
+    characterCanSlap = true;
 
 
 
@@ -153,26 +156,26 @@ class Character extends MovableObject{
 
     animate(){
         setInterval(() => {
-            this.swimmingCharacter.pause();
-            this.swimmingCharacter.volume = 0.1;
+            this.swimmingCharacterAudio.pause();
+            this.swimmingCharacterAudio.volume = 0.1;
 
             if (!this.charcterIsDead && this.world.keyboard.RIGHT && this.x < this.world.level.levelEndX) {
                 this.moveRight();
                 this.otherDirection = false;
-                this.swimmingCharacter.play();
+                this.swimmingCharacterAudio.play();
             }
             if (!this.charcterIsDead && this.world.keyboard.LEFT && this.x > -25 ) { // this.x > 0 steht für- bis der character pixel 0 vom ersten bild erreicht hat
                 this.moveLeft();
                 this.otherDirection = true;
-                this.swimmingCharacter.play();
+                this.swimmingCharacterAudio.play();
             }
             if (!this.charcterIsDead && this.world.keyboard.UP ) {
                 this.y -= this.speed;
-                this.swimmingCharacter.play();
+                this.swimmingCharacterAudio.play();
             }
             if (!this.charcterIsDead && this.world.keyboard.DOWN ) {
                 this.y += this.speed;
-                this.swimmingCharacter.play();
+                this.swimmingCharacterAudio.play();
             }
             if (!this.charcterIsDead && this.world.keyboard.SHOOT ) {
                 //hier nicht mehr schießen können -- nachtragen
@@ -194,6 +197,7 @@ class Character extends MovableObject{
         setInterval(() => {
             if (this.characterHaveLowHP && !this.otherDeath && !this.isInstandDead) { // ------------ died
                 this.standingValue = false;
+                this.characterCanSlap = false;
                 this.characterHaveLowHP = this.playAnimationFirstToLastImg(this.IMAGES_DEAD);
 
             } else 
@@ -201,25 +205,31 @@ class Character extends MovableObject{
             if (this.isInstandDead  &&  this.electricDeath && this.otherDeath) { // ------------ instand died
                 this.electricShock = true;
                 this.standingValue = false;
+                this.characterCanSlap = false;
+                this.characterGetElectricShockAudio.play();
+                this.characterGetElectricShockAudio.volume = 0.5;
                 this.electricDeath = this.playAnimationFirstToLastImg(this.IMAGES_INSTAND_DEAD);
             } else 
 
             if (this.isHurt() && !this.isInstandDead && !this.istHitting) { // ------------ get dmg
                 this.playAnimation(this.IMAGES_HURT);
-                // this.characterGetHit.loop = false;
-                // this.characterGetHit.play();
-                // this.characterGetHit.volume = 0.05;
+                // this.characterGetHitAudio.loop = false;
+                // this.characterGetHitAudio.play();
+                // this.characterGetHitAudio.volume = 0.05;
                 this.resetSleepTimeout();
             } else
 
-            if (this.shootAnimation && this.electricDeath && this.characterHaveLowHP) { // ------------ shoot
+            if (this.shootAnimation && !this.characterHaveLowHP && this.electricDeath) { // ------------ shoot
                 this.shootAnimation = this.playAnimationFirstToLastImg(this.IMAGES_SHOOT);
                 this.resetSleepTimeout();
             } else 
 
-            if (this.characterStrikes && this.characterStrikesValue && this.istHitting) { // ------------ strike
+            if (this.characterStrikes && this.characterStrikesValue && this.istHitting && this.characterCanSlap) { // ------------ strike
                 this.offset.right = 5;
                 this.offset.top = 5;
+                this.characterSlapAudio.play();
+                this.characterSlapAudio.volume = 0.5;
+                // this.characterSlapAudio.loop = false;
                 this.characterStrikesValue = this.playAnimationFirstToLastImg(this.IMAGES_FIN_STRIKE);
                 this.isStriking = true;
                 this.enemyGetHit = true;

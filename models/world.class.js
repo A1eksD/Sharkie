@@ -139,14 +139,14 @@ class World {
     
 
     checkShootBubble(){
-        if (this.keyboard.SHOOT && this.toxicBottlesBar.bottleValue > 0 && this.isInstandDead && this.istHitting) {
+        if (this.keyboard.SHOOT && this.toxicBottlesBar.bottleValue > 0 && !this.character.characterHaveLowHP &&  this.character.electricDeath) {
             this.character.shootAnimation = true;
             this.character.currentImage = 0;
             this.toxicBottlesBar.bottleValue --;
             this.toxicBottlesBar.getValueToxicBar(this.toxicBottlesBar.bottleValue);
             setTimeout(() => {
-                this.character.shootCharacter.play();
-                this.character.shootCharacter.volume = 0.05;
+                this.character.shootCharacterAudio.play();
+                this.character.shootCharacterAudio.volume = 0.05;
                 if (!this.character.otherDirection) {
                     let valueBubble = this.character.otherDirection;
                     let bubble = new TrowableObjct(this.character.x + 140, this.character.y + 80, valueBubble);
@@ -171,7 +171,6 @@ class World {
                 this.toxicBottlesBar.getBottlevolume = 0.01;
             }
         });
-
     }
 
 
@@ -252,9 +251,7 @@ class World {
     characterIsSlepping(){
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy)) {
-                console.log(enemy.x)
-                if (this.character.isStriking && enemy instanceof Fish) {
-                    console.log('strike')
+                if (this.character.isStriking && enemy) {
                     enemy.enemyGetHit = true;
                     enemy.changeDirectionHittedEnemy = this.character.otherDirection;
                 }

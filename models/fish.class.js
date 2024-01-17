@@ -18,7 +18,7 @@ class Fish extends MovableObject {
         right: 10,
         bottom: 15
     }
-    changeAnimation = false;
+    // changeAnimation = false;
     // enemyGetHit = false;
 
     constructor(){
@@ -27,10 +27,6 @@ class Fish extends MovableObject {
         this.loadImages(this.IMAGES_DEAD);
         this.x = 550 + Math.random() * 1000;
         this.speed = 0.5 + Math.random() * 1;
-        this.enemyGetHit;
-        this.changeDirectionHittedEnemy;
-        // this.world.character.offset.right;
-        // this.world.character.offset.top;
         this.animate();
     }
 
@@ -47,21 +43,14 @@ class Fish extends MovableObject {
 
         setInterval(() => {
             this.enemyGetSlap();
+            this.loadDeadAnimation();
         },  1000 / 60);
     }
 
 
-    enemyGetSlap(){
+    loadDeadAnimation(){
         if (this.enemyGetHit) {
-            this.changeAnimation = true;
-            console.log('death animation')
             this.playAnimation(this.IMAGES_DEAD);
-            this.y -= 2;
-            if (!this.changeDirectionHittedEnemy) {
-                this.x += 3;
-            } else if (this.changeDirectionHittedEnemy) {
-                this.x -= 3;
-            }
         }
     }
     

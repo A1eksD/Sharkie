@@ -12,7 +12,7 @@ class MovableObject extends drawableObject{
     randomNumber = 0;
     enemyGetHit = false;
     changeDirectionHittedEnemy = true;
-
+    changeAnimation = false;
 
 
     moveRight() {
@@ -147,4 +147,17 @@ class MovableObject extends drawableObject{
     //         return false;
     //     }
     // }
+
+
+    enemyGetSlap(){
+        if (this.enemyGetHit) {
+            this.changeAnimation = true;
+            this.y -= 3;
+            if (!this.changeDirectionHittedEnemy) {
+                this.x += 4;
+            } else if (this.changeDirectionHittedEnemy) {
+                this.x -= 4;
+            }
+        }
+    }
 }
