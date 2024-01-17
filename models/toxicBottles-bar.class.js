@@ -22,21 +22,22 @@ class toxicBottlesBar extends MovableObject {
 
 
     getValueToxicBar(bottleValue){
-        let imagePath = this.IMAGES_TOXIC_BOTTLES[this.loadValue(bottleValue)];
+        this.bottleValue = bottleValue;
+        let imagePath = this.IMAGES_TOXIC_BOTTLES[this.loadValue()];
         this.img = this.imageCache[imagePath];
     }
 
 
-    loadValue(bottleValue){
-        if (bottleValue === 5) {
+    loadValue(){
+        if (this.bottleValue === 5) {
             return 5;
-        }else if (bottleValue === 4) {
+        }else if (this.bottleValue === 4) {
             return 4;
-        }else if (bottleValue === 3) {
+        }else if (this.bottleValue === 3) {
             return 3;
-        }else if (bottleValue === 2) {
+        }else if (this.bottleValue === 2) {
             return 2;
-        }else if (bottleValue === 1) {
+        }else if (this.bottleValue === 1) {
             return 1;
         }else{
             return 0;

@@ -23,6 +23,7 @@ class World {
         new Coin(),
         new Coin()
     ];
+    changeCurrentImgTo0 = false;
 
 
 
@@ -34,12 +35,13 @@ class World {
         this.draw();
         this.setWorld();
         this.run();
-        // this.functionsWithHigherInterval();
+        this.functionsWithHigherInterval();
     }
 
 
     setWorld(){
         this.character.world = this;
+        // this.level.enemies = this;
     }
 
 
@@ -120,18 +122,17 @@ class World {
     }
 
 
-    // functionsWithHigherInterval(){
-    //     setInterval(() => {
-    //         this.characterIsSlepping();
-    //     }, 100);
-    // }
+    functionsWithHigherInterval(){
+        setInterval(() => {
+            this.checkJellyFishCollisionWithBubble();
+        }, 100);
+    }
 
 
     checkCollisions(){
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy)) {
                 this.character.hit(); // wenn collision = true=> hit()
-                // console.log('Collision with Character, energy', this.character.energy);
                 this.statusBar.setPercenetage(this.character.energy); //verändere hp anzeige, wenn hit(); | greift auf energy zu, weil char mir movObj verknüpft ist
             }
         });
@@ -241,7 +242,7 @@ class World {
     characterPlaySlepAnimation(){
         if (this.keyboard.HIT) {
             this.character.characterStrikes = true;
-            this.character.characterStrikesValue = true;
+            this.character.characterStrikesValue = true; 
             this.character.currentImage = 0;
             this.character.istHitting = true;
         }
@@ -256,6 +257,23 @@ class World {
                     enemy.changeDirectionHittedEnemy = this.character.otherDirection;
                 }
             }
+        });
+    }
+
+
+    checkJellyFishCollisionWithBubble() {
+        this.level.enemies.forEach((enemy) => {
+            this.bubble.forEach((bubble) => {
+                if (bubble.isColliding(enemy) && enemy instanceof JellyFish) {
+                    enemy.changeAnimationJellyFish = true;
+                    enemy.currentImage = 0;
+                    enemy.bubbleCatchJellyFishAudio.play();
+                    this.bubble.splice(bubble, 1);
+                } else if (bubble.isColliding(enemy) && enemy instanceof Fish) {
+                    enemy.bubbleBurstAudio.play();
+                    this.bubble.splice(bubble, 1);
+                }
+            });
         });
     }
 }

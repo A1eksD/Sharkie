@@ -97,7 +97,6 @@ class MovableObject extends drawableObject{
     isHurt(){
         let timePassed = new Date().getTime() - this.lastHit; //differenz in ms
         timePassed = timePassed / 1000; // differenz in s
-        // console.log(timePassed);
         return timePassed < 1; // gebe den value true aus, wenn der Wert 1s überschreitet. ansonsten false
     }
 

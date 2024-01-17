@@ -1,4 +1,5 @@
 class JellyFish extends MovableObject {
+    // world;
     IMAGES_WALIKNG = [
         'img/2.Enemy/2_Jelly_fish/Regular_damage/Lila1.png',
         'img/2.Enemy/2_Jelly_fish/Regular_damage/Lila2.png',
@@ -26,21 +27,22 @@ class JellyFish extends MovableObject {
         right: 15,
         bottom: 10
     }
-    enemySpaledAway = false;
-    // changeAnimation = false;
+    bubbleCatchJellyFishAudio = new Audio('audio/catch_with_bubble.mp3');
+    // enemySpaledAway = false;
+    changeAnimationJellyFish = false;
+    // getCurrentImg = false;
 
 
     constructor(){
         super().loadImage(this.IMAGES_WALIKNG[0]);
         this.loadImages(this.IMAGES_WALIKNG);
         this.loadImages(this.IMAGES_WALIKNG_DANGEROUS);
+        this.loadImages(this.IMAGES_DIED);
         this.x = 55 + Math.random() * 500;
         // this.x = 550 + Math.random() * 1000;
         this.speed = 0.5 + Math.random() * 1;
-        // this.enemyGetHit;
-        // this.changeDirectionHittedEnemy;
-        // this.changeAnimation;
-        // this.enemyGetSlap();
+        this.currentImage;
+        this.changeAnimationJellyFish;
         this.animate();
     }
 
@@ -57,6 +59,10 @@ class JellyFish extends MovableObject {
         setInterval( () => { // gegener soll alle 0.1s seim img ändern
             this.walkingAnimation();
         }, 180 );
+
+        setInterval(() => {
+            this.checkCollisionWithBubble();
+        }, 80);
 
         setInterval( () => {
             this.getRandomNumber();
@@ -75,21 +81,37 @@ class JellyFish extends MovableObject {
     }
 
     walkingAnimation(){
-        if (this.randomNumber === 0) {
-            this.playAnimation(this.IMAGES_WALIKNG);
-        } else {
-            this.playAnimation(this.IMAGES_WALIKNG_DANGEROUS);
+        if (!this.changeAnimationJellyFish) {
+            if (this.randomNumber === 0) {
+                this.playAnimation(this.IMAGES_WALIKNG);
+            } else {
+                this.playAnimation(this.IMAGES_WALIKNG_DANGEROUS);
+            }   
         }
     }
 
+
     loadFlowAnimation(){
         if (this.randomNumber === 0 && this.enemyGetHit) {
-            this.enemySpaledAway = true;
+            // this.enemySpaledAway = true;
             this.enemyGetSlap();
         } else {
             this.enemyGetHit = false;
         }
-        // this.enemySpaledAway = true;
-        // this.enemyGetSlap();
+    }
+
+
+    checkCollisionWithBubble(){
+        if (this.changeAnimationJellyFish) {
+            // this.bubbleCatchJellyFishAudio.play();
+            this.playAnimation(this.IMAGES_DIED);
+            this.y -= 15;
+            this.offset = {
+                top: 35, 
+                left: 35, 
+                right: 35,
+                bottom: 35
+            }
+        }
     }
 }

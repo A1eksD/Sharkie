@@ -12,6 +12,7 @@ class Fish extends MovableObject {
     IMAGES_DEAD = [
         'img/2.Enemy/1.Puffer_fish/4.DIE/2.3.png'
     ];
+    bubbleBurstAudio = new Audio('audio/bubble_bursts.mp3');
     offset = {
         top: 5, 
         left: 5, 
