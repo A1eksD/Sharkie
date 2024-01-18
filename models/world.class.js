@@ -6,6 +6,7 @@ class World {
     keyboard;
     camera_x = 10;
     statusBar = new StatusBar();
+    statusBarBoss = new StatusBarBoss();
     coinBar = new CoinBar();
     toxicBottlesBar = new toxicBottlesBar();
     bottles = [
@@ -23,6 +24,7 @@ class World {
         new Coin(),
         new Coin()
     ];
+    endboss = new Endboss();
     changeCurrentImgTo0 = false;
 
 
@@ -35,13 +37,14 @@ class World {
         this.draw();
         this.setWorld();
         this.run();
-        this.functionsWithHigherInterval();
+        // this.functionsWithHigherInterval();
+        this.functionsWithSlowerInterval();
     }
 
 
     setWorld(){
         this.character.world = this;
-        // this.level.enemies = this;
+        this.endboss.world = this;
     }
 
 
@@ -51,6 +54,7 @@ class World {
 
         this.addObjectsToMap(this.level.backgroundObject); //rendert hintergrund
         this.addObjectsToMap(this.level.enemies); // rendert feinde
+        this.addToMap(this.endboss); // rendert endboss
         this.addObjectsToMap(this.bottles); // rendert flachen
         this.addObjectsToMap(this.bubble); // rendert die blase
         this.addObjectsToMap(this.coins); // rendert die münzen
@@ -60,6 +64,10 @@ class World {
         this.addToMap(this.statusBar); // rendert HP-Anzeige
         this.addToMap(this.coinBar); // rendert coin-Anzeige
         this.addToMap(this.toxicBottlesBar); // rendert flaschen-Anzeige
+        if (this.endboss.showHPfromBoss) {
+            this.addToMap(this.statusBarBoss);
+        }
+        // this.addToMap(this.statusBarBoss); // rendert flaschen-Anzeige
         this.ctx.translate(this.camera_x, 0); //verschiebt die camera, wegen einer schleife wird die camera immer um 100px weiter zu seite gerendert
 
 
@@ -118,14 +126,21 @@ class World {
             this.checkIfIsDead();
             this.checkJellyFishCollisionWithCharacter();
             this.characterPlaySlepAnimation();
+            this.checkJellyFishCollisionWithBubble();
+            // this.characterIsSleppingEndboss();
         }, 200);
     }
 
 
-    functionsWithHigherInterval(){
+    // functionsWithHigherInterval(){
+    //     setInterval(() => {
+    //         this.checkCollisionWithBoss();
+    //     }, 100);
+    // }
+    functionsWithSlowerInterval(){
         setInterval(() => {
-            this.checkJellyFishCollisionWithBubble();
-        }, 100);
+            this.characterIsSleppingEndboss();
+        }, 1130);
     }
 
 
@@ -136,6 +151,10 @@ class World {
                 this.statusBar.setPercenetage(this.character.energy); //verändere hp anzeige, wenn hit(); | greift auf energy zu, weil char mir movObj verknüpft ist
             }
         });
+        if (this.character.isColliding(this.endboss)) {
+            this.character.hit(); // wenn collision = true=> hit()
+            this.statusBar.setPercenetage(this.character.energy); //verändere hp anzeige, wenn hit(); | greift auf energy zu, weil char mir movObj verknüpft ist
+        }
     }
     
 
@@ -261,6 +280,21 @@ class World {
     }
 
 
+    characterIsSleppingEndboss(){
+        if (this.character.isColliding(this.endboss)) {
+            if (this.character.isStriking && this.endboss) {
+                this.endboss.enbossGetSlep = true;
+                // this.endboss.changeDirectionHittedEnemy = this.character.otherDirection;
+                this.endboss.currentImage = 0;
+                this.endboss.enbossGetSlepValue = true;
+                this.statusBar.percentace --;
+                this.statusBarBoss.setPercenetage(this.percentace);
+                this.endboss.percentace --;
+            }
+        }
+    }
+
+
     checkJellyFishCollisionWithBubble() {
         this.level.enemies.forEach((enemy) => {
             this.bubble.forEach((bubble) => {
@@ -271,6 +305,13 @@ class World {
                     this.bubble.splice(bubble, 1);
                 } else if (bubble.isColliding(enemy) && enemy instanceof Fish) {
                     enemy.bubbleBurstAudio.play();
+                    this.bubble.splice(bubble, 1);
+                } else if (bubble.isColliding(this.endboss)) {
+                    this.endboss.hurtWithBubble = true;
+                    this.endboss.hurtWithBubbleValue = true;
+                    this.endboss.currentImage = 0;
+                    this.statusBarBoss.percentace --;
+                    this.statusBarBoss.setPercenetage(this.percentace);
                     this.bubble.splice(bubble, 1);
                 }
             });

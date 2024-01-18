@@ -232,7 +232,7 @@ class Character extends MovableObject{
                 // this.characterSlapAudio.loop = false;
                 this.characterStrikesValue = this.playAnimationFirstToLastImg(this.IMAGES_FIN_STRIKE);
                 this.isStriking = true;
-                this.enemyGetHit = true;
+                // this.enemyGetHit = true;
                 this.resetSleepTimeout();
                 this.world.characterIsSlepping();
                 setTimeout(() =>{
@@ -241,7 +241,7 @@ class Character extends MovableObject{
                     this.characterStrikes = false;
                     this.istHitting = false;
                     this.enemyGetHit = false;
-                }, 1120);
+                }, 1120); // 1120
             } else
 
             if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP || this.world.keyboard.DOWN) { // ------------ move

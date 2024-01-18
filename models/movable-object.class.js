@@ -5,7 +5,7 @@ class MovableObject extends drawableObject{
     acceleration = 0.1; //für springen
     energy = 100;
     lastHit = 0;
-    bottleValue = 0;
+    bottleValue = 100;
     oneCoin = 0;
     standingCharacter = 0;
     standing3Sek = 3;
@@ -13,6 +13,7 @@ class MovableObject extends drawableObject{
     enemyGetHit = false;
     changeDirectionHittedEnemy = true;
     changeAnimation = false;
+    percentace = 5;
 
 
     moveRight() {

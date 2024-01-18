@@ -29,7 +29,7 @@ class toxicBottlesBar extends MovableObject {
 
 
     loadValue(){
-        if (this.bottleValue === 5) {
+        if (this.bottleValue >= 5) {
             return 5;
         }else if (this.bottleValue === 4) {
             return 4;
