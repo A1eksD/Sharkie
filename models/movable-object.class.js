@@ -26,6 +26,16 @@ class MovableObject extends drawableObject{
     }
 
 
+    moveUp() {
+        this.y -= this.speed;
+    }
+
+
+    moveDown() {
+        this.y += this.speed;
+    }
+
+
     playAnimation(imges){
         // let i = 0 % 6; -> 0, Rest 0 / wenn 5 % 6 -> 0, Rest 5 / wenn 6 % 6 -> 1, Rest 0 / wenn 7 % 6 -> 1, Rest 1
         let i = this.currentImage % imges.length; 

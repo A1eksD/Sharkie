@@ -67,7 +67,6 @@ class World {
         if (this.endboss.showHPfromBoss) {
             this.addToMap(this.statusBarBoss);
         }
-        // this.addToMap(this.statusBarBoss); // rendert flaschen-Anzeige
         this.ctx.translate(this.camera_x, 0); //verschiebt die camera, wegen einer schleife wird die camera immer um 100px weiter zu seite gerendert
 
 
@@ -140,18 +139,18 @@ class World {
     functionsWithSlowerInterval(){
         setInterval(() => {
             this.characterIsSleppingEndboss();
-        }, 1130);
+        }, 1000);
     }
 
 
     checkCollisions(){
         this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy)) {
+            if (this.character.isColliding(enemy) && !this.character.istHitting) {
                 this.character.hit(); // wenn collision = true=> hit()
                 this.statusBar.setPercenetage(this.character.energy); //verändere hp anzeige, wenn hit(); | greift auf energy zu, weil char mir movObj verknüpft ist
             }
         });
-        if (this.character.isColliding(this.endboss)) {
+        if (this.character.isColliding(this.endboss) && !this.character.istHitting) {
             this.character.hit(); // wenn collision = true=> hit()
             this.statusBar.setPercenetage(this.character.energy); //verändere hp anzeige, wenn hit(); | greift auf energy zu, weil char mir movObj verknüpft ist
         }
@@ -287,8 +286,8 @@ class World {
                 // this.endboss.changeDirectionHittedEnemy = this.character.otherDirection;
                 this.endboss.currentImage = 0;
                 this.endboss.enbossGetSlepValue = true;
-                this.statusBar.percentace --;
-                this.statusBarBoss.setPercenetage(this.percentace);
+                this.statusBarBoss.percentace --;
+                this.statusBarBoss.setPercenetage();
                 this.endboss.percentace --;
             }
         }
@@ -297,7 +296,7 @@ class World {
 
     checkJellyFishCollisionWithBubble() {
         this.level.enemies.forEach((enemy) => {
-            this.bubble.forEach((bubble) => {
+            this.bubble.forEach((bubble, i) => {
                 if (bubble.isColliding(enemy) && enemy instanceof JellyFish) {
                     enemy.changeAnimationJellyFish = true;
                     enemy.currentImage = 0;
@@ -306,15 +305,18 @@ class World {
                 } else if (bubble.isColliding(enemy) && enemy instanceof Fish) {
                     enemy.bubbleBurstAudio.play();
                     this.bubble.splice(bubble, 1);
-                } else if (bubble.isColliding(this.endboss)) {
+                } 
+                else if (bubble.isColliding(this.endboss)) {
                     this.endboss.hurtWithBubble = true;
                     this.endboss.hurtWithBubbleValue = true;
                     this.endboss.currentImage = 0;
-                    this.statusBarBoss.percentace --;
-                    this.statusBarBoss.setPercenetage(this.percentace);
-                    this.bubble.splice(bubble, 1);
+                    this.statusBarBoss.percentace--;
+                    this.statusBarBoss.setPercenetage();
+                    this.endboss.percentace--;
+                    this.bubble.splice(i, 1);
                 }
             });
         });
     }
+
 }

@@ -38,7 +38,13 @@ class Endboss extends MovableObject {
         'img/2.Enemy/3_Final_Enemy/Attack/5.png',
         'img/2.Enemy/3_Final_Enemy/Attack/6.png'
     ];
-    IMAGES_HURT = ['img/2.Enemy/3_Final_Enemy/Hurt/1.png'];
+    IMAGES_HURT = [
+        'img/2.Enemy/3_Final_Enemy/Hurt/1.png',
+        'img/2.Enemy/3_Final_Enemy/Hurt/1.png',
+        'img/2.Enemy/3_Final_Enemy/Hurt/1.png',
+        'img/2.Enemy/3_Final_Enemy/Hurt/1.png',
+        'img/2.Enemy/3_Final_Enemy/Hurt/1.png'
+    ];
     IMAGES_HURT_BUBBLE = [
         'img/2.Enemy/3_Final_Enemy/Hurt/1.png',
         'img/2.Enemy/3_Final_Enemy/Hurt/2.png',
@@ -88,7 +94,7 @@ class Endboss extends MovableObject {
 
     animate(){
         setInterval( () => {
-            this.loadWalkingAnimation();
+            this.loadIntroduceAnimation();
         }, 140);
 
         setInterval(() => {
@@ -99,9 +105,7 @@ class Endboss extends MovableObject {
             let distanceToBoss = this.x - this.world.character.x;
             this.i++;
 
-            if (this.percentace <= 0 && this.enbossDeadAnimation && this.deadAnimation){
-                this.enbossDeadAnimation = this.playAnimationFirstToLastImg(this.IMAGES_DEAD);
-            } else if (this.hurtWithBubble && this.hurtWithBubbleValue && !this.deadAnimation) {
+            if (this.hurtWithBubble && this.hurtWithBubbleValue && !this.deadAnimation) {
                 console.log(this.hurtWithBubbleValue)
                 this.hurtWithBubbleValue = this.playAnimationFirstToLastImg(this.IMAGES_HURT_BUBBLE);
             } else if (this.enbossGetSlep && this.enbossGetSlepValue && !this.deadAnimation) {
@@ -114,20 +118,29 @@ class Endboss extends MovableObject {
                 this.playAnimation(this.IMAGES_WALIKNG);
             }
         }, 140);
+        setInterval(() => {
+            if (this.percentace == 0 && this.enbossDeadAnimation && this.deadAnimation){
+                this.enbossDeadAnimation = this.playAnimationFirstToLastImg(this.IMAGES_DEAD);
+                this.offset = {
+                    left: 170, 
+                    top: 120, 
+                    right: 120,
+                    bottom: 120
+                }
+            } 
+        }, 190);
     }
 
 
-    loadWalkingAnimation() {
-        // this.i++;
-        // if (this.i < 10) {
-        //     this.playAnimation(this.IMAGES_INTRODUCE);
-        // } else {
-        //     this.playAnimation(this.IMAGES_WALIKNG);
-        // } 
-        if (this.world.character.x >= 600 && !this.introduceToCharacter) {
+    loadIntroduceAnimation() {
+        if (this.world.character.x >= 500 && !this.introduceToCharacter) {
             this.introduceToCharacter = true;
             this.i = 0;
             this.showHPfromBoss = true;
+            this.world.statusBarBoss.updateHealthBarBoss();
+            setTimeout(() => {
+                this.followCharacter();
+            }, 1000);
         }
     }
 
@@ -137,4 +150,43 @@ class Endboss extends MovableObject {
             this.deadAnimation = true;
         }
     }
+
+
+    followCharacter() {
+        setInterval(() => {
+            if (this.x >= this.world.character.x - 100) {
+                this.moveLeft();
+                this.otherDirection = false;
+            } else if (this.x <= this.world.character.x - 50) {
+                this.moveRight();
+                this.otherDirection = true;
+            } 
+            
+            if (this.y  >= this.world.character.y - 100) {
+                this.moveUp();
+            } else if (this.y <= this.world.character.y - 100) {
+                this.moveDown();
+            }     
+        }, 50);
+       
+    }
+
+    // followCharacter() {
+    //     setInterval(() => {
+    //         let followSpeed = 4;
+    //         let directionX = Math.sign((this.world.character.x - 100) - this.x);
+    //         let directionY = Math.sign((this.world.character.y - 50) - this.y);
+    
+    //         this.x += directionX * followSpeed;
+    //         this.y += directionY * followSpeed;
+    
+    //         if (directionX  === -1) {
+    //             this.otherDirection = false;
+    //         } else {
+    //             this.otherDirection = true;
+    //         }
+    //     }, 1000 / 60);
+    // }
+    
+    
 }

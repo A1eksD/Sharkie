@@ -225,13 +225,15 @@ class Character extends MovableObject{
             } else 
 
             if (this.characterStrikes && this.characterStrikesValue && this.istHitting && this.characterCanSlap) { // ------------ strike
-                this.offset.right = 5;
-                this.offset.top = 5;
+                // this.offset.right = 5;
+                // this.offset.top = 5;
                 this.characterSlapAudio.play();
-                this.characterSlapAudio.volume = 0.5;
+                this.characterSlapAudio.volume = 0.2;
                 // this.characterSlapAudio.loop = false;
                 this.characterStrikesValue = this.playAnimationFirstToLastImg(this.IMAGES_FIN_STRIKE);
                 this.isStriking = true;
+                this.offset.right = 5;
+                this.offset.top = 5;
                 // this.enemyGetHit = true;
                 this.resetSleepTimeout();
                 this.world.characterIsSlepping();
@@ -239,8 +241,8 @@ class Character extends MovableObject{
                     this.offset.right = 35;
                     this.offset.top = 35;
                     this.characterStrikes = false;
-                    this.istHitting = false;
                     this.enemyGetHit = false;
+                    this.istHitting = false;
                 }, 1120); // 1120
             } else
 
