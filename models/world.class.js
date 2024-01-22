@@ -12,10 +12,16 @@ class World {
     bottles = [
         new BottlesAtBottom(), 
         new BottlesAtBottom(), 
-        new BottlesAtBottom(), 
-        new BottlesAtBottom(), 
-        new BottlesAtBottom()
+        new BottlesAtBottom(),
+        new BottlesIsSwimming(),
+        new BottlesIsSwimming(),
+        new BottlesIsSwimming()
     ];
+    // bottelsSwimming = [
+    //     new BottlesIsSwimming(),
+    //     new BottlesIsSwimming(),
+    //     new BottlesIsSwimming()
+    // ];
     bubble = [new TrowableObjct()];
     coins = [
         new Coin(),
@@ -27,6 +33,7 @@ class World {
     endboss = new Endboss();
     changeCurrentImgTo0 = false;
     collistionWithCharacter = false;
+
 
 
     constructor(canvas, keyboard){
@@ -56,6 +63,7 @@ class World {
         this.addObjectsToMap(this.level.enemies); // rendert feinde
         this.addToMap(this.endboss); // rendert endboss
         this.addObjectsToMap(this.bottles); // rendert flachen
+        // this.addObjectsToMap(this.bottelsSwimming); // rendert flachen
         this.addObjectsToMap(this.bubble); // rendert die blase
         this.addObjectsToMap(this.coins); // rendert die münzen
 

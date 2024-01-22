@@ -89,7 +89,7 @@ class Endboss extends MovableObject {
         this.loadImages(this.IMAGES_HURT_BUBBLE);
         this.loadImages(this.IMAGES_DEAD);
         this.percentace;
-        this.x = 900;
+        this.x = 1800;
         this.animate();
     }
 
@@ -134,7 +134,7 @@ class Endboss extends MovableObject {
 
 
     loadIntroduceAnimation() {
-        if (this.world.character.x >= 500 && !this.introduceToCharacter) {
+        if (this.world.character.x >= 1500 && !this.introduceToCharacter) {
             this.introduceToCharacter = true;
             this.i = 0;
             this.showHPfromBoss = true;
