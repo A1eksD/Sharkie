@@ -1,4 +1,4 @@
-class Bottles extends MovableObject{
+class BottlesAtBottom extends MovableObject{
     IMAGES_BOTTLES = [
         'img/4.Marcadores/Posión/Dark-Left.png',
         'img/4.Marcadores/Posión/Dark-Right.png'

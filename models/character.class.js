@@ -250,6 +250,7 @@ class Character extends MovableObject{
                 if (!this.charcterIsDead) {
                     this.playAnimation(this.IMAGES_WALIKNG);
                     this.resetSleepTimeout();
+                    this.world.collistionWithCharacter = false;
                 }
             }  else 
             

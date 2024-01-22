@@ -10,11 +10,11 @@ class World {
     coinBar = new CoinBar();
     toxicBottlesBar = new toxicBottlesBar();
     bottles = [
-        new Bottles(), 
-        new Bottles(), 
-        new Bottles(), 
-        new Bottles(), 
-        new Bottles()
+        new BottlesAtBottom(), 
+        new BottlesAtBottom(), 
+        new BottlesAtBottom(), 
+        new BottlesAtBottom(), 
+        new BottlesAtBottom()
     ];
     bubble = [new TrowableObjct()];
     coins = [
@@ -26,7 +26,7 @@ class World {
     ];
     endboss = new Endboss();
     changeCurrentImgTo0 = false;
-
+    collistionWithCharacter = false;
 
 
     constructor(canvas, keyboard){
@@ -127,6 +127,7 @@ class World {
             this.characterPlaySlepAnimation();
             this.checkJellyFishCollisionWithBubble();
             // this.characterIsSleppingEndboss();
+            this.checkEndbossCollisionWithCharacter();
         }, 200);
     }
 
@@ -317,6 +318,13 @@ class World {
                 }
             });
         });
+    }
+
+
+    checkEndbossCollisionWithCharacter(){
+        if (this.endboss.isColliding(this.character)) {
+            this.collistionWithCharacter = true;
+        }
     }
 
 }

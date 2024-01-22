@@ -76,6 +76,7 @@ class Endboss extends MovableObject {
     showHPfromBoss = false;
     enbossDeadAnimation = true;
     deadAnimation = false;
+    // collistionWithCharacter = true;
 
 
 
@@ -154,39 +155,30 @@ class Endboss extends MovableObject {
 
     followCharacter() {
         setInterval(() => {
-            if (this.x >= this.world.character.x - 100) {
-                this.moveLeft();
-                this.otherDirection = false;
-            } else if (this.x <= this.world.character.x - 50) {
-                this.moveRight();
-                this.otherDirection = true;
-            } 
-            
-            if (this.y  >= this.world.character.y - 100) {
-                this.moveUp();
-            } else if (this.y <= this.world.character.y - 100) {
-                this.moveDown();
-            }     
-        }, 50);
-       
+            if (!this.world.collistionWithCharacter && !this.deadAnimation) {
+                if (this.x >= this.world.character.x - 100) {
+                    if (this.x - this.world.character.x > this.world.character.offset.right) {
+                        this.moveLeft();
+                        this.otherDirection = false;
+                    }
+                } else if (this.x <= this.world.character.x - 50) {
+                    if (this.x - this.world.character.x < this.world.character.offset.right) {
+                        this.moveRight();
+                        this.otherDirection = true;
+                    }
+                }
+    
+                if (this.y >= this.world.character.y - 100) {
+                    if (this.y - this.world.character.y > this.world.character.offset.bottom - 80) {
+                        this.moveUp();
+                    }
+                } else if (this.y <= this.world.character.y - 50) {
+                    if (this.y - this.world.character.y < this.world.character.offset.bottom - 50) {
+                        this.moveDown();
+                    }
+                }
+            }
+        }, 1000 / 60);
     }
-
-    // followCharacter() {
-    //     setInterval(() => {
-    //         let followSpeed = 4;
-    //         let directionX = Math.sign((this.world.character.x - 100) - this.x);
-    //         let directionY = Math.sign((this.world.character.y - 50) - this.y);
-    
-    //         this.x += directionX * followSpeed;
-    //         this.y += directionY * followSpeed;
-    
-    //         if (directionX  === -1) {
-    //             this.otherDirection = false;
-    //         } else {
-    //             this.otherDirection = true;
-    //         }
-    //     }, 1000 / 60);
-    // }
-    
     
 }
