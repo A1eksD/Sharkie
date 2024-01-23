@@ -38,9 +38,12 @@ class JellyFish extends MovableObject {
         this.loadImages(this.IMAGES_WALIKNG);
         this.loadImages(this.IMAGES_WALIKNG_DANGEROUS);
         this.loadImages(this.IMAGES_DIED);
-        this.x = 55 + Math.random() * 500;
+        this.x = 800 + (Math.random() * 2000);
         // this.x = 550 + Math.random() * 1000;
         this.speed = 0.5 + Math.random() * 1;
+        // this.y = 200 + Math.random() * 300;
+        this.y = 20 + Math.random() * 380; // Zufällige Position zwischen 20 und 400
+        this.direction = Math.random() < 0.5 ? 1 : -1; // Zufällige Richtung (hoch oder runter)
         this.currentImage;
         this.changeAnimationJellyFish;
         this.animate();
@@ -48,15 +51,16 @@ class JellyFish extends MovableObject {
 
 
     animate(){
-        // setInterval(() => { //gegener soll sich nach links bewegen mit 60fps
-        //     this.moveLeft();
-        // }, 1000 / 60);
+        setInterval(() => { //gegener soll sich nach links bewegen mit 60fps
+            // this.moveLeft();
+            this.moveUpandDown();
+        }, 1000 / 60);
 
         setInterval(() => {
             this.loadFlowAnimation();
         },  1000 / 60);
 
-        setInterval( () => { // gegener soll alle 0.1s seim img ändern
+        setInterval( () => {
             this.walkingAnimation();
         }, 180 );
 
@@ -114,4 +118,38 @@ class JellyFish extends MovableObject {
             }
         }
     }
+
+
+
+
+    moveUpandDown(){
+        if (this.y < 20 || this.y > 400) {
+            this.direction *= -1;
+        }
+
+        this.y += this.direction;
+
+    }
+    
+    // moveUpandDown() {
+    //     const randomDirection = Math.round(Math.random()) === 0 ? -1 : 1; // zufällige Richtung (-1 oder 1)
+    //     const speed = 1; // Geschwindigkeit der Bewegung
+    
+    //     this.y += randomDirection * speed;
+    
+    //     // Begrenze die Y-Position auf den Bereich 20 bis 400
+    //     if (this.y < 20) {
+    //         this.y = 20;
+    //     } else if (this.y > 400) {
+    //         this.y = 400;
+    //     }
+    // }
+    
+    // moveUpandDown(){
+    //     if (this.y < 20){
+    //         this.y += 1;
+    //     } else if (this.y > 400){
+    //         this.y -= 1;
+    //     }
+    // }
 }

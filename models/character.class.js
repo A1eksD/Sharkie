@@ -164,7 +164,7 @@ class Character extends MovableObject{
                 this.otherDirection = false;
                 this.swimmingCharacterAudio.play();
             }
-            if (!this.charcterIsDead && this.world.keyboard.LEFT && this.x > -25 ) { // this.x > 0 steht für- bis der character pixel 0 vom ersten bild erreicht hat
+            if (!this.charcterIsDead && this.world.keyboard.LEFT && this.x > (-720*3)-30 ) { // this.x > 0 steht für- bis der character pixel 0 vom ersten bild erreicht hat
                 this.moveLeft();
                 this.otherDirection = true;
                 this.swimmingCharacterAudio.play();
@@ -191,7 +191,7 @@ class Character extends MovableObject{
             // if (this.world.keyboard.SHOOT) { // wenn x = klick und keine fall-function ausgeführt wird, dann jump
             //     this.trow();
             // }
-            this.world.camera_x = -this.x + 200; //camera bewegt sich mit dem character zusammen in der x-Achse/ +200, damit der charcter weiter rechts angezeigt wird
+            this.world.camera_x = -this.x + 250; //camera bewegt sich mit dem character zusammen in der x-Achse/ +200, damit der charcter weiter rechts angezeigt wird
         }, 1000 / 60);
 
         setInterval(() => {

@@ -22,19 +22,20 @@ class Fish extends MovableObject {
     // changeAnimation = false;
     // enemyGetHit = false;
 
-    constructor(){
+    constructor(y){
         super().loadImage(this.IMAGES_WALIKNG[0]);
         this.loadImages(this.IMAGES_WALIKNG);
         this.loadImages(this.IMAGES_DEAD);
-        this.x = 550 + Math.random() * 1000;
+        this.x = 1000 + (Math.random() * 2000);
         this.speed = 0.5 + Math.random() * 1;
+        this.y = y;
         this.animate();
     }
 
     animate(){
-        // setInterval(() => { //gegener soll sich nach links bewegen mit 60fps
-        //     this.moveLeft();
-        // }, 1000 / 60);
+        setInterval(() => { //gegener soll sich nach links bewegen mit 60fps
+            this.moveLeft();
+        }, 1000 / 60);
 
         setInterval( () => { // gegener soll alle 0.1s seim img ändern
             if (!this.changeAnimation) {

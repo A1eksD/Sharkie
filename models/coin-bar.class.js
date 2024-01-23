@@ -27,15 +27,15 @@ class CoinBar extends MovableObject {
 
 
     loadValue(oneCoin){
-        if (oneCoin === 5) {
+        if (oneCoin >= 21) {
             return 5;
-        }else if (oneCoin === 4) {
+        }else if (oneCoin >= 17) {
             return 4;
-        }else if (oneCoin === 3) {
+        }else if (oneCoin >= 12) {
             return 3;
-        }else if (oneCoin === 2) {
+        }else if (oneCoin >= 8) {
             return 2;
-        }else if (oneCoin === 1) {
+        }else if (oneCoin >= 4) {
             return 1;
         }else{
             return 0;

@@ -9,27 +9,15 @@ class World {
     statusBarBoss = new StatusBarBoss();
     coinBar = new CoinBar();
     toxicBottlesBar = new toxicBottlesBar();
-    bottles = [
-        new BottlesAtBottom(), 
-        new BottlesAtBottom(), 
-        new BottlesAtBottom(),
-        new BottlesIsSwimming(),
-        new BottlesIsSwimming(),
-        new BottlesIsSwimming()
-    ];
-    // bottelsSwimming = [
+    // bottles = [
+    //     new BottlesAtBottom(), 
+    //     new BottlesAtBottom(), 
+    //     new BottlesAtBottom(),
     //     new BottlesIsSwimming(),
     //     new BottlesIsSwimming(),
     //     new BottlesIsSwimming()
     // ];
     bubble = [new TrowableObjct()];
-    coins = [
-        new Coin(),
-        new Coin(),
-        new Coin(),
-        new Coin(),
-        new Coin()
-    ];
     endboss = new Endboss();
     changeCurrentImgTo0 = false;
     collistionWithCharacter = false;
@@ -62,10 +50,10 @@ class World {
         this.addObjectsToMap(this.level.backgroundObject); //rendert hintergrund
         this.addObjectsToMap(this.level.enemies); // rendert feinde
         this.addToMap(this.endboss); // rendert endboss
-        this.addObjectsToMap(this.bottles); // rendert flachen
+        this.addObjectsToMap(this.level.bottles); // rendert flachen
         // this.addObjectsToMap(this.bottelsSwimming); // rendert flachen
         this.addObjectsToMap(this.bubble); // rendert die blase
-        this.addObjectsToMap(this.coins); // rendert die münzen
+        this.addObjectsToMap(this.level.coins); // rendert die münzen
 
         //----- space for fixed objects-----------
         this.ctx.translate(-this.camera_x, 0); //verschiebt die camera zurück, sodass die sie camera die nicht in einer schleife befindet
@@ -190,7 +178,7 @@ class World {
 
 
     fillBottlesBar(){
-        this.bottles.forEach((currentBottle) => {
+        this.level.bottles.forEach((currentBottle) => {
             if (this.character.isColliding(currentBottle)) {
                 this.toxicBottlesBar.bottleValue ++;
                 this.toxicBottlesBar.getValueToxicBar(this.toxicBottlesBar.bottleValue);
@@ -203,18 +191,18 @@ class World {
 
 
     spliceBottleElemnt(currentBottle){
-        for (let i = 0; i < this.bottles.length; i++) {
-            const bottleValue = this.bottles[i].x;
+        for (let i = 0; i < this.level.bottles.length; i++) {
+            const bottleValue = this.level.bottles[i].x;
             let vlaueX = currentBottle.x;
             if (bottleValue === vlaueX) {
-                this.bottles.splice(i, 1);
+                this.level.bottles.splice(i, 1);
             }
         }
     }
 
 
     fillCoinBar(){
-        this.coins.forEach((currentCoir) => {
+        this.level.coins.forEach((currentCoir) => {
             if (this.character.isColliding(currentCoir)) {
                 this.coinBar.oneCoin ++;
                 this.coinBar.getValueCoinBar(this.coinBar.oneCoin);
@@ -227,11 +215,11 @@ class World {
 
 
     spliceCoinElemnt(currentCoin){
-        for (let i = 0; i < this.coins.length; i++) {
-            const coinValue = this.coins[i].x;
+        for (let i = 0; i < this.level.coins.length; i++) {
+            const coinValue = this.level.coins[i].x;
             let vlaueX = currentCoin.x;
             if (coinValue === vlaueX) {
-                this.coins.splice(i, 1);   
+                this.level.coins.splice(i, 1);   
             }
         }
     }
