@@ -74,3 +74,9 @@ window.addEventListener('keyup', (e) => {
         keyboard.SHOOT = false;
     }
 })
+
+// function loadLevel(){
+//     this.initLevel();
+//     document.getElementById('startScreanBtn').classList.toggle(d-none);
+//     document.getElementById('startScreanImg').classList.toggle(d-none);
+// }

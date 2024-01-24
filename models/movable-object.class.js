@@ -1,5 +1,5 @@
 class MovableObject extends drawableObject{
-    speed = 3.5;
+    speed = 2;
     otherDirection = false;
     speedY = 0; //für springen
     acceleration = 0.1; //für springen

@@ -51,10 +51,10 @@ class JellyFish extends MovableObject {
 
 
     animate(){
-        setInterval(() => { //gegener soll sich nach links bewegen mit 60fps
-            // this.moveLeft();
-            this.moveUpandDown();
-        }, 1000 / 60);
+        // setInterval(() => { //gegener soll sich nach links bewegen mit 60fps
+        //     // this.moveLeft();
+        //     this.moveUpandDown();
+        // }, 1000 / 60);
 
         setInterval(() => {
             this.loadFlowAnimation();

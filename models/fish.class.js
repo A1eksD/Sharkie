@@ -33,9 +33,9 @@ class Fish extends MovableObject {
     }
 
     animate(){
-        setInterval(() => { //gegener soll sich nach links bewegen mit 60fps
-            this.moveLeft();
-        }, 1000 / 60);
+        // setInterval(() => { //gegener soll sich nach links bewegen mit 60fps
+        //     this.moveLeft();
+        // }, 1000 / 60);
 
         setInterval( () => { // gegener soll alle 0.1s seim img ändern
             if (!this.changeAnimation) {

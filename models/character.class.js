@@ -2,6 +2,7 @@ class Character extends MovableObject{
     height = 180;
     width = 180;
     y = 50;
+    // x = 1000;
     speed = 7;
     IMAGES_WALIKNG = [
         'img/1.Sharkie/3.Swim/1.png',
@@ -164,7 +165,7 @@ class Character extends MovableObject{
                 this.otherDirection = false;
                 this.swimmingCharacterAudio.play();
             }
-            if (!this.charcterIsDead && this.world.keyboard.LEFT && this.x > (-720*3)-30 ) { // this.x > 0 steht für- bis der character pixel 0 vom ersten bild erreicht hat
+            if (!this.charcterIsDead && this.world.keyboard.LEFT && this.x > (-720*3)-30) { // this.x > 0 steht für- bis der character pixel 0 vom ersten bild erreicht hat
                 this.moveLeft();
                 this.otherDirection = true;
                 this.swimmingCharacterAudio.play();

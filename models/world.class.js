@@ -32,8 +32,8 @@ class World {
         this.draw();
         this.setWorld();
         this.run();
-        // this.functionsWithHigherInterval();
         this.functionsWithSlowerInterval();
+        // this.functionsWithHigherInterval();
     }
 
 
@@ -46,7 +46,7 @@ class World {
     draw(){
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.translate(this.camera_x, 0); //verschiebt die camera, wegen einer schleife wird die camera immer um 100px weiter zu seite gerendert
-
+        this.updateParallaxEffect();
         this.addObjectsToMap(this.level.backgroundObject); //rendert hintergrund
         this.addObjectsToMap(this.level.enemies); // rendert feinde
         this.addToMap(this.endboss); // rendert endboss
@@ -122,22 +122,32 @@ class World {
             this.checkJellyFishCollisionWithCharacter();
             this.characterPlaySlepAnimation();
             this.checkJellyFishCollisionWithBubble();
-            // this.characterIsSleppingEndboss();
             this.checkEndbossCollisionWithCharacter();
+
         }, 200);
     }
 
 
-    // functionsWithHigherInterval(){
-    //     setInterval(() => {
-    //         this.checkCollisionWithBoss();
-    //     }, 100);
-    // }
     functionsWithSlowerInterval(){
         setInterval(() => {
             this.characterIsSleppingEndboss();
         }, 1000);
     }
+
+
+
+    
+    updateParallaxEffect() {
+        if (this.character.x > (-720*3)-30 || this.character.x > this.level.levelEndX) {
+            this.level.backgroundObject.forEach((bgObject) => {
+                if (bgObject.parallaxFactor !== 0) {
+                    bgObject.x = bgObject.start_x + (this.character.x * bgObject.parallaxFactor * 0.1);
+                    bgObject.y = bgObject.start_y + (this.character.y * bgObject.parallaxFactor * 0.01);
+                }
+            });
+        }
+    }
+    
 
 
     checkCollisions(){
