@@ -9,7 +9,7 @@ class toxicBottlesBar extends MovableObject {
     ];   
     height = 40;
     width = 150;
-    getBottle = new Audio ('audio/bottle.mp3');
+    
 
 
     constructor(){

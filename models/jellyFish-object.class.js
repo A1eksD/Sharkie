@@ -27,7 +27,7 @@ class JellyFish extends MovableObject {
         right: 15,
         bottom: 10
     }
-    bubbleCatchJellyFishAudio = new Audio('audio/catch_with_bubble.mp3');
+
     // enemySpaledAway = false;
     changeAnimationJellyFish = false;
     // getCurrentImg = false;

@@ -1,4 +1,7 @@
 class MovableObject extends drawableObject{
+
+    // allImg = new allImages();
+    // audio = new Audios();
     speed = 2;
     otherDirection = false;
     speedY = 0; //für springen

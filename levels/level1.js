@@ -1,8 +1,9 @@
-// let loadLevel 
+let loadLevel 
 
-// function initLevel() {
+function initLevel() {
 
-const loadLevel  = new Level(
+// const loadLevel  
+loadLevel = new Level(
         [
             new Fish(350),
             new Fish(102),
@@ -177,4 +178,4 @@ const loadLevel  = new Level(
         ]
 
     );
-// }
+}

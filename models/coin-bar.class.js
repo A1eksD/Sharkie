@@ -9,7 +9,7 @@ class CoinBar extends MovableObject {
     ];   
     height = 40;
     width = 150;
-    pickUpCoin = new Audio('audio/collectcoin.mp3');
+    
 
     constructor(){
         super();

@@ -9,14 +9,6 @@ class World {
     statusBarBoss = new StatusBarBoss();
     coinBar = new CoinBar();
     toxicBottlesBar = new toxicBottlesBar();
-    // bottles = [
-    //     new BottlesAtBottom(), 
-    //     new BottlesAtBottom(), 
-    //     new BottlesAtBottom(),
-    //     new BottlesIsSwimming(),
-    //     new BottlesIsSwimming(),
-    //     new BottlesIsSwimming()
-    // ];
     bubble = [new TrowableObjct()];
     endboss = new Endboss();
     changeCurrentImgTo0 = false;
@@ -170,9 +162,9 @@ class World {
             this.character.currentImage = 0;
             this.toxicBottlesBar.bottleValue --;
             this.toxicBottlesBar.getValueToxicBar(this.toxicBottlesBar.bottleValue);
+            this.character.audio.shootCharacterAudio.play();
+            this.character.audio.shootCharacterAudio.volume = 0.05;
             setTimeout(() => {
-                this.character.shootCharacterAudio.play();
-                this.character.shootCharacterAudio.volume = 0.05;
                 if (!this.character.otherDirection) {
                     let valueBubble = this.character.otherDirection;
                     let bubble = new TrowableObjct(this.character.x + 140, this.character.y + 80, valueBubble);
@@ -193,8 +185,8 @@ class World {
                 this.toxicBottlesBar.bottleValue ++;
                 this.toxicBottlesBar.getValueToxicBar(this.toxicBottlesBar.bottleValue);
                 this.spliceBottleElemnt(currentBottle);
-                this.toxicBottlesBar.getBottle.play();
-                this.toxicBottlesBar.getBottlevolume = 0.01;
+                this.character.audio.getBottle.play();
+                this.character.audio.getBottlevolume = 0.01;
             }
         });
     }
@@ -217,8 +209,8 @@ class World {
                 this.coinBar.oneCoin ++;
                 this.coinBar.getValueCoinBar(this.coinBar.oneCoin);
                 this.spliceCoinElemnt(currentCoir);
-                this.coinBar.pickUpCoin.play();
-                this.coinBar.pickUpCoin.volume = 0.05;
+                this.character.audio.pickUpCoin.play();
+                this.character.audio.pickUpCoin.volume = 0.05;
             }
         });
     }
@@ -307,10 +299,10 @@ class World {
                 if (bubble.isColliding(enemy) && enemy instanceof JellyFish) {
                     enemy.changeAnimationJellyFish = true;
                     enemy.currentImage = 0;
-                    enemy.bubbleCatchJellyFishAudio.play();
+                    this.character.audio.bubbleCatchJellyFishAudio.play();
                     this.bubble.splice(bubble, 1);
                 } else if (bubble.isColliding(enemy) && enemy instanceof Fish) {
-                    enemy.bubbleBurstAudio.play();
+                    this.character.audio.bubbleBurstAudio.play();
                     this.bubble.splice(bubble, 1);
                 } 
                 else if (bubble.isColliding(this.endboss)) {

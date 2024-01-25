@@ -3,6 +3,8 @@ let world;
 let keyboard = new KeyBoard();
 
 function init(){
+    initLevel();
+    addDisplayNone();
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
 }
@@ -75,8 +77,7 @@ window.addEventListener('keyup', (e) => {
     }
 })
 
-// function loadLevel(){
-//     this.initLevel();
-//     document.getElementById('startScreanBtn').classList.toggle(d-none);
-//     document.getElementById('startScreanImg').classList.toggle(d-none);
-// }
+function addDisplayNone(){
+    document.getElementById('startScreanBtn').classList.add('d-none');
+    document.getElementById('startScreanImg').classList.add('d-none');
+}
