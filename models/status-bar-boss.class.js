@@ -1,20 +1,13 @@
 class StatusBarBoss extends MovableObject {
     
-    IMAGES_LIFE = [
-        'img/2.Enemy/3_Final_Enemy/Life/0_copia3_boss.png',
-        'img/2.Enemy/3_Final_Enemy/Life/20_copia4_boss.png',
-        'img/2.Enemy/3_Final_Enemy/Life/40_copia3_boss.png',
-        'img/2.Enemy/3_Final_Enemy/Life/60_copia3_boss.png',
-        'img/2.Enemy/3_Final_Enemy/Life/80_copia3_boss.png',
-        'img/2.Enemy/3_Final_Enemy/Life/100_copia2_boss.png'
-    ];
     height = 40;
     width = 150;
 
 
     constructor(){
         super();
-        this.loadImages(this.IMAGES_LIFE);
+        this.allImgs = new allImages();
+        this.loadImages(this.allImgs.BOSS_IMAGES_LIFE);
         this.x = 560;
         this.y = -100;
         this.percentace;
@@ -37,7 +30,7 @@ class StatusBarBoss extends MovableObject {
 
     setPercenetage(){
 
-        let imagePath = this.IMAGES_LIFE[this.resolveImagesIndex()];
+        let imagePath = this.allImgs.BOSS_IMAGES_LIFE[this.resolveImagesIndex()];
         this.img = this.imageCache[imagePath];
     }
 

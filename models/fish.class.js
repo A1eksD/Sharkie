@@ -2,17 +2,6 @@ class Fish extends MovableObject {
     width = 80;
     height = 80;
     currentImage = 0;
-    IMAGES_WALIKNG = [
-        'img/2.Enemy/1.Puffer_fish/1.Swim/2.swim1.png',
-        'img/2.Enemy/1.Puffer_fish/1.Swim/2.swim2.png',
-        'img/2.Enemy/1.Puffer_fish/1.Swim/2.swim3.png',
-        'img/2.Enemy/1.Puffer_fish/1.Swim/2.swim4.png',
-        'img/2.Enemy/1.Puffer_fish/1.Swim/2.swim5.png'
-    ];
-    IMAGES_DEAD = [
-        'img/2.Enemy/1.Puffer_fish/4.DIE/2.3.png'
-    ];
-    
     offset = {
         top: 5, 
         left: 5, 
@@ -23,9 +12,12 @@ class Fish extends MovableObject {
     // enemyGetHit = false;
 
     constructor(y){
-        super().loadImage(this.IMAGES_WALIKNG[0]);
-        this.loadImages(this.IMAGES_WALIKNG);
-        this.loadImages(this.IMAGES_DEAD);
+        super();
+        this.allImgs = new allImages();
+        this.audio = new Audios();
+        this.loadImage(this.allImgs.FISH_IMAGES_WALIKNG[0]);
+        this.loadImages(this.allImgs.FISH_IMAGES_WALIKNG);
+        this.loadImages(this.allImgs.FISH_IMAGES_DEAD);
         this.x = 1000 + (Math.random() * 2000);
         this.speed = 0.5 + Math.random() * 1;
         this.y = y;
@@ -37,9 +29,9 @@ class Fish extends MovableObject {
         //     this.moveLeft();
         // }, 1000 / 60);
 
-        setInterval( () => { // gegener soll alle 0.1s seim img ändern
+        setInterval( () => {
             if (!this.changeAnimation) {
-                this.playAnimation(this.IMAGES_WALIKNG);   
+                this.playAnimation(this.allImgs.FISH_IMAGES_WALIKNG);   
             }
         }, 180 );
 
@@ -52,7 +44,7 @@ class Fish extends MovableObject {
 
     loadDeadAnimation(){
         if (this.enemyGetHit) {
-            this.playAnimation(this.IMAGES_DEAD);
+            this.playAnimation(this.allImgs.FISH_IMAGES_DEAD);
         }
     }
     

@@ -2,20 +2,13 @@ class StatusBar extends drawableObject {
     
     height = 40;
     width = 150;
-    IMAGES_LIFE = [
-        'img/4.Marcadores/green/Life/0_copia3.png',
-        'img/4.Marcadores/green/Life/20_copia4.png',
-        'img/4.Marcadores/green/Life/40_copia3.png',
-        'img/4.Marcadores/green/Life/60_copia3.png',
-        'img/4.Marcadores/green/Life/80_copia3.png',
-        'img/4.Marcadores/green/Life/100_copia2.png'
-    ];
     percentace = 100;
 
 
     constructor(){
         super();
-        this.loadImages(this.IMAGES_LIFE);
+        this.allImgs = new allImages();
+        this.loadImages(this.allImgs.IMAGES_LIFE);
         this.x = 10;
         this.y = 10;
         this.setPercenetage(100);
@@ -24,7 +17,7 @@ class StatusBar extends drawableObject {
 
     setPercenetage(percentace){
         this.percentace = percentace;
-        let imagePath = this.IMAGES_LIFE[this.resolveImagesIndex()];
+        let imagePath = this.allImgs.IMAGES_LIFE[this.resolveImagesIndex()];
         this.img = this.imageCache[imagePath];
     }
 
