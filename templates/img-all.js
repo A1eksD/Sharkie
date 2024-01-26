@@ -1,4 +1,4 @@
-class allImages{
+class AllImages {
 
 // img character
     CHARACTER_IMAGES_WALIKNG = [
@@ -247,7 +247,7 @@ class allImages{
     ];
     
     
-// hpBar
+// img hpBar
     IMAGES_LIFE = [
         'img/4.Marcadores/green/Life/0_copia3.png',
         'img/4.Marcadores/green/Life/20_copia4.png',
@@ -256,4 +256,8 @@ class allImages{
         'img/4.Marcadores/green/Life/80_copia3.png',
         'img/4.Marcadores/green/Life/100_copia2.png'
     ];
+
+
+// img Bubble
+    IMAGES_BUBBLE = ['img/1.Sharkie/4.Attack/Bubble_trap/Poisoned_Bubble.png'];  
 }

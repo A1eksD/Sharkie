@@ -6,9 +6,9 @@ class BottlesIsSwimming extends MovableObject {
 
     constructor(x, y){
         super();
-        this.allImgs = new allImages();
-        this.loadImage(this.allImgs.IMAGES_BOTTLES_SWIMMING[0]);
-        this.loadImages(this.allImgs.IMAGES_BOTTLES_SWIMMING);
+        // this.allImgs;
+        this.loadImage(allImgs.IMAGES_BOTTLES_SWIMMING[0]);
+        this.loadImages(allImgs.IMAGES_BOTTLES_SWIMMING);
         // this.x = 200;
         this.x = x;
         this.y = y;
@@ -18,7 +18,7 @@ class BottlesIsSwimming extends MovableObject {
 
     animate(){
         setInterval( () => {
-            this.playAnimation(this.allImgs.IMAGES_BOTTLES_SWIMMING);
+            this.playAnimation(allImgs.IMAGES_BOTTLES_SWIMMING);
         }, 140 );
     }
 }

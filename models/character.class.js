@@ -34,18 +34,16 @@ class Character extends MovableObject{
 
     constructor(){
         super();
-        this.allImgs = new allImages();
-        this.audio = new Audios();
-        this.loadImage(this.allImgs.CHARACTER_IMAGES_WALIKNG[0]);
-        this.loadImages(this.allImgs.CHARACTER_IMAGES_WALIKNG);
+        this.loadImage(allImgs.CHARACTER_IMAGES_WALIKNG[0]);
+        this.loadImages(allImgs.CHARACTER_IMAGES_WALIKNG);
         // this.loadImages(this.IMAGES_JUMP);
-        this.loadImages(this.allImgs.CHARACTER_IMAGES_DEAD);
-        this.loadImages(this.allImgs.CHARACTER_IMAGES_HURT);
-        this.loadImages(this.allImgs.CHARACTER_IMAGES_SHOOT);
-        this.loadImages(this.allImgs.CHARACTER_IMAGES_STAY);
-        this.loadImages(this.allImgs.CHARACTER_IMAGES_SLEEP);
-        this.loadImages(this.allImgs.CHARACTER_IMAGES_FIN_STRIKE);
-        this.loadImages(this.allImgs.CHARACTER_IMAGES_INSTAND_DEAD);
+        this.loadImages(allImgs.CHARACTER_IMAGES_DEAD);
+        this.loadImages(allImgs.CHARACTER_IMAGES_HURT);
+        this.loadImages(allImgs.CHARACTER_IMAGES_SHOOT);
+        this.loadImages(allImgs.CHARACTER_IMAGES_STAY);
+        this.loadImages(allImgs.CHARACTER_IMAGES_SLEEP);
+        this.loadImages(allImgs.CHARACTER_IMAGES_FIN_STRIKE);
+        this.loadImages(allImgs.CHARACTER_IMAGES_INSTAND_DEAD);
         // this.applyGravity();
         this.animate();
     }
@@ -53,27 +51,27 @@ class Character extends MovableObject{
 
     animate(){
         setInterval(() => {
-            this.audio.swimmingCharacterAudio.pause();
-            this.audio.swimmingCharacterAudio.volume = 0.1;
+            audio.swimmingCharacterAudio.pause();
+            audio.swimmingCharacterAudio.volume = 0.1;
 
             if (!this.charcterIsDead && this.world.keyboard.RIGHT && this.x < this.world.level.levelEndX) {
                 this.moveRight();
                 this.otherDirection = false;
-                this.audio.swimmingCharacterAudio.play();
+                audio.swimmingCharacterAudio.play();
                 
             }
             if (!this.charcterIsDead && this.world.keyboard.LEFT && this.x > (-720*3)-30) { // this.x > 0 steht für- bis der character pixel 0 vom ersten bild erreicht hat
                 this.moveLeft();
                 this.otherDirection = true;
-                this.audio.swimmingCharacterAudio.play();
+                audio.swimmingCharacterAudio.play();
             }
             if (!this.charcterIsDead && this.world.keyboard.UP  && this.y > -60) {
                 this.y -= this.speed;
-                this.audio.swimmingCharacterAudio.play();
+                audio.swimmingCharacterAudio.play();
             }
             if (!this.charcterIsDead && this.world.keyboard.DOWN && this.y < 310) {
                 this.y += this.speed;
-                this.audio.swimmingCharacterAudio.play();
+                audio.swimmingCharacterAudio.play();
             }
             if (!this.charcterIsDead && this.world.keyboard.SHOOT ) {
             //     //hier nicht mehr schießen können -- nachtragen
@@ -96,7 +94,7 @@ class Character extends MovableObject{
             if (this.characterHaveLowHP && !this.otherDeath && !this.isInstandDead) { // ------------ died
                 this.standingValue = false;
                 this.characterCanSlap = false;
-                this.characterHaveLowHP = this.playAnimationFirstToLastImg(this.allImgs.CHARACTER_IMAGES_DEAD);
+                this.characterHaveLowHP = this.playAnimationFirstToLastImg(allImgs.CHARACTER_IMAGES_DEAD);
 
             } else 
             
@@ -104,13 +102,13 @@ class Character extends MovableObject{
                 this.electricShock = true;
                 this.standingValue = false;
                 this.characterCanSlap = false;
-                this.audio.characterGetElectricShockAudio.play();
-                this.audio.characterGetElectricShockAudio.volume = 0.5;
-                this.electricDeath = this.playAnimationFirstToLastImg(this.allImgs.CHARACTER_IMAGES_INSTAND_DEAD);
+                audio.characterGetElectricShockAudio.play();
+                audio.characterGetElectricShockAudio.volume = 0.5;
+                this.electricDeath = this.playAnimationFirstToLastImg(allImgs.CHARACTER_IMAGES_INSTAND_DEAD);
             } else 
 
             if (this.isHurt() && !this.isInstandDead && !this.istHitting) { // ------------ get dmg
-                this.playAnimation(this.allImgs.CHARACTER_IMAGES_HURT);
+                this.playAnimation(allImgs.CHARACTER_IMAGES_HURT);
                 // this.characterGetHitAudio.loop = false;
                 // this.characterGetHitAudio.play();
                 // this.characterGetHitAudio.volume = 0.05;
@@ -118,18 +116,18 @@ class Character extends MovableObject{
             } else
 
             if (this.shootAnimation && !this.characterHaveLowHP && this.electricDeath) { // ------------ shoot
-                this.shootAnimation = this.playAnimationFirstToLastImg(this.allImgs.CHARACTER_IMAGES_SHOOT);
+                this.shootAnimation = this.playAnimationFirstToLastImg(allImgs.CHARACTER_IMAGES_SHOOT);
                 this.resetSleepTimeout();
             } else 
 
             if (this.characterStrikes && this.characterStrikesValue && this.istHitting && this.characterCanSlap) { // ------------ strike
                 // this.offset.right = 5;
                 // this.offset.top = 5;
-                this.audio.characterSlapAudio.play();
-                this.audio.characterSlapAudio.volume = 0.2;
+                audio.characterSlapAudio.play();
+                audio.characterSlapAudio.volume = 0.2;
                 // this.world.audio.characterSlapAudio.playbackRate=0.5;
                 // this.characterSlapAudio.loop = false;
-                this.characterStrikesValue = this.playAnimationFirstToLastImg(this.allImgs.CHARACTER_IMAGES_FIN_STRIKE);
+                this.characterStrikesValue = this.playAnimationFirstToLastImg(allImgs.CHARACTER_IMAGES_FIN_STRIKE);
                 this.isStriking = true;
                 this.offset.right = 5;
                 this.offset.top = 5;
@@ -147,14 +145,14 @@ class Character extends MovableObject{
 
             if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP || this.world.keyboard.DOWN) { // ------------ move
                 if (!this.charcterIsDead) {
-                    this.playAnimation(this.allImgs.CHARACTER_IMAGES_WALIKNG);
+                    this.playAnimation(allImgs.CHARACTER_IMAGES_WALIKNG);
                     this.resetSleepTimeout();
                     this.world.collistionWithCharacter = false;
                 }
             }  else 
             
             if (this.standingValue){
-                this.playAnimation(this.allImgs.CHARACTER_IMAGES_STAY);
+                this.playAnimation(allImgs.CHARACTER_IMAGES_STAY);
                 this.counter ++;
                 this.changeValueToTrue();// ------------ sleep 
             }
@@ -170,7 +168,7 @@ class Character extends MovableObject{
 
     changeValueToTrue() {
         if (this.counter >= 40 && this.standingValue) {
-            this.playAnimation(this.allImg.CHARACTER_IMAGES_SLEEP);
+            this.playAnimation(allImgs.CHARACTER_IMAGES_SLEEP);
         } 
     }
       

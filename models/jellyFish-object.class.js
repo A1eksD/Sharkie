@@ -16,12 +16,12 @@ class JellyFish extends MovableObject {
 
     constructor(){
         super();
-        this.allImgs = new allImages();
-        this.audio = new Audios();
-        this.loadImage(this.allImgs.JELLYFISH_IMAGES_WALIKNG[0]);
-        this.loadImages(this.allImgs.JELLYFISH_IMAGES_WALIKNG);
-        this.loadImages(this.allImgs.JELLYFISH_IMAGES_WALIKNG_DANGEROUS);
-        this.loadImages(this.allImgs.JELLYFISH_IMAGES_DIED);
+        // this.allImgs;
+        // this.audio;
+        this.loadImage(allImgs.JELLYFISH_IMAGES_WALIKNG[0]);
+        this.loadImages(allImgs.JELLYFISH_IMAGES_WALIKNG);
+        this.loadImages(allImgs.JELLYFISH_IMAGES_WALIKNG_DANGEROUS);
+        this.loadImages(allImgs.JELLYFISH_IMAGES_DIED);
         this.x = 800 + (Math.random() * 2000);
         this.speed = 0.5 + Math.random() * 1;
         this.y = 20 + Math.random() * 380;
@@ -70,9 +70,9 @@ class JellyFish extends MovableObject {
     walkingAnimation(){
         if (!this.changeAnimationJellyFish) {
             if (this.randomNumber === 0) {
-                this.playAnimation(this.allImgs.JELLYFISH_IMAGES_WALIKNG);
+                this.playAnimation(allImgs.JELLYFISH_IMAGES_WALIKNG);
             } else {
-                this.playAnimation(this.allImgs.JELLYFISH_IMAGES_WALIKNG_DANGEROUS);
+                this.playAnimation(allImgs.JELLYFISH_IMAGES_WALIKNG_DANGEROUS);
             }   
         }
     }
@@ -91,7 +91,7 @@ class JellyFish extends MovableObject {
     checkCollisionWithBubble(){
         if (this.changeAnimationJellyFish) {
             // this.bubbleCatchJellyFishAudio.play();
-            this.playAnimation(this.allImgs.JELLYFISH_IMAGES_DIED);
+            this.playAnimation(allImgs.JELLYFISH_IMAGES_DIED);
             this.y -= 15;
             this.offset = {
                 top: 35, 

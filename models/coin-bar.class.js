@@ -6,8 +6,8 @@ class CoinBar extends MovableObject {
 
     constructor(){
         super();
-        this.allImgs = new allImages();
-        this.loadImages(this.allImgs.IMAGES_COIN_BAR);
+        // this.allImgs;
+        this.loadImages(allImgs.IMAGES_COIN_BAR);
         this.x = 10;
         this.y = 40;
         this.getValueCoinBar(this.oneCoin);
@@ -15,7 +15,7 @@ class CoinBar extends MovableObject {
 
 
     getValueCoinBar(oneCoin){
-        let imagePath = this.allImgs.IMAGES_COIN_BAR[this.loadValue(oneCoin)];
+        let imagePath = allImgs.IMAGES_COIN_BAR[this.loadValue(oneCoin)];
         this.img = this.imageCache[imagePath];
     }
 

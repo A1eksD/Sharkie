@@ -8,6 +8,7 @@
     <link rel="icon" type="image/png" href="img/favicon.png" />
     <link rel="stylesheet" href="style.css">
     <script src="templates/img-all.js"></script>
+    <script src="templates/audio-all.js" defer></script>
     <script src="models/drawable-object.class.js"></script>
     <script src="models/movable-object.class.js"></script>
     <script src="models/character.class.js"></script>
@@ -27,15 +28,47 @@
     <script src="models/jellyFish-object.class.js"></script>
     <script src="models/endboss.class.js"></script>
     <script src="levels/level1.js"></script>
-    <script src="templates/audio-all.js"></script>
+    <!-- <script src="templates/audio-all.js"></script> -->
     <script src="Js/game.js"></script>
 </head>
 <body class="background">
     <div class="mainPositionCanvasHeadline">
         <h1>Sharkie</h1>
-        <canvas id="canvas" width="720" height="480"></canvas> 
-        <img src="img/3.Background/Mesa_de_trabajo_1.png" alt="Start Screan" class="startScreanImg" id="startScreanImg">
-        <img src="img/6.Botones/Start/3.png" alt="Start Button" class="startScreanBtn" onclick="init()" id="startScreanBtn">
+        <canvas id="canvas" width="720" height="480"></canvas>
+        <div class="positionControl">
+            <ul>
+                <li>UP : W / Arrow up</li>
+                <li>Right : D / Arrow right</li>
+                <li>Down : S / Arrow down</li>
+                <li>Left : A / Arrow left</li>
+            </ul>
+            <ul>
+                <li>Slap : C</li>
+                <li>Shoot : Space</li>
+            </ul>
+        </div>
+        <div class="positionStartImg">
+            <img src="img/3.Background/Mesa_de_trabajo_1.png" alt="Start Screan" class="startScreanImg" id="startScreanImg">
+            <img src="img/6.Botones/Start/3.png" alt="Start Button" class="startScreanBtn" onclick="init()" id="startScreanBtn"> 
+        </div>
+        <div class="positionIconsMobile" id="positionIconsMobile">
+            <div class="positionArrows">
+                <img src="img/arrowLeft.png" alt="Arrow left" class="iconMobile" id="arrowLeft">
+                <div class="arrowsUpDown">
+                    <img src="img/arrowTop.png" alt="Arrow top" class="iconMobile" id="arrowUp" style="margin-bottom: 16px;">
+                    <img src="img/arrowBottom.png" alt="Arrow bottom" class="iconMobile" id="arrowDown">
+                </div>
+                <img src="img/arrowRight.png" alt="Arrow right" class="iconMobile" id="arrowRight">
+            </div>
+            <div>
+                <img src="img/flasche.png" alt="bottle image" class="iconMobile" id="bottle">
+                <img src="img/schlagen.png" alt="hit image" class="iconMobile" id="hit">
+            </div>
+        </div>
+        <div class="positionAudioBtn">
+            <img src="img/volumenOFF.png" alt="volumenOFF" class="volumenOFF">
+            <img src="img/volumenON.png" alt="volumenON" class="volumenON d-none">
+        </div>
     </div>
 </body>
 </html>

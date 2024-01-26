@@ -7,8 +7,8 @@ class toxicBottlesBar extends MovableObject {
 
     constructor(){
         super();
-        this.allImgs = new allImages();
-        this.loadImages(this.allImgs.IMAGES_TOXIC_BOTTLES_BAR);
+        // this.allImgs;
+        this.loadImages(allImgs.IMAGES_TOXIC_BOTTLES_BAR);
         this.x = 10;
         this.y = 70;
         this.getValueToxicBar(this.bottleValue);
@@ -17,7 +17,7 @@ class toxicBottlesBar extends MovableObject {
 
     getValueToxicBar(bottleValue){
         this.bottleValue = bottleValue;
-        let imagePath = this.allImgs.IMAGES_TOXIC_BOTTLES_BAR[this.loadValue()];
+        let imagePath = allImgs.IMAGES_TOXIC_BOTTLES_BAR[this.loadValue()];
         this.img = this.imageCache[imagePath];
     }
 

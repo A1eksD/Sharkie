@@ -26,15 +26,15 @@ class Endboss extends MovableObject {
 
     constructor() {
         super();
-        this.allImgs = new allImages();
-        this.audio = new Audios();
-        this.loadImage(this.allImgs.BOSS_IMAGES_WALIKNG[0]);
-        this.loadImages(this.allImgs.BOSS_IMAGES_WALIKNG);
-        this.loadImages(this.allImgs.BOSS_IMAGES_INTRODUCE);
-        this.loadImages(this.allImgs.BOSS_IMAGES_ATTACK);
-        this.loadImages(this.allImgs.BOSS_IMAGES_HURT);
-        this.loadImages(this.allImgs.BOSS_IMAGES_HURT_BUBBLE);
-        this.loadImages(this.allImgs.BOSS_IMAGES_DEAD);
+        // this.allImgs;
+        // this.audio;
+        this.loadImage(allImgs.BOSS_IMAGES_WALIKNG[0]);
+        this.loadImages(allImgs.BOSS_IMAGES_WALIKNG);
+        this.loadImages(allImgs.BOSS_IMAGES_INTRODUCE);
+        this.loadImages(allImgs.BOSS_IMAGES_ATTACK);
+        this.loadImages(allImgs.BOSS_IMAGES_HURT);
+        this.loadImages(allImgs.BOSS_IMAGES_HURT_BUBBLE);
+        this.loadImages(allImgs.BOSS_IMAGES_DEAD);
         this.percentace;
         this.x = 720*5;
         this.animate();
@@ -55,20 +55,20 @@ class Endboss extends MovableObject {
 
             if (this.hurtWithBubble && this.hurtWithBubbleValue && !this.deadAnimation) {
                 console.log(this.hurtWithBubbleValue)
-                this.hurtWithBubbleValue = this.playAnimationFirstToLastImg(this.allImgs.BOSS_IMAGES_HURT_BUBBLE);
+                this.hurtWithBubbleValue = this.playAnimationFirstToLastImg(allImgs.BOSS_IMAGES_HURT_BUBBLE);
             } else if (this.enbossGetSlep && this.enbossGetSlepValue && !this.deadAnimation) {
-                this.enbossGetSlepValue = this.playAnimationFirstToLastImg(this.allImgs.BOSS_IMAGES_HURT);
+                this.enbossGetSlepValue = this.playAnimationFirstToLastImg(allImgs.BOSS_IMAGES_HURT);
             } else if (distanceToBoss < 180 && !this.deadAnimation) {
-                this.playAnimation(this.allImgs.BOSS_IMAGES_ATTACK);
+                this.playAnimation(allImgs.BOSS_IMAGES_ATTACK);
             } else if (this.i < 10) {
-                this.playAnimation(this.allImgs.BOSS_IMAGES_INTRODUCE);
+                this.playAnimation(allImgs.BOSS_IMAGES_INTRODUCE);
             } else if (!this.deadAnimation) {
-                this.playAnimation(this.allImgs.BOSS_IMAGES_WALIKNG);
+                this.playAnimation(allImgs.BOSS_IMAGES_WALIKNG);
             }
         }, 140);
         setInterval(() => {
             if (this.percentace == 0 && this.enbossDeadAnimation && this.deadAnimation){
-                this.enbossDeadAnimation = this.playAnimationFirstToLastImg(this.allImgs.BOSS_IMAGES_DEAD);
+                this.enbossDeadAnimation = this.playAnimationFirstToLastImg(allImgs.BOSS_IMAGES_DEAD);
                 this.offset = {
                     left: 170, 
                     top: 120, 

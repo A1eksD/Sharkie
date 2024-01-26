@@ -1,4 +1,4 @@
-class Audios {
+class AllAudio {
 
 // audio character
 swimmingCharacterAudio = new Audio('audio/creek-swimming.mp3');

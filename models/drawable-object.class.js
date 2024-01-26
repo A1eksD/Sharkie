@@ -1,7 +1,7 @@
 class drawableObject{
 
     // allImgs = new allImages();
-    // audio = new Audios();
+    // audio = new allAudio();
     allImg = [];
     img;
     imageCache = {};

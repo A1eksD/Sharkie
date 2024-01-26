@@ -6,9 +6,9 @@ class BottlesAtBottom extends MovableObject{
 
     constructor(){
         super();
-        this.allImgs = new allImages();
-        this.loadImage(this.allImgs.IMAGES_BOTTLES_BOOTOM[0]);
-        this.loadImages(this.allImgs.IMAGES_BOTTLES_BOOTOM);
+        // this.allImgs;
+        this.loadImage(allImgs.IMAGES_BOTTLES_BOOTOM[0]);
+        this.loadImages(allImgs.IMAGES_BOTTLES_BOOTOM);
         this.x = (Math.random() * 2000) * 3;
         this.y = 360;
         this.animate();
@@ -17,7 +17,7 @@ class BottlesAtBottom extends MovableObject{
 
     animate(){
         setInterval( () => { //  alle 0.1s img ändern werdend
-            this.playAnimation(this.allImgs.IMAGES_BOTTLES_BOOTOM);
+            this.playAnimation(allImgs.IMAGES_BOTTLES_BOOTOM);
         }, 350 );
     }
 }

@@ -1,14 +1,15 @@
 class TrowableObjct extends MovableObject {
 
-    IMAGES_BUBBLE = ['img/1.Sharkie/4.Attack/Bubble_trap/Poisoned_Bubble.png'];   
     height = 50;
     width = 50;
     theBubbleFloats = false;
 
 
     constructor(x, y, valueBubble){ 
-        super().loadImage(this.IMAGES_BUBBLE);
-        this.loadImages(this.IMAGES_BUBBLE);
+        super();
+        // this.allImgs;
+        this.loadImage(allImgs.IMAGES_BUBBLE[0]);
+        this.loadImages(allImgs.IMAGES_BUBBLE);
         this.x = x; // parameter übergeben
         this.y = y; // parameter übergeben
         this.acceleration = 2;

@@ -13,11 +13,11 @@ class Fish extends MovableObject {
 
     constructor(y){
         super();
-        this.allImgs = new allImages();
-        this.audio = new Audios();
-        this.loadImage(this.allImgs.FISH_IMAGES_WALIKNG[0]);
-        this.loadImages(this.allImgs.FISH_IMAGES_WALIKNG);
-        this.loadImages(this.allImgs.FISH_IMAGES_DEAD);
+        // this.allImgs;
+        // this.audio;
+        this.loadImage(allImgs.FISH_IMAGES_WALIKNG[0]);
+        this.loadImages(allImgs.FISH_IMAGES_WALIKNG);
+        this.loadImages(allImgs.FISH_IMAGES_DEAD);
         this.x = 1000 + (Math.random() * 2000);
         this.speed = 0.5 + Math.random() * 1;
         this.y = y;
@@ -31,7 +31,7 @@ class Fish extends MovableObject {
 
         setInterval( () => {
             if (!this.changeAnimation) {
-                this.playAnimation(this.allImgs.FISH_IMAGES_WALIKNG);   
+                this.playAnimation(allImgs.FISH_IMAGES_WALIKNG);   
             }
         }, 180 );
 
@@ -44,7 +44,7 @@ class Fish extends MovableObject {
 
     loadDeadAnimation(){
         if (this.enemyGetHit) {
-            this.playAnimation(this.allImgs.FISH_IMAGES_DEAD);
+            this.playAnimation(allImgs.FISH_IMAGES_DEAD);
         }
     }
     

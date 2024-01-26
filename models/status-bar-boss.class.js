@@ -6,8 +6,8 @@ class StatusBarBoss extends MovableObject {
 
     constructor(){
         super();
-        this.allImgs = new allImages();
-        this.loadImages(this.allImgs.BOSS_IMAGES_LIFE);
+        // this.allImgs;
+        this.loadImages(allImgs.BOSS_IMAGES_LIFE);
         this.x = 560;
         this.y = -100;
         this.percentace;
@@ -30,7 +30,7 @@ class StatusBarBoss extends MovableObject {
 
     setPercenetage(){
 
-        let imagePath = this.allImgs.BOSS_IMAGES_LIFE[this.resolveImagesIndex()];
+        let imagePath = allImgs.BOSS_IMAGES_LIFE[this.resolveImagesIndex()];
         this.img = this.imageCache[imagePath];
     }
 
