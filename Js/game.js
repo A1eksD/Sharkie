@@ -3,7 +3,85 @@ let world;
 let keyboard = new KeyBoard();
 let allImgs;
 let audio;
+let mobile = false;
+let isVertical = false;
+let windowWidth = window.innerWidth;
 
+
+setInterval(() => {
+    checkIfUserUsePhone();
+    chechWidthScrean();
+    trunPhone();
+}, 100);
+
+
+function checkIfUserUsePhone(){
+    if (navigator.maxTouchPoints > 0) {
+        document.getElementById('positionIconsMobile').classList.remove('d-none');
+        document.getElementById('positionControl').classList.add('d-none');
+        mobile = true;
+        console.log(mobile);
+    } else {
+        document.getElementById('positionIconsMobile').classList.add('d-none');
+        document.getElementById('positionControl').classList.remove('d-none');
+        mobile = false;
+        console.log(mobile);
+    }
+}
+
+
+function chechWidthScrean(){
+    if (navigator.maxTouchPoints > 0) {
+        if (window.innerHeight > window.innerWidth) {
+            return isVertical = true;
+        } else {
+            return isVertical = false;
+        }
+    }
+}
+
+
+function trunPhone(){
+    if (!isVertical) {
+        document.getElementById('turnPhone').classList.add('d-none');
+        // document.getElementById('canvas').classList.add('widthHeightMax');
+        document.getElementById('positionAudioBtn').classList.remove('positionAudioBtn');
+        document.getElementById('positionAudioBtn').classList.add('positionAudioBtN');
+        document.getElementById('h1').classList.add('d-none');
+    } else {
+        document.getElementById('turnPhone').classList.remove('d-none');
+        // document.getElementById('canvas').classList.remove('widthHeightMax');
+        document.getElementById('positionAudioBtn').classList.add('positionAudioBtn');
+        document.getElementById('positionAudioBtn').classList.remove('positionAudioBtN');
+        document.getElementById('h1').classList.remove('d-none');
+    }
+}
+
+
+
+
+// function chechWidthScrean(){
+//     let isVertical = false;
+
+//     if (navigator.maxTouchPoints > 0) {
+//         isVertical = window.orientation === 0 || window.orientation === 180;
+//     }
+
+//     if (window.innerWidth >= 760 && isVertical) {
+//         document.getElementById('turnPhone').classList.add('d-none');
+//     } else {
+//         document.getElementById('turnPhone').classList.remove('d-none');
+//     }
+// }
+
+
+// function chechWidthScrean(){
+//     if (windowWidth >= 760 && !mobile) {
+//         document.getElementById('turnPhone').classList.add('d-none');
+//     } else {
+//         document.getElementById('turnPhone').classList.remove('d-none');
+//     }
+// }
 
 
 function init(){
@@ -134,3 +212,7 @@ function addDisplayNone(){
     document.getElementById('startScreanBtn').classList.add('d-none');
     document.getElementById('startScreanImg').classList.add('d-none');
 }
+
+
+
+    

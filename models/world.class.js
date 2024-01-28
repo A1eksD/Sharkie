@@ -115,7 +115,6 @@ class World {
             this.characterPlaySlepAnimation();
             this.checkJellyFishCollisionWithBubble();
             this.checkEndbossCollisionWithCharacter();
-
         }, 200);
     }
 

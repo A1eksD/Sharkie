@@ -33,9 +33,9 @@
 </head>
 <body class="background">
     <div class="mainPositionCanvasHeadline">
-        <h1>Sharkie</h1>
+        <h1 id="h1">Sharkie</h1>
         <canvas id="canvas" width="720" height="480"></canvas>
-        <div class="positionControl">
+        <div class="positionControl," id="positionControl">
             <ul>
                 <li>UP : W / Arrow up</li>
                 <li>Right : D / Arrow right</li>
@@ -51,7 +51,7 @@
             <img src="img/3.Background/Mesa_de_trabajo_1.png" alt="Start Screan" class="startScreanImg" id="startScreanImg">
             <img src="img/6.Botones/Start/3.png" alt="Start Button" class="startScreanBtn" onclick="init()" id="startScreanBtn"> 
         </div>
-        <div class="positionIconsMobile" id="positionIconsMobile">
+        <div class="positionIconsMobile d-none" id="positionIconsMobile">
             <div class="positionArrows">
                 <img src="img/arrowLeft.png" alt="Arrow left" class="iconMobile" id="arrowLeft">
                 <div class="arrowsUpDown">
@@ -65,10 +65,11 @@
                 <img src="img/schlagen.png" alt="hit image" class="iconMobile" id="hit">
             </div>
         </div>
-        <div class="positionAudioBtn">
+        <div class="positionAudioBtn" id="positionAudioBtn">
             <img src="img/volumenOFF.png" alt="volumenOFF" class="volumenOFF">
             <img src="img/volumenON.png" alt="volumenON" class="volumenON d-none">
         </div>
     </div>
+    <img src="img/turnPhone.png" alt="turn smartphone" class="turnPhone d-none" id="turnPhone">
 </body>
 </html>
