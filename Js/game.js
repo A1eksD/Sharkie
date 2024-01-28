@@ -5,7 +5,7 @@ let allImgs;
 let audio;
 let mobile = false;
 let isVertical = false;
-let windowWidth = window.innerWidth;
+let screenWidth = window.innerWidth;
 
 
 setInterval(() => {
@@ -25,6 +25,10 @@ function checkIfUserUsePhone(){
         document.getElementById('positionIconsMobile').classList.add('d-none');
         document.getElementById('positionControl').classList.remove('d-none');
         mobile = false;
+        // if (screenWidth <= 755) {
+        //     document.getElementById('turnPhone').classList.add('d-none');
+        //     console.log('++');
+        // }
         console.log(mobile);
     }
 }
@@ -32,9 +36,11 @@ function checkIfUserUsePhone(){
 
 function chechWidthScrean(){
     if (navigator.maxTouchPoints > 0) {
-        if (window.innerHeight > window.innerWidth) {
+        if (window.innerHeight < window.innerWidth) {
             return isVertical = true;
         } else {
+            // document.getElementById('turnPhone').classList.remove('d-none');
+            // console.log('----------');
             return isVertical = false;
         }
     }
@@ -42,17 +48,27 @@ function chechWidthScrean(){
 
 
 function trunPhone(){
-    if (!isVertical) {
+    if (isVertical) {
+    // if (/Android|iPhone/i.test(navigator.userAgent)) {
         document.getElementById('turnPhone').classList.add('d-none');
+        document.getElementById('turnPhone').classList.remove('d-block');
+        console.log('----------');
         // document.getElementById('canvas').classList.add('widthHeightMax');
-        document.getElementById('positionAudioBtn').classList.remove('positionAudioBtn');
-        document.getElementById('positionAudioBtn').classList.add('positionAudioBtN');
+        document.getElementById('positionAudioBtn').classList.add('positionAudioBtn');
+        document.getElementById('positionAudioBtn').classList.remove('positionAudioBtN');
+        document.getElementById('startScreanImg').classList.add('widthHeightMax');
+        document.getElementById('startScreanBtn').classList.add('startScreanBtnMobile');
+        document.getElementById('positionAudioBtn').classList.add('positionAudioBtnMobile');
         document.getElementById('h1').classList.add('d-none');
     } else {
         document.getElementById('turnPhone').classList.remove('d-none');
+        // console.log('/////////////');
         // document.getElementById('canvas').classList.remove('widthHeightMax');
         document.getElementById('positionAudioBtn').classList.add('positionAudioBtn');
         document.getElementById('positionAudioBtn').classList.remove('positionAudioBtN');
+        document.getElementById('startScreanImg').classList.remove('widthHeightMax');
+        document.getElementById('startScreanBtn').classList.remove('startScreanBtnMobile');
+        document.getElementById('positionAudioBtn').classList.remove('positionAudioBtnMobile');
         document.getElementById('h1').classList.remove('d-none');
     }
 }
