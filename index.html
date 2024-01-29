@@ -32,43 +32,43 @@
     <script src="Js/game.js"></script>
 </head>
 <body class="background">
+    <h1 id="h1">Sharkie</h1>
     <div class="mainPositionCanvasHeadline">
-        <h1 id="h1">Sharkie</h1>
         <canvas id="canvas" width="720" height="480"></canvas>
-        <div id="positionControl">
-            <ul>
-                <li>UP : W / Arrow up</li>
-                <li>Right : D / Arrow right</li>
-                <li>Down : S / Arrow down</li>
-                <li>Left : A / Arrow left</li>
-            </ul>
-            <ul>
-                <li>Slap : C</li>
-                <li>Shoot : Space</li>
-            </ul>
-        </div>
         <div class="positionStartImg">
             <img src="img/3.Background/Mesa_de_trabajo_1.png" alt="Start Screan" class="startScreanImg" id="startScreanImg">
             <img src="img/6.Botones/Start/3.png" alt="Start Button" class="startScreanBtn" onclick="init()" id="startScreanBtn"> 
         </div>
         <div class="positionIconsMobile d-none" id="positionIconsMobile">
             <div class="positionArrows">
-                <img src="img/arrowLeft.png" alt="Arrow left" class="iconMobile" id="arrowLeft">
+                <img src="img/arrowLeft.png" alt="Arrow left" class="redArrows" id="arrowLeft">
                 <div class="arrowsUpDown">
-                    <img src="img/arrowTop.png" alt="Arrow top" class="iconMobile" id="arrowUp" style="margin-bottom: 16px;">
-                    <img src="img/arrowBottom.png" alt="Arrow bottom" class="iconMobile" id="arrowDown">
+                    <img src="img/arrowTop.png" alt="Arrow top" class="redArrows" id="arrowUp" style="margin-bottom: 16px;">
+                    <img src="img/arrowBottom.png" alt="Arrow bottom" class="redArrows" id="arrowDown">
                 </div>
-                <img src="img/arrowRight.png" alt="Arrow right" class="iconMobile" id="arrowRight">
+                <img src="img/arrowRight.png" alt="Arrow right" class="redArrows" id="arrowRight">
             </div>
             <div>
                 <img src="img/flasche.png" alt="bottle image" class="iconMobile" id="bottle">
                 <img src="img/schlagen.png" alt="hit image" class="iconMobile" id="hit">
             </div>
         </div>
-        <div class="positionAudioBtn" id="positionAudioBtn">
+        <div class="positionAudioBtn d-none" id="positionAudioBtn">
             <img src="img/volumenOFF.png" alt="volumenOFF" class="volumenOFF">
             <img src="img/volumenON.png" alt="volumenON" class="volumenON d-none">
         </div>
+    </div>
+    <div id="positionControl">
+        <ul>
+            <li>UP : W / Arrow up</li>
+            <li>Right : D / Arrow right</li>
+            <li>Down : S / Arrow down</li>
+            <li>Left : A / Arrow left</li>
+        </ul>
+        <ul>
+            <li>Slap : C</li>
+            <li>Shoot : Space</li>
+        </ul>
     </div>
     <img src="img/turnPhone.png" alt="turn smartphone" class="turnPhone" id="turnPhone">
 </body>

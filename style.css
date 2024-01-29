@@ -39,11 +39,15 @@ h1{
 .background{
     background-image: url('img/background.jpg');
     background-size: cover;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .mainPositionCanvasHeadline{
+    position: relative;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
 }
 
@@ -71,8 +75,10 @@ canvas{
     width: 720px;
     height: 480px;
     object-fit: cover;
-    margin-top: -638px;
     border-radius: 15px;
+    position: absolute;
+    top: 0;
+    left: 0;
     z-index: 1;
 }
 
@@ -86,21 +92,14 @@ li{
     width: 180px;
     height: 90px;
     object-fit: contain;
-    margin-left: 260px;
-    margin-top: -400px;
-    margin-bottom: 400px;
+    position: absolute;
+    top: 16%;
+    right: 20%;
     animation: sizeAnimation 2s infinite alternate;
 }
 
 .startScreanBtn:hover{
     cursor: pointer;
-}
-
-
-.startScreanBtnMobile{
-    margin-left: 360px !important;
-    margin-top: -320px !important;
-    margin-bottom: 320px !important;
 }
 
 @keyframes sizeAnimation {
@@ -119,9 +118,12 @@ li{
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-left: 600px;
-    margin-top: -600px;
-    margin-bottom: 600px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 20%;
+    height: 20%;
+    z-index: 1;
 }
 
 .volumenOFF{
@@ -161,6 +163,11 @@ li{
     height: 40px;
 }
 
+.redArrows{
+    width: 30px;
+    height: 30px;
+}
+
 .positionArrows{
     display: flex;
     align-items: center;
@@ -183,17 +190,11 @@ li{
     bottom: 0;
     display: none;
 }
+
 .mobileVolumen{
     position: absolute;
     top: 20px;
     right: 20px;
-}
-
-.positionAudioBtnMobile {
-    position: absolute !important;
-    top: 16px !important;
-    right: 16px !important;
-    margin: 0 !important;
 }
 
 @media(max-width:760px) {
@@ -208,12 +209,6 @@ li{
     h1{
         display: none;
     }
-    .positionAudioBtn {
-        position: absolute !important;
-        top: 20px !important;
-        right: 20px !important;
-        margin: 0 !important;
-    }
 }
 
 @media only screen and (max-width: 720px) {
@@ -221,49 +216,7 @@ li{
         width: 100vw;
         border-radius: 0;
     }
-
-    /* h1{
-        display: none;
-    } */
-
-    /* .positionIconsMobile{
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        position: absolute;
-        bottom: 10px;
-        width: 100%;
-    } */
-    .startScreanImg{
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        margin-top: 0;
-        border-radius: 0;
-    }
-
-    /* .startScreanBtn{
-        position: absolute;
-        top: 20%;
-        right: 16%;
-        margin: 0;
-    } */
-
-
 }
-
-/* @media screen and (max-width: 760px) and (orientation: portrait) {
-    .turnPhone {
-        display: block;
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-    }
-} */
 
 @media only screen and (max-height: 480px) {
     canvas{
