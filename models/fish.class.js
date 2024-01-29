@@ -25,17 +25,17 @@ class Fish extends MovableObject {
     }
 
     animate(){
-        // setInterval(() => { //gegener soll sich nach links bewegen mit 60fps
+        // saveRunningInterval(() => { //gegener soll sich nach links bewegen mit 60fps
         //     this.moveLeft();
         // }, 1000 / 60);
 
-        setInterval( () => {
+        saveRunningInterval(() => {
             if (!this.changeAnimation) {
                 this.playAnimation(allImgs.FISH_IMAGES_WALIKNG);   
             }
         }, 180 );
 
-        setInterval(() => {
+        saveRunningInterval(() => {
             this.enemyGetSlap();
             this.loadDeadAnimation();
         },  1000 / 60);

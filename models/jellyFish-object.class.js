@@ -33,24 +33,24 @@ class JellyFish extends MovableObject {
 
 
     animate(){
-        // setInterval(() => { //gegener soll sich nach links bewegen mit 60fps
+        // saveRunningInterval(() => { //gegener soll sich nach links bewegen mit 60fps
         //     // this.moveLeft();
         //     this.moveUpandDown();
         // }, 1000 / 60);
 
-        setInterval(() => {
+        saveRunningInterval(() => {
             this.loadFlowAnimation();
         },  1000 / 60);
 
-        setInterval( () => {
+        saveRunningInterval( () => {
             this.walkingAnimation();
         }, 180 );
 
-        setInterval(() => {
+        saveRunningInterval(() => {
             this.checkCollisionWithBubble();
         }, 80);
 
-        setInterval( () => {
+        saveRunningInterval( () => {
             this.getRandomNumber();
         }, 2000 );
     }

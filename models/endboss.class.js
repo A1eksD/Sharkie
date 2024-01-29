@@ -41,15 +41,15 @@ class Endboss extends MovableObject {
     }
 
     animate(){
-        setInterval( () => {
+        saveRunningInterval( () => {
             this.loadIntroduceAnimation();
         }, 140);
 
-        setInterval(() => {
+        saveRunningInterval(() => {
             this.test();
         }, 100);
 
-        setInterval(() => {
+        saveRunningInterval(() => {
             let distanceToBoss = this.x - this.world.character.x;
             this.i++;
 
@@ -66,7 +66,8 @@ class Endboss extends MovableObject {
                 this.playAnimation(allImgs.BOSS_IMAGES_WALIKNG);
             }
         }, 140);
-        setInterval(() => {
+
+        saveRunningInterval(() => {
             if (this.percentace == 0 && this.enbossDeadAnimation && this.deadAnimation){
                 this.enbossDeadAnimation = this.playAnimationFirstToLastImg(allImgs.BOSS_IMAGES_DEAD);
                 this.offset = {
@@ -86,7 +87,7 @@ class Endboss extends MovableObject {
             this.i = 0;
             this.showHPfromBoss = true;
             this.world.statusBarBoss.updateHealthBarBoss();
-            setTimeout(() => {
+            saveRunningInterval(() => {
                 this.followCharacter();
             }, 1000);
         }
@@ -101,7 +102,7 @@ class Endboss extends MovableObject {
 
 
     followCharacter() {
-        setInterval(() => {
+        saveRunningInterval(() => {
             if (!this.world.collistionWithCharacter && !this.deadAnimation) {
                 if (this.x >= this.world.character.x - 100) {
                     if (this.x - this.world.character.x > this.world.character.offset.right) {

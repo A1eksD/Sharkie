@@ -25,11 +25,11 @@ class TrowableObjct extends MovableObject {
         this.speedY = 30;
         this.applyGravity();
         if (!valueBubble) {
-            setInterval(() => {
+            saveRunningInterval(() => {
                 this.x += 5;
             }, 1000 / 60);
         } else {
-            setInterval(() => {
+            saveRunningInterval(() => {
                 this.x -= 5;
             }, 1000 / 60);
         }

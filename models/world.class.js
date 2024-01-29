@@ -43,7 +43,6 @@ class World {
         this.addObjectsToMap(this.level.enemies); // rendert feinde
         this.addToMap(this.endboss); // rendert endboss
         this.addObjectsToMap(this.level.bottles); // rendert flachen
-        // this.addObjectsToMap(this.bottelsSwimming); // rendert flachen
         this.addObjectsToMap(this.bubble); // rendert die blase
         this.addObjectsToMap(this.level.coins); // rendert die münzen
 
@@ -105,7 +104,7 @@ class World {
 
 
     run(){ // überprüfe ob der feind mit charachter kollediert anhand isColliding(enemy)
-        setInterval(() => {
+        saveRunningInterval(() => {
             this.checkCollisions();
             this.checkShootBubble();
             this.fillBottlesBar();
@@ -120,7 +119,7 @@ class World {
 
 
     functionsWithSlowerInterval(){
-        setInterval(() => {
+        saveRunningInterval(() => {
             this.characterIsSleppingEndboss();
         }, 1000);
     }
@@ -156,7 +155,7 @@ class World {
     
 
     checkShootBubble(){
-        if (this.keyboard.SHOOT && this.toxicBottlesBar.bottleValue > 0 && !this.character.characterHaveLowHP &&  this.character.electricDeath) {
+        if (this.keyboard.SHOOT && this.toxicBottlesBar.bottleValue > 0 && !this.character.characterIsDying &&  this.character.electricDeath) {
             this.character.shootAnimation = true;
             this.character.currentImage = 0;
             this.toxicBottlesBar.bottleValue --;
@@ -229,7 +228,7 @@ class World {
     checkIfIsDead() {
         if (this.character.isDead() && !this.character.isDeadProcessed) {
             this.character.currentImage = 0;
-            this.character.characterHaveLowHP = true;
+            this.character.characterIsDying = true;
             this.character.isDeadProcessed = true;
             this.character.charcterIsDead = true;
         }

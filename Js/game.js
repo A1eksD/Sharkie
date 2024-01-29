@@ -4,6 +4,9 @@ let keyboard = new KeyBoard();
 let allImgs;
 let audio;
 let isVertical = false;
+let allMovableIntervals = [];
+let RestartTheGame = true;
+let restartTheGame;
 
 
 
@@ -62,6 +65,12 @@ function init(){
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
     volumenOFF();
+}
+
+
+function saveRunningInterval(funktion, time){
+    let id = setInterval(funktion, time);
+    allMovableIntervals.push(id);
 }
 
 
@@ -198,3 +207,13 @@ function volumenOFF(){
     document.getElementById('volumenOFF').classList.remove('d-none');
     audio.stopAll();
 }  
+
+
+function restartGame(){
+    document.getElementById('endScrean').classList.add('d-none');
+    // RestartTheGame = true; 
+    // clearTimeout(restartTheGame);
+    // console.log('timeout zurückgesetzt')
+    // console.log(RestartTheGame)
+    init();
+}

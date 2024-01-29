@@ -95,7 +95,7 @@ li{
     position: absolute;
     top: 16%;
     right: 20%;
-    animation: sizeAnimation 2s infinite alternate;
+    animation: sizeAnimation 3s infinite alternate both ease-in-out;
 }
 
 .startScreanBtn:hover{
@@ -191,6 +191,52 @@ li{
     position: absolute;
     top: 20px;
     right: 20px;
+}
+
+#endScrean{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#endScreanBtn{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 720px;
+    height: 420px;
+    top: 0;
+    left: 0;
+}
+
+.gameOver{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    object-fit: cover;
+    z-index: 10;
+    background-color: #009ce6;
+    border-radius: 15px;
+    animation: fadeIn 1.5s ease-in-out; 
+}
+
+.tryAgainImg{
+    z-index: 11;
+    height: 90px;
+    cursor: pointer;
+    animation: sizeAnimation 4s infinite alternate both ease-in-out;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }
 
 @media(max-width:760px) {

@@ -15,7 +15,7 @@ class Coin extends MovableObject{
 
 
     animate(){
-        setInterval( () => { //  alle 0.1s img ändern werdend
+        saveRunningInterval( () => { //  alle 0.1s img ändern werdend
             this.playAnimation(allImgs.IMAGES_COIN);
         }, 150 );
     }

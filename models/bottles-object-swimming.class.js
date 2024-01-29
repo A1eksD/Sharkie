@@ -17,7 +17,7 @@ class BottlesIsSwimming extends MovableObject {
 
 
     animate(){
-        setInterval( () => {
+        saveRunningInterval( () => {
             this.playAnimation(allImgs.IMAGES_BOTTLES_SWIMMING);
         }, 140 );
     }

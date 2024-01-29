@@ -11,7 +11,7 @@ class Character extends MovableObject{
             bottom: 45
         }
     shootAnimation = false;
-    characterHaveLowHP = false;
+    characterIsDying = false;
     isDeadProcessed = false;
     charcterIsDead = false;
     charcterDied = true;
@@ -20,6 +20,7 @@ class Character extends MovableObject{
     standingValue = true;
     isInstandDead = false;
     electricDeath = true;
+    normalDeath = false;
     otherDeath = false;
     counter = 0;
     characterStrikes = false;
@@ -28,12 +29,14 @@ class Character extends MovableObject{
     istHitting = false;
     isStriking = false;
     characterCanSlap = true;
+    gameOver = false;
 
 
 
 
     constructor(){
         super();
+        this.gameOver = false;
         this.loadImage(allImgs.CHARACTER_IMAGES_WALIKNG[0]);
         this.loadImages(allImgs.CHARACTER_IMAGES_WALIKNG);
         // this.loadImages(this.IMAGES_JUMP);
@@ -46,11 +49,12 @@ class Character extends MovableObject{
         this.loadImages(allImgs.CHARACTER_IMAGES_INSTAND_DEAD);
         // this.applyGravity();
         this.animate();
+        console.log(this.gameOver)
     }
 
 
     animate(){
-        setInterval(() => {
+        saveRunningInterval(() => {
             audio.swimmingCharacterAudio.pause();
             // audio.swimmingCharacterAudio.volume = 0.1;
 
@@ -64,20 +68,23 @@ class Character extends MovableObject{
                 this.moveLeft();
                 this.otherDirection = true;
                 audio.swimmingCharacterAudio.play();
+                
             }
             if (!this.charcterIsDead && this.world.keyboard.UP  && this.y > -60) {
                 this.y -= this.speed;
                 audio.swimmingCharacterAudio.play();
+                
             }
             if (!this.charcterIsDead && this.world.keyboard.DOWN && this.y < 310) {
                 this.y += this.speed;
                 audio.swimmingCharacterAudio.play();
+                
             }
             if (!this.charcterIsDead && this.world.keyboard.SHOOT ) {
-            //     //hier nicht mehr schießen können -- nachtragen
+                
             }
             if (!this.charcterIsDead && this.world.keyboard.HIT) {
-
+                
             }
 
             // für jump - später löschen
@@ -90,19 +97,17 @@ class Character extends MovableObject{
             this.world.camera_x = -this.x + 250; //camera bewegt sich mit dem character zusammen in der x-Achse/ +200, damit der charcter weiter rechts angezeigt wird
         }, 1000 / 60);
 
-        setInterval(() => {
-            if (this.characterHaveLowHP && !this.otherDeath && !this.isInstandDead) { // ------------ died
+        saveRunningInterval(() => {
+            if (this.characterIsDying && !this.otherDeath && !this.isInstandDead) { // ------------ died
                 this.standingValue = false;
                 this.characterCanSlap = false;
-                this.characterHaveLowHP = this.playAnimationFirstToLastImg(allImgs.CHARACTER_IMAGES_DEAD);
-
+                this.characterIsDying = this.playAnimationFirstToLastImg(allImgs.CHARACTER_IMAGES_DEAD);
             } else 
             
             if (this.isInstandDead  &&  this.electricDeath && this.otherDeath) { // ------------ instand died
                 this.electricShock = true;
                 this.standingValue = false;
                 this.characterCanSlap = false;
-                // audio.characterGetElectricShockAudio.volume = 0.5;
                 audio.characterGetElectricShockAudio.play();
                 this.electricDeath = this.playAnimationFirstToLastImg(allImgs.CHARACTER_IMAGES_INSTAND_DEAD);
             } else 
@@ -115,9 +120,10 @@ class Character extends MovableObject{
                 this.resetSleepTimeout();
             } else
 
-            if (this.shootAnimation && !this.characterHaveLowHP && this.electricDeath) { // ------------ shoot
+            if (this.shootAnimation && !this.characterIsDying && this.electricDeath) { // ------------ shoot
                 this.shootAnimation = this.playAnimationFirstToLastImg(allImgs.CHARACTER_IMAGES_SHOOT);
                 this.resetSleepTimeout();
+                this.playEndScrean();
             } else 
 
             if (this.characterStrikes && this.characterStrikesValue && this.istHitting && this.characterCanSlap) { // ------------ strike
@@ -155,6 +161,10 @@ class Character extends MovableObject{
                 this.changeValueToTrue();// ------------ sleep 
             }
         }, 140);
+
+        setInterval(() => {
+            this.playEndScrean();
+        }, 2000);
         // --------- für jump ----------
         //  if (this.isAboveGround()) { //der erste if Pasrt ist für jump - später entvernen
         //     this.playAnimation(this.IMAGES_JUMP);
@@ -175,4 +185,33 @@ class Character extends MovableObject{
         this.counter = 0;
     }
 
+
+    playEndScrean(){
+        if (!this.electricDeath || this.characterIsDying && !this.gameOver) {
+            this.stopGame();
+            this.gameOver = true;
+            this.electricDeath = true;
+            this.characterIsDying = false;
+            console.log(this.gameOver)
+            document.getElementById('endScrean').classList.remove('d-none');
+            document.getElementById('gameOver').classList.remove('d-none');
+            document.getElementById('gameOver').classList.add('gameOver');
+            // if (RestartTheGame) {
+                // restartTheGame = setTimeout(() => {
+                    document.getElementById('tryAgainImg').classList.remove('d-none');
+                    document.getElementById('tryAgainImg').classList.add('tryAgainImg');
+                    // RestartTheGame = false;
+                    // console.log('timeout start')
+                    // console.log(RestartTheGame)
+                // }, 3000);   
+            // }
+        }
+    }
+    
+
+    stopGame(){
+        setTimeout(() => {
+            allMovableIntervals.forEach(clearInterval);
+        }, 2000);
+    }
 }
