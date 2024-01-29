@@ -61,6 +61,7 @@ function init(){
     addDisplayNone();
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
+    volumenOFF();
 }
 
 
@@ -185,5 +186,15 @@ function addDisplayNone(){
 }
 
 
+function volumenON(){
+    document.getElementById('volumenOFF').classList.add('d-none');
+    document.getElementById('volumenON').classList.remove('d-none');
+    audio.playAll();
+}
 
-    
+
+function volumenOFF(){
+    document.getElementById('volumenON').classList.add('d-none');
+    document.getElementById('volumenOFF').classList.remove('d-none');
+    audio.stopAll();
+}  

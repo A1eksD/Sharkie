@@ -52,7 +52,7 @@ class Character extends MovableObject{
     animate(){
         setInterval(() => {
             audio.swimmingCharacterAudio.pause();
-            audio.swimmingCharacterAudio.volume = 0.1;
+            // audio.swimmingCharacterAudio.volume = 0.1;
 
             if (!this.charcterIsDead && this.world.keyboard.RIGHT && this.x < this.world.level.levelEndX) {
                 this.moveRight();
@@ -102,8 +102,8 @@ class Character extends MovableObject{
                 this.electricShock = true;
                 this.standingValue = false;
                 this.characterCanSlap = false;
+                // audio.characterGetElectricShockAudio.volume = 0.5;
                 audio.characterGetElectricShockAudio.play();
-                audio.characterGetElectricShockAudio.volume = 0.5;
                 this.electricDeath = this.playAnimationFirstToLastImg(allImgs.CHARACTER_IMAGES_INSTAND_DEAD);
             } else 
 
@@ -111,7 +111,7 @@ class Character extends MovableObject{
                 this.playAnimation(allImgs.CHARACTER_IMAGES_HURT);
                 // this.characterGetHitAudio.loop = false;
                 // this.characterGetHitAudio.play();
-                // this.characterGetHitAudio.volume = 0.05;
+                //    this.characterGetHitAudio.volume = 0.1;
                 this.resetSleepTimeout();
             } else
 
@@ -123,10 +123,8 @@ class Character extends MovableObject{
             if (this.characterStrikes && this.characterStrikesValue && this.istHitting && this.characterCanSlap) { // ------------ strike
                 // this.offset.right = 5;
                 // this.offset.top = 5;
+                // audio.characterSlapAudio.volume = 0.2;
                 audio.characterSlapAudio.play();
-                audio.characterSlapAudio.volume = 0.2;
-                // this.world.audio.characterSlapAudio.playbackRate=0.5;
-                // this.characterSlapAudio.loop = false;
                 this.characterStrikesValue = this.playAnimationFirstToLastImg(allImgs.CHARACTER_IMAGES_FIN_STRIKE);
                 this.isStriking = true;
                 this.offset.right = 5;

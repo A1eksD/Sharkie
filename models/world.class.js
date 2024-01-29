@@ -161,8 +161,8 @@ class World {
             this.character.currentImage = 0;
             this.toxicBottlesBar.bottleValue --;
             this.toxicBottlesBar.getValueToxicBar(this.toxicBottlesBar.bottleValue);
+            // audio.shootCharacterAudio.volume = 0.1;
             audio.shootCharacterAudio.play();
-            audio.shootCharacterAudio.volume = 0.05;
             setTimeout(() => {
                 if (!this.character.otherDirection) {
                     let valueBubble = this.character.otherDirection;
@@ -184,8 +184,8 @@ class World {
                 this.toxicBottlesBar.bottleValue ++;
                 this.toxicBottlesBar.getValueToxicBar(this.toxicBottlesBar.bottleValue);
                 this.spliceBottleElemnt(currentBottle);
+                // audio.getBottle.volume = 0.1;
                 audio.getBottle.play();
-                audio.getBottlevolume = 0.01;
             }
         });
     }
@@ -208,8 +208,8 @@ class World {
                 this.coinBar.oneCoin ++;
                 this.coinBar.getValueCoinBar(this.coinBar.oneCoin);
                 this.spliceCoinElemnt(currentCoir);
+                // audio.pickUpCoin.volume = 0.1;
                 audio.pickUpCoin.play();
-                audio.pickUpCoin.volume = 0.05;
             }
         });
     }
@@ -298,9 +298,11 @@ class World {
                 if (bubble.isColliding(enemy) && enemy instanceof JellyFish) {
                     enemy.changeAnimationJellyFish = true;
                     enemy.currentImage = 0;
+                    audio.bubbleCatchJellyFishAudio.volume = 0.1;
                     audio.bubbleCatchJellyFishAudio.play();
                     this.bubble.splice(bubble, 1);
                 } else if (bubble.isColliding(enemy) && enemy instanceof Fish) {
+                    audio.bubbleBurstAudio.volume = 0.5;
                     audio.bubbleBurstAudio.play();
                     this.bubble.splice(bubble, 1);
                 } 
