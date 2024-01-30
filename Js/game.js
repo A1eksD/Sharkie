@@ -19,10 +19,8 @@ setInterval(() => {
 
 function checkIfUserUsePhone(){
     if (navigator.maxTouchPoints > 0) {
-        document.getElementById('positionIconsMobile').classList.remove('d-none');
         document.getElementById('positionControl').classList.add('d-none');
     } else {
-        document.getElementById('positionIconsMobile').classList.add('d-none');
         document.getElementById('positionControl').classList.remove('d-none');
     }
 }
@@ -65,6 +63,20 @@ function init(){
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
     volumenOFF();
+    setInterval(() => {
+    checkIfUserUsePhoneAtGameStart();
+}, 100);
+}
+
+
+function checkIfUserUsePhoneAtGameStart(){
+    if (navigator.maxTouchPoints > 0) {
+        document.getElementById('positionIconsMobile').classList.remove('d-none');
+        document.getElementById('positionControl').classList.add('d-none');
+    } else {
+        document.getElementById('positionIconsMobile').classList.add('d-none');
+        document.getElementById('positionControl').classList.remove('d-none');
+    }
 }
 
 

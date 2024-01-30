@@ -12,7 +12,8 @@ class World {
     bubble = [new TrowableObjct()];
     endboss = new Endboss();
     changeCurrentImgTo0 = false;
-    collistionWithCharacter = false;
+    bossCollistionWithCharacter = false;
+    shootOnce = true;
 
 
 
@@ -25,7 +26,7 @@ class World {
         this.setWorld();
         this.run();
         this.functionsWithSlowerInterval();
-        // this.functionsWithHigherInterval();
+        this.functionsWithHigherInterval();
     }
 
 
@@ -80,8 +81,8 @@ class World {
         }
 
         movObj.draw(this.ctx);
-        movObj.drawFrame(this.ctx);
-        movObj.drawFrameRedFrame(this.ctx);
+        // movObj.drawFrame(this.ctx);
+        // movObj.drawFrameRedFrame(this.ctx);
         
         if (movObj.otherDirection) {
             this.flipImgBack(movObj);
@@ -112,9 +113,15 @@ class World {
             this.checkIfIsDead();
             this.checkJellyFishCollisionWithCharacter();
             this.characterPlaySlepAnimation();
-            this.checkJellyFishCollisionWithBubble();
             this.checkEndbossCollisionWithCharacter();
         }, 200);
+    }
+
+
+    functionsWithHigherInterval(){
+        saveRunningInterval(() => {
+            this.checkEnemyCollisionWithBubble();
+        }, 100);
     }
 
 
@@ -155,24 +162,29 @@ class World {
     
 
     checkShootBubble(){
-        if (this.keyboard.SHOOT && this.toxicBottlesBar.bottleValue > 0 && !this.character.characterIsDying &&  this.character.electricDeath) {
+        if (this.keyboard.SHOOT && this.toxicBottlesBar.bottleValue > 0 && !this.character.characterIsDying &&  this.character.electricDeath && this.shootOnce) {
+            this.shootOnce = false;
             this.character.shootAnimation = true;
             this.character.currentImage = 0;
             this.toxicBottlesBar.bottleValue --;
             this.toxicBottlesBar.getValueToxicBar(this.toxicBottlesBar.bottleValue);
-            // audio.shootCharacterAudio.volume = 0.1;
             audio.shootCharacterAudio.play();
             setTimeout(() => {
                 if (!this.character.otherDirection) {
                     let valueBubble = this.character.otherDirection;
                     let bubble = new TrowableObjct(this.character.x + 140, this.character.y + 80, valueBubble);
                     this.bubble.push(bubble);
+                    // this.character.shootAgain = false;
                 } else {
                     let valueBubble = this.character.otherDirection;
                     let bubble = new TrowableObjct(this.character.x, this.character.y + 80, valueBubble);
                     this.bubble.push(bubble);
+                    // this.character.shootAgain = false;
                 }
             }, 1000);
+            setTimeout(() => {
+                this.shootOnce = true;
+            }, 1200);
         }
     }
 
@@ -277,10 +289,10 @@ class World {
 
 
     characterIsSleppingEndboss(){
-        if (this.character.isColliding(this.endboss)) {
+        if (this.character.isColliding(this.endboss) && this.character.istHitting) {
             if (this.character.isStriking && this.endboss) {
                 this.endboss.enbossGetSlep = true;
-                // this.endboss.changeDirectionHittedEnemy = this.character.otherDirection;
+                this.endboss.changeDirectionHittedEnemy = this.character.otherDirection;
                 this.endboss.currentImage = 0;
                 this.endboss.enbossGetSlepValue = true;
                 this.statusBarBoss.percentace --;
@@ -291,17 +303,15 @@ class World {
     }
 
 
-    checkJellyFishCollisionWithBubble() {
+    checkEnemyCollisionWithBubble() {
         this.level.enemies.forEach((enemy) => {
             this.bubble.forEach((bubble, i) => {
                 if (bubble.isColliding(enemy) && enemy instanceof JellyFish) {
                     enemy.changeAnimationJellyFish = true;
                     enemy.currentImage = 0;
-                    audio.bubbleCatchJellyFishAudio.volume = 0.1;
                     audio.bubbleCatchJellyFishAudio.play();
                     this.bubble.splice(bubble, 1);
                 } else if (bubble.isColliding(enemy) && enemy instanceof Fish) {
-                    audio.bubbleBurstAudio.volume = 0.5;
                     audio.bubbleBurstAudio.play();
                     this.bubble.splice(bubble, 1);
                 } else if (bubble.isColliding(this.endboss)) {
@@ -320,7 +330,7 @@ class World {
 
     checkEndbossCollisionWithCharacter(){
         if (this.endboss.isColliding(this.character)) {
-            this.collistionWithCharacter = true;
+            this.bossCollistionWithCharacter = true;
         }
     }
 

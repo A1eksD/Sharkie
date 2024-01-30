@@ -41,31 +41,31 @@ class drawableObject{
     }
 
 
-    drawFrame(ctx){
-        //zeichne nur den ramen, wenn man die instanz von character oder fish ist
-        if (this.getInstanceForDrawFrame()) {
-            ctx.beginPath(); 
-            ctx.lineWidth = '2';
-            ctx.strokeStyle = 'blue';
-            ctx.rect(this.x, this.y, this.width, this.height);
-            ctx.stroke();   
-        }
-    }
+    // drawFrame(ctx){
+    //     //zeichne nur den ramen, wenn man die instanz von character oder fish ist
+    //     if (this.getInstanceForDrawFrame()) {
+    //         ctx.beginPath(); 
+    //         ctx.lineWidth = '2';
+    //         ctx.strokeStyle = 'blue';
+    //         ctx.rect(this.x, this.y, this.width, this.height);
+    //         ctx.stroke();   
+    //     }
+    // }
 
 
-    getInstanceForDrawFrame(){
-        return this instanceof Character || this instanceof Fish || this instanceof Coin ||  this instanceof BottlesIsSwimming ||
-        this instanceof TrowableObjct || this instanceof Endboss || this instanceof BottlesAtBottom || this instanceof JellyFish
-    }
+    // getInstanceForDrawFrame(){
+    //     return this instanceof Character || this instanceof Fish || this instanceof Coin ||  this instanceof BottlesIsSwimming ||
+    //     this instanceof TrowableObjct || this instanceof Endboss || this instanceof BottlesAtBottom || this instanceof JellyFish
+    // }
 
 
-    drawFrameRedFrame(ctx){
-        if (this.getInstanceForDrawFrame()) {
-            ctx.beginPath(); 
-            ctx.lineWidth = '2';
-            ctx.strokeStyle = 'red';
-            ctx.rect(this.x + this.offset.top, this.y + this.offset.left, (this.x + this.width - this.offset.right) - (this.x + this.offset.top), (this.y + this.height - this.offset.bottom) - (this.y + this.offset.left));
-            ctx.stroke();   
-        }
-    }
+    // drawFrameRedFrame(ctx){
+    //     if (this.getInstanceForDrawFrame()) {
+    //         ctx.beginPath(); 
+    //         ctx.lineWidth = '2';
+    //         ctx.strokeStyle = 'red';
+    //         ctx.rect(this.x + this.offset.top, this.y + this.offset.left, (this.x + this.width - this.offset.right) - (this.x + this.offset.top), (this.y + this.height - this.offset.bottom) - (this.y + this.offset.left));
+    //         ctx.stroke();   
+    //     }
+    // }
 }

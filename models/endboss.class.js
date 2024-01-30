@@ -55,7 +55,7 @@ class Endboss extends MovableObject {
             if (this.hurtWithBubble && this.hurtWithBubbleValue && !this.deadAnimation) {
                 audio.bossGetDmgBubble.play();
                 this.hurtWithBubbleValue = this.playAnimationFirstToLastImg(allImgs.BOSS_IMAGES_HURT_BUBBLE);
-            } else if (this.enbossGetSlep && this.enbossGetSlepValue && !this.deadAnimation) {
+            } else if (this.enbossGetSlep && this.enbossGetSlepValue && !this.deadAnimation ) {
                 audio.bossGetHit.play();
                 this.enbossGetSlepValue = this.playAnimationFirstToLastImg(allImgs.BOSS_IMAGES_HURT);
             } else if (distanceToBoss < 180 && !this.deadAnimation) {
@@ -87,7 +87,7 @@ class Endboss extends MovableObject {
 
 
     loadIntroduceAnimation() {
-        if (this.world.character.x >= (720*5)-450 && !this.introduceToCharacter) {
+        if (this.world.character.x >= (720*5)-480 && !this.introduceToCharacter) {
             audio.backgroundAudio.pause();
             audio.introduceBoss.play();
             audio.introduceBoss.loop = true;
@@ -95,9 +95,7 @@ class Endboss extends MovableObject {
             this.i = 0;
             this.showHPfromBoss = true;
             this.world.statusBarBoss.updateHealthBarBoss();
-            saveRunningInterval(() => {
-                this.followCharacter();
-            }, 1000);
+            this.followCharacter();
         }
     }
 
@@ -111,30 +109,26 @@ class Endboss extends MovableObject {
 
     followCharacter() {
         saveRunningInterval(() => {
-            if (!this.world.collistionWithCharacter && !this.deadAnimation) {
+            if (!this.world.bossCollistionWithCharacter && !this.deadAnimation) {
                 if (this.x >= this.world.character.x - 100) {
                     if (this.x - this.world.character.x > this.world.character.offset.right) {
                         this.moveLeft();
                         this.otherDirection = false;
-                        console.log('--------------')
                     }
                 } else if (this.x <= this.world.character.x - 50) {
                     if (this.x - this.world.character.x < this.world.character.offset.right) {
                         this.moveRight();
                         this.otherDirection = true;
-                        console.log('+++++++++++++')
                     }
                 }
     
                 if (this.y >= this.world.character.y - 100) {
                     if (this.y - this.world.character.y > this.world.character.offset.bottom - 80) {
                         this.moveUp();
-                        console.log('<<<<<<<<<<<<<<<<')
                     }
                 } else if (this.y <= this.world.character.y - 50) {
                     if (this.y - this.world.character.y < this.world.character.offset.bottom - 50) {
                         this.moveDown();
-                        console.log('>>>>>>>>>>>>>>>>>>>>>>>')
                     }
                 }
             }
@@ -144,14 +138,14 @@ class Endboss extends MovableObject {
 
 
     checkIfBossIsDead(){
-        if (this.percentace == 0 && !this.gameOver) {
+        if (this.percentace === 0 && !this.gameOver) {
             this.gameOver = true;
             audio.introduceBoss.pause();
             audio.winAudio.play();
-            console.log('endboss is tot', this.gameOver)
             document.getElementById('endScrean').classList.remove('d-none');
             document.getElementById('youWin').classList.remove('d-none');
             document.getElementById('tryAgainImg').classList.remove('d-none');
+            document.getElementById('gameOver').classList.add('d-none');
             document.getElementById('endScreanBtn').classList.add('endScreanWinBtn');
             document.getElementById('tryAgainImg').classList.add('tryAgainImg');
             this.stopGame();

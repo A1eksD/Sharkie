@@ -1,12 +1,12 @@
 class MovableObject extends drawableObject{
 
-    speed = 1;
+    speed = 2;
     otherDirection = false;
     speedY = 0; //für springen
     acceleration = 0.1; //für springen
     energy = 100;
     lastHit = 0;
-    bottleValue = 100;
+    bottleValue = 0;
     oneCoin = 0;
     standingCharacter = 0;
     standing3Sek = 3;
@@ -166,6 +166,6 @@ class MovableObject extends drawableObject{
     stopGame(){
         setTimeout(() => {
             allMovableIntervals.forEach(clearInterval);
-        }, 2000);
+        }, 1000);
     }
 }

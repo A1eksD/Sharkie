@@ -33,6 +33,7 @@ class Character extends MovableObject{
 
 
 
+
     constructor(){
         super();
         this.gameOver = false;
@@ -78,10 +79,10 @@ class Character extends MovableObject{
                 
             }
             if (!this.charcterIsDead && this.world.keyboard.SHOOT ) {
-                
+                this.world.bossCollistionWithCharacter = false;
             }
             if (!this.charcterIsDead && this.world.keyboard.HIT) {
-                
+                this.world.bossCollistionWithCharacter = false;
             }
 
             // für jump - später löschen
@@ -118,14 +119,13 @@ class Character extends MovableObject{
             if (this.shootAnimation && !this.characterIsDying && this.electricDeath) { // ------------ shoot
                 this.shootAnimation = this.playAnimationFirstToLastImg(allImgs.CHARACTER_IMAGES_SHOOT);
                 this.resetSleepTimeout();
-                this.playEndScrean();
             } else 
 
-            if (this.characterStrikes && this.characterStrikesValue && this.istHitting && this.characterCanSlap) { // ------------ strike
+            if (this.characterStrikes && this.characterStrikesValue && this.istHitting && this.characterCanSlap) {// ------------ strike
                 audio.characterSlapAudio.play();
                 this.characterStrikesValue = this.playAnimationFirstToLastImg(allImgs.CHARACTER_IMAGES_FIN_STRIKE);
                 this.isStriking = true;
-                if (!this.world.otherDirection) {
+                if (!this.otherDirection) {
                     this.offset.right = 5;
                 } else {
                     this.offset.top = 5;
@@ -138,14 +138,14 @@ class Character extends MovableObject{
                     this.characterStrikes = false;
                     this.enemyGetHit = false;
                     this.istHitting = false;
-                }, 1120); // 1120
+                }, 1120);
             } else
 
             if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP || this.world.keyboard.DOWN) { // ------------ move
                 if (!this.charcterIsDead) {
                     this.playAnimation(allImgs.CHARACTER_IMAGES_WALIKNG);
                     this.resetSleepTimeout();
-                    this.world.collistionWithCharacter = false;
+                    this.world.bossCollistionWithCharacter = false;
                 }
             }  else 
             

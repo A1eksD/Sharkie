@@ -157,6 +157,20 @@ li{
     width: 90%;
 }
 
+.iconBackground{
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 8px;
+    background-color: #b2e3ff;
+    border: 1px solid black;
+    width: 107px;
+    height: 88px;
+    border-radius: 15px;
+    box-shadow: 0 0 10px #075bc7, 0 0 20px #fff, 0 0 30px #00b1e6, 0 0 40px #0001e6, 0 0 50px #0038e6, 0 0 60px #009ce6, 0 0 70px #00e618;
+}
+
 .arrowsUpDown{
     display: flex;
     flex-direction: column;
@@ -212,7 +226,7 @@ li{
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 720px;
+    width: 100%;
     height: 420px;
     top: 0;
     left: 0;
@@ -250,7 +264,7 @@ li{
     z-index: 11;
     height: 90px;
     cursor: pointer;
-    animation: sizeAnimation 4s infinite alternate both ease-in-out;
+    animation: fadeIn 6s, sizeAnimation 4s infinite alternate both ease-in-out;
 }
 
 @keyframes fadeIn {
@@ -267,9 +281,9 @@ li{
         display: block;
     }
 
-    #positionControl{
+    /* #positionControl{
         display: none;
-    }
+    } */
 
     h1{
         display: none;
