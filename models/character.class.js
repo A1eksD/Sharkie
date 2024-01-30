@@ -29,7 +29,6 @@ class Character extends MovableObject{
     istHitting = false;
     isStriking = false;
     characterCanSlap = true;
-    gameOver = false;
 
 
 
@@ -39,7 +38,6 @@ class Character extends MovableObject{
         this.gameOver = false;
         this.loadImage(allImgs.CHARACTER_IMAGES_WALIKNG[0]);
         this.loadImages(allImgs.CHARACTER_IMAGES_WALIKNG);
-        // this.loadImages(this.IMAGES_JUMP);
         this.loadImages(allImgs.CHARACTER_IMAGES_DEAD);
         this.loadImages(allImgs.CHARACTER_IMAGES_HURT);
         this.loadImages(allImgs.CHARACTER_IMAGES_SHOOT);
@@ -49,7 +47,6 @@ class Character extends MovableObject{
         this.loadImages(allImgs.CHARACTER_IMAGES_INSTAND_DEAD);
         // this.applyGravity();
         this.animate();
-        console.log(this.gameOver)
     }
 
 
@@ -113,10 +110,8 @@ class Character extends MovableObject{
             } else 
 
             if (this.isHurt() && !this.isInstandDead && !this.istHitting) { // ------------ get dmg
+                audio.characterGetHitAudio.play();
                 this.playAnimation(allImgs.CHARACTER_IMAGES_HURT);
-                // this.characterGetHitAudio.loop = false;
-                // this.characterGetHitAudio.play();
-                //    this.characterGetHitAudio.volume = 0.1;
                 this.resetSleepTimeout();
             } else
 
@@ -127,15 +122,14 @@ class Character extends MovableObject{
             } else 
 
             if (this.characterStrikes && this.characterStrikesValue && this.istHitting && this.characterCanSlap) { // ------------ strike
-                // this.offset.right = 5;
-                // this.offset.top = 5;
-                // audio.characterSlapAudio.volume = 0.2;
                 audio.characterSlapAudio.play();
                 this.characterStrikesValue = this.playAnimationFirstToLastImg(allImgs.CHARACTER_IMAGES_FIN_STRIKE);
                 this.isStriking = true;
-                this.offset.right = 5;
-                this.offset.top = 5;
-                // this.enemyGetHit = true;
+                if (!this.world.otherDirection) {
+                    this.offset.right = 5;
+                } else {
+                    this.offset.top = 5;
+                }
                 this.resetSleepTimeout();
                 this.world.characterIsSlepping();
                 setTimeout(() =>{
@@ -162,7 +156,7 @@ class Character extends MovableObject{
             }
         }, 140);
 
-        setInterval(() => {
+        saveRunningInterval(() => {
             this.playEndScrean();
         }, 2000);
         // --------- für jump ----------
@@ -187,31 +181,19 @@ class Character extends MovableObject{
 
 
     playEndScrean(){
-        if (!this.electricDeath || this.characterIsDying && !this.gameOver) {
-            this.stopGame();
+        if (this.energy === 0 && !this.gameOver) {
             this.gameOver = true;
-            this.electricDeath = true;
-            this.characterIsDying = false;
-            console.log(this.gameOver)
+            audio.introduceBoss.pause();
+            audio.backgroundAudio.pause();
+            audio.loseAudio.play();
+            audio.loseAudio.loop = false;
             document.getElementById('endScrean').classList.remove('d-none');
             document.getElementById('gameOver').classList.remove('d-none');
-            document.getElementById('gameOver').classList.add('gameOver');
-            // if (RestartTheGame) {
-                // restartTheGame = setTimeout(() => {
-                    document.getElementById('tryAgainImg').classList.remove('d-none');
-                    document.getElementById('tryAgainImg').classList.add('tryAgainImg');
-                    // RestartTheGame = false;
-                    // console.log('timeout start')
-                    // console.log(RestartTheGame)
-                // }, 3000);   
-            // }
+            document.getElementById('youWin').classList.add('d-none');
+            document.getElementById('tryAgainImg').classList.remove('d-none');
+            document.getElementById('tryAgainImg').classList.add('tryAgainImg');
+            this.stopGame();
         }
     }
     
-
-    stopGame(){
-        setTimeout(() => {
-            allMovableIntervals.forEach(clearInterval);
-        }, 2000);
-    }
 }

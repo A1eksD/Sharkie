@@ -1,8 +1,6 @@
 class MovableObject extends drawableObject{
 
-    // allImg = new allImages();
-    // audio = new Audios();
-    speed = 2;
+    speed = 1;
     otherDirection = false;
     speedY = 0; //für springen
     acceleration = 0.1; //für springen
@@ -17,6 +15,7 @@ class MovableObject extends drawableObject{
     changeDirectionHittedEnemy = true;
     changeAnimation = false;
     percentace = 5;
+    gameOver = false;
 
 
     moveRight() {
@@ -142,7 +141,6 @@ class MovableObject extends drawableObject{
     }
     
     
-
     characterIsStamding(){
         if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP || this.world.keyboard.DOWN) {
             return this.standingCharacter = 1;
@@ -150,15 +148,6 @@ class MovableObject extends drawableObject{
             return this.standingCharacter = 0;
         }
     }
-
-
-    // changeDirectionByHit(){
-    //     if (this.character.changeDirectionHittedEnemy = false) {
-    //         return true;
-    //     } else if (this.character.changeDirectionHittedEnemy = true) {
-    //         return false;
-    //     }
-    // }
 
 
     enemyGetSlap(){
@@ -171,5 +160,12 @@ class MovableObject extends drawableObject{
                 this.x -= 4;
             }
         }
+    }
+
+
+    stopGame(){
+        setTimeout(() => {
+            allMovableIntervals.forEach(clearInterval);
+        }, 2000);
     }
 }

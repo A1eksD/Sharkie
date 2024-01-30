@@ -16,7 +16,7 @@ class StatusBarBoss extends MovableObject {
 
     updateHealthBarBoss(){
         saveRunningInterval(() => {
-            let endY = 10; // Die endgültige position der bar 
+            let endY = 40; // Die endgültige position der bar 
             let currentY = this.y; // Die aktuelle position der bar 
             let speed = 20; // wie schnell der das anpasst
 

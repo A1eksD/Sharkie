@@ -304,8 +304,7 @@ class World {
                     audio.bubbleBurstAudio.volume = 0.5;
                     audio.bubbleBurstAudio.play();
                     this.bubble.splice(bubble, 1);
-                } 
-                else if (bubble.isColliding(this.endboss)) {
+                } else if (bubble.isColliding(this.endboss)) {
                     this.endboss.hurtWithBubble = true;
                     this.endboss.hurtWithBubbleValue = true;
                     this.endboss.currentImage = 0;

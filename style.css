@@ -1,3 +1,8 @@
+@font-face {
+    font-family: 'luckiestGuy';
+    src: url('templates/fonts/LuckiestGuy-Regular.ttf') format('truetype');
+} 
+
 body{
     margin: 0;
     width: 100vw;
@@ -6,10 +11,12 @@ body{
     justify-content: center;
     align-items: center;
     color: whitesmoke;
+    font-family: 'luckiestGuy', Arial, Helvetica, sans-serif;
 }
 
 h1{
-    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #00b1e6, 0 0 40px #0001e6, 0 0 50px #0038e6, 0 0 60px #009ce6, 0 0 70px #00e618;
+    text-shadow: 0 0 10px #075bc7, 0 0 20px #fff, 0 0 30px #00b1e6, 0 0 40px #0001e6, 0 0 50px #0038e6, 0 0 60px #009ce6, 0 0 70px #00e618;
+    font-size: 80px;
 }
 
 .d-none{
@@ -84,7 +91,8 @@ canvas{
 
 li{
     margin-bottom: 4px;
-    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #00b1e6, 0 0 40px #0001e6, 0 0 50px #0038e6, 0 0 60px #009ce6, 0 0 70px #00e618;
+    text-shadow: 0 0 10px #075bc7, 0 0 20px #fff, 0 0 30px #00b1e6, 0 0 40px #0001e6, 0 0 50px #0038e6, 0 0 60px #009ce6, 0 0 70px #00e618;
+
 }
 
 .startScreanBtn{
@@ -122,7 +130,7 @@ li{
     top: 0;
     right: 0;
     width: 12%;
-    height: 16%;
+    height: 12%;
     z-index: 1;
 }
 
@@ -210,6 +218,10 @@ li{
     left: 0;
 }
 
+.endScreanWinBtn{
+    top: -80px !important;
+}
+
 .gameOver{
     position: absolute;
     height: 100%;
@@ -220,7 +232,18 @@ li{
     z-index: 10;
     background-color: #009ce6;
     border-radius: 15px;
-    animation: fadeIn 1.5s ease-in-out; 
+    animation: fadeIn 2s ease-in-out; 
+}
+.youWin{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    object-fit: cover;
+    z-index: 10;
+    border-radius: 15px;
+    animation: fadeIn 2s ease-in-out; 
 }
 
 .tryAgainImg{

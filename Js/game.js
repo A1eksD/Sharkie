@@ -199,6 +199,7 @@ function volumenON(){
     document.getElementById('volumenOFF').classList.add('d-none');
     document.getElementById('volumenON').classList.remove('d-none');
     audio.playAll();
+    audio.backgroundAudio.play();
 }
 
 
@@ -211,9 +212,5 @@ function volumenOFF(){
 
 function restartGame(){
     document.getElementById('endScrean').classList.add('d-none');
-    // RestartTheGame = true; 
-    // clearTimeout(restartTheGame);
-    // console.log('timeout zurückgesetzt')
-    // console.log(RestartTheGame)
     init();
 }
