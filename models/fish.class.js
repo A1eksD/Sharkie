@@ -24,9 +24,7 @@ class Fish extends MovableObject {
 
 
     animate(){
-        saveRunningInterval(() => {
-            this.moveLeft();
-        }, 1000 / 60);
+        saveRunningInterval(() => this.moveLeft(), 1000 / 60);
 
         saveRunningInterval(() => {
             if (!this.changeAnimation) {

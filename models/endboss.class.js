@@ -172,7 +172,7 @@ class Endboss extends MovableObject {
 
     followCharacter() {
         saveRunningInterval(() => {
-            if (!this.world.bossCollistionWithCharacter && !this.deadAnimation && this.introduceDone) {
+            if (this.doesBossHavePositionOfChar()) {
                 if (this.x >= this.world.character.x - 100) {
                     this.checkMoveLeft();
                 } else if (this.x <= this.world.character.x - 50) {
@@ -186,6 +186,11 @@ class Endboss extends MovableObject {
                 }
             }
         }, 1000 / 60);
+    }
+
+
+    doesBossHavePositionOfChar(){
+        return !this.world.bossCollistionWithCharacter && !this.deadAnimation && this.introduceDone;
     }
     
 

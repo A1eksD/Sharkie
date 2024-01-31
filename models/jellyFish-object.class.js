@@ -29,25 +29,15 @@ class JellyFish extends MovableObject {
 
 
     animate(){
-        saveRunningInterval(() => { 
-            this.moveUpandDown();
-        }, 1000 / 60);
+        saveRunningInterval(() => this.moveUpandDown(), 1000 / 60);
 
-        saveRunningInterval(() => {
-            this.loadFlowAnimation();
-        },  1000 / 60);
+        saveRunningInterval(() => this.loadFlowAnimation(),  1000 / 60);
 
-        saveRunningInterval( () => {
-            this.walkingAnimation();
-        }, 180 );
+        saveRunningInterval(() => this.walkingAnimation(), 180);
 
-        saveRunningInterval(() => {
-            this.checkCollisionWithBubble();
-        }, 80);
+        saveRunningInterval(() => this.checkCollisionWithBubble(), 80);
 
-        saveRunningInterval( () => {
-            this.getRandomNumber();
-        }, 2000 );
+        saveRunningInterval(() => this.getRandomNumber(), 2000);
     }
 
 

@@ -134,16 +134,12 @@ class World {
 
 
     functionsWithHigherInterval(){
-        saveRunningInterval(() => {
-            this.checkEnemyCollisionWithBubble();
-        }, 100);
+        saveRunningInterval(() => this.checkEnemyCollisionWithBubble(), 100);
     }
 
 
     functionsWithSlowerInterval(){
-        saveRunningInterval(() => {
-            this.characterIsSlappingEndboss();
-        }, 1000);
+        saveRunningInterval(() => this.characterIsSlappingEndboss(), 1000);
     }
 
     
@@ -171,14 +167,16 @@ class World {
     
 
     checkShootBubble(){
-        if (this.keyboard.SHOOT && this.toxicBottlesBar.bottleValue > 0 && !this.character.characterIsDying &&  this.character.electricDeath && this.shootOnce) {
+        if (this.checkIfCanShootBubble()) {
             this.checkShootBubbleValues();
             this.loadCheckShootBubbleTimeout();
-            setTimeout(() => {
-                this.shootOnce = true;
-            }, 1200);
+            setTimeout(() => this.shootOnce = true , 1200);
     }}
 
+
+    checkIfCanShootBubble(){
+        return this.keyboard.SHOOT && this.toxicBottlesBar.bottleValue > 0 && !this.character.characterIsDying &&  this.character.electricDeath && this.shootOnce;
+    }
 
     checkShootBubbleValues(){
         this.shootOnce = false;
@@ -274,9 +272,7 @@ class World {
             this.character.characterStrikesValue = true; 
             this.character.currentImage = 0;
             this.character.istHitting = true;
-            setTimeout(() => {
-                this.characterSlapAgain = true;
-            }, 3000);   
+            setTimeout(() => this.characterSlapAgain = true , 3000);   
     }}
 
 
@@ -290,7 +286,7 @@ class World {
 
 
     characterIsSlappingEndboss(){
-        if (this.character.isColliding(this.endboss) && this.character.istHitting) {
+        if (this.checkSlapValue()) {
             if (this.character.isStriking && this.endboss) {
                 this.endboss.enbossGetSlap = true;
                 this.endboss.changeDirectionHittedEnemy = this.character.otherDirection;
@@ -301,6 +297,11 @@ class World {
                 this.endboss.percentace --;
     }}}
 
+
+    checkSlapValue(){
+        return this.character.isColliding(this.endboss) && this.character.istHitting;
+    }
+    
 
     checkEnemyCollisionWithBubble() {
         this.level.enemies.forEach((enemy) => {
