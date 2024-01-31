@@ -65,11 +65,11 @@ class Character extends MovableObject{
                 audio.swimmingCharacterAudio.play();
             }
             if (!this.charcterIsDead && this.world.keyboard.UP  && this.y > -60) {
-                this.y -= this.speed;
+                this.moveUp();
                 audio.swimmingCharacterAudio.play();
             }
             if (!this.charcterIsDead && this.world.keyboard.DOWN && this.y < 310) {
-                this.y += this.speed;
+                this.moveDown();
                 audio.swimmingCharacterAudio.play();
             }
             if (!this.charcterIsDead && this.world.keyboard.SHOOT ) {
@@ -82,28 +82,29 @@ class Character extends MovableObject{
             this.world.camera_x = -this.x + 250;
         }, 1000 / 60);
 
-        saveRunningInterval(() => {
-            if (this.doesCharCanPlayDeadAnimation()) {
-                this.loadCharDeadAnimation();
-            } else if (this.doesCharCanPlayInstandDeadAnimation()) {
-                this.loadCharInstandDeadAnimation();
-            } else if (this.doesCharCanBeHurt()) {
-                this.loadCharHurtAnimation();
-            } else if (this.doesCharCanShoot()) {
-                this.loadCharShootAnimation();
-            } else if (this.doesCharCanSlap()) {
-                this.loadCharFinSlapAnimation();
-            } else if (this.doesCharCanWalk()) {
-                this.loadCharWalkingAnimation();
-            } else if (this.doesCharStay()){
-                this.loadCharStayAnimation();
-            }
-        }, 140);
+        saveRunningInterval(() => this.checkAllCharAnimations(), 140);
 
-        saveRunningInterval(() => {
-            this.playEndScrean();
-        }, 2000);
+        saveRunningInterval(() => this.playEndScrean(), 2000);
     }
+
+    checkAllCharAnimations(){
+        if (this.doesCharCanPlayDeadAnimation()) {
+            this.loadCharDeadAnimation();
+        } else if (this.doesCharCanPlayInstandDeadAnimation()) {
+            this.loadCharInstandDeadAnimation();
+        } else if (this.doesCharCanBeHurt()) {
+            this.loadCharHurtAnimation();
+        } else if (this.doesCharCanShoot()) {
+            this.loadCharShootAnimation();
+        } else if (this.doesCharCanSlap()) {
+            this.loadCharFinSlapAnimation();
+        } else if (this.doesCharCanWalk()) {
+            this.loadCharWalkingAnimation();
+        } else if (this.doesCharStay()){
+            this.loadCharStayAnimation();
+        }
+    }
+
 
 
     doesCharCanPlayDeadAnimation(){

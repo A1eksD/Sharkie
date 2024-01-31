@@ -59,9 +59,7 @@ class Endboss extends MovableObject {
             } 
         }, 190);
 
-        saveRunningInterval(() => {
-            this.checkIfBossIsDead();
-        }, 2000);
+        saveRunningInterval(() => this.checkIfBossIsDead(), 2000);
     }
 
 
