@@ -1,10 +1,8 @@
 let loadLevel 
 
 function initLevel() {
-
-// const loadLevel  
 loadLevel = new Level(
-        [
+        [ // load enemys
             new Fish(350),
             new Fish(102),
             new Fish(122),
@@ -17,7 +15,7 @@ loadLevel = new Level(
             new JellyFish(),
             new JellyFish()
         ],
-        [ // alle 720px wird eine neuer Hinterund gerendert
+        [ // load all 720px a new background
 
             new BackgroundObjext('img/3.Background/Layers/5.Water/L1.png', -720*4, 0, 0),
             new BackgroundObjext('img/3.Background/Layers/5.Water/L2.png', -720*3, 0, 0),

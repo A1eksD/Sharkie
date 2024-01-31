@@ -8,10 +8,16 @@ body{
     width: 100vw;
     height: 100vh;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     color: whitesmoke;
     font-family: 'luckiestGuy', Arial, Helvetica, sans-serif;
+}
+
+.positionFixed{
+    position: fixed;
+    overflow: hidden;
 }
 
 h1{
@@ -46,9 +52,13 @@ h1{
 .background{
     background-image: url('img/background.jpg');
     background-size: cover;
-    display: flex;
+    background-attachment: scroll;
+    background-position: center;
+    width: 100vw;
+    height: 100vh;
+    /* display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: center; */
 }
 
 .mainPositionCanvasHeadline{
@@ -198,7 +208,7 @@ li{
 .turnPhone{
     width: 100vw;
     height: 100vh;
-    z-index: 5;
+    z-index: 20;
     object-fit: contain;
     background-color: grey;
     position: absolute;
@@ -227,7 +237,7 @@ li{
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 420px;
+    height: 360px;
     top: 0;
     left: 0;
 }
@@ -264,7 +274,7 @@ li{
     z-index: 11;
     height: 90px;
     cursor: pointer;
-    animation: fadeIn 6s, sizeAnimation 4s infinite alternate both ease-in-out;
+    animation: fadeIn 4s, sizeAnimation 4s infinite alternate both ease-in-out;
 }
 
 @keyframes fadeIn {
@@ -275,6 +285,13 @@ li{
         opacity: 1;
     }
 }
+
+@media(max-width:1000px) {
+    .tryAgainImg{
+        height: 72px;
+    }
+}
+
 
 @media(max-width:760px) {
     .turnPhone{
@@ -295,10 +312,22 @@ li{
         width: 100vw;
         border-radius: 0;
     }
+    .endScreanWinBtn{
+        top: -45px !important;
+    }
+    /* .turnPhone{
+        display: block;
+    } */
 }
 
 @media only screen and (max-height: 480px) {
     canvas{
         height: 100vh;
+    }
+}
+
+@media(max-width: 400px) {
+    .tryAgainImg{
+        height: 45px;
     }
 }

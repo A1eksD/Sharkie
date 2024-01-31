@@ -9,15 +9,11 @@ class JellyFish extends MovableObject {
         right: 15,
         bottom: 10
     }
-    // enemySpaledAway = false;
     changeAnimationJellyFish = false;
-    // getCurrentImg = false;
 
 
     constructor(){
         super();
-        // this.allImgs;
-        // this.audio;
         this.loadImage(allImgs.JELLYFISH_IMAGES_WALIKNG[0]);
         this.loadImages(allImgs.JELLYFISH_IMAGES_WALIKNG);
         this.loadImages(allImgs.JELLYFISH_IMAGES_WALIKNG_DANGEROUS);
@@ -25,7 +21,7 @@ class JellyFish extends MovableObject {
         this.x = 800 + (Math.random() * 2000);
         this.speed = 0.5 + Math.random() * 1;
         this.y = 20 + Math.random() * 380;
-        this.direction = Math.random() < 0.5 ? 1 : -1; // Zufällige Richtung (hoch oder runter)
+        this.direction = Math.random() < 0.5 ? 1 : -1;
         this.currentImage;
         this.changeAnimationJellyFish;
         this.animate();
@@ -33,10 +29,9 @@ class JellyFish extends MovableObject {
 
 
     animate(){
-        // saveRunningInterval(() => { //gegener soll sich nach links bewegen mit 60fps
-        //     // this.moveLeft();
-        //     this.moveUpandDown();
-        // }, 1000 / 60);
+        saveRunningInterval(() => { 
+            this.moveUpandDown();
+        }, 1000 / 60);
 
         saveRunningInterval(() => {
             this.loadFlowAnimation();
@@ -80,7 +75,6 @@ class JellyFish extends MovableObject {
 
     loadFlowAnimation(){
         if (this.randomNumber === 0 && this.enemyGetHit) {
-            // this.enemySpaledAway = true;
             this.enemyGetSlap();
         } else {
             this.enemyGetHit = false;
@@ -90,7 +84,6 @@ class JellyFish extends MovableObject {
 
     checkCollisionWithBubble(){
         if (this.changeAnimationJellyFish) {
-            // this.bubbleCatchJellyFishAudio.play();
             this.playAnimation(allImgs.JELLYFISH_IMAGES_DIED);
             this.y -= 15;
             this.offset = {
@@ -101,8 +94,6 @@ class JellyFish extends MovableObject {
             }
         }
     }
-
-
 
 
     moveUpandDown(){

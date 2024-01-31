@@ -10,7 +10,7 @@ class BackgroundObjext extends MovableObject{
         this.start_y = y;
         this.x = x;
         this.y = y;
-        this.parallaxFactor = parallaxFactor; // Standardwert ist 1, kein Parallax-Effekt
+        this.parallaxFactor = parallaxFactor;
     }
 
 }

@@ -14,6 +14,7 @@ class World {
     changeCurrentImgTo0 = false;
     bossCollistionWithCharacter = false;
     shootOnce = true;
+    characterSlapAgain = true;
 
 
 
@@ -37,34 +38,50 @@ class World {
 
 
     draw(){
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this.ctx.translate(this.camera_x, 0); //verschiebt die camera, wegen einer schleife wird die camera immer um 100px weiter zu seite gerendert
-        this.updateParallaxEffect();
-        this.addObjectsToMap(this.level.backgroundObject); //rendert hintergrund
-        this.addObjectsToMap(this.level.enemies); // rendert feinde
-        this.addToMap(this.endboss); // rendert endboss
-        this.addObjectsToMap(this.level.bottles); // rendert flachen
-        this.addObjectsToMap(this.bubble); // rendert die blase
-        this.addObjectsToMap(this.level.coins); // rendert die münzen
+        this.loadStaticObjects();
+        this.loadEnemyObjects();
+        this.loadFixedObjects();
+        this.loadCharObject();
 
-        //----- space for fixed objects-----------
-        this.ctx.translate(-this.camera_x, 0); //verschiebt die camera zurück, sodass die sie camera die nicht in einer schleife befindet
-        this.addToMap(this.statusBar); // rendert HP-Anzeige
-        this.addToMap(this.coinBar); // rendert coin-Anzeige
-        this.addToMap(this.toxicBottlesBar); // rendert flaschen-Anzeige
+        let self = this;
+        requestAnimationFrame(function(){
+            self.draw();
+        });
+    }
+
+
+    loadStaticObjects(){
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.ctx.translate(this.camera_x, 0); 
+        this.updateParallaxEffect();
+        this.addObjectsToMap(this.level.backgroundObject);
+        this.addObjectsToMap(this.level.bottles); 
+        this.addObjectsToMap(this.bubble); 
+        this.addObjectsToMap(this.level.coins);
+    }
+
+
+    loadEnemyObjects(){
+        this.addObjectsToMap(this.level.enemies); 
+        this.addToMap(this.endboss);
+    }
+
+
+    loadFixedObjects(){
+        this.ctx.translate(-this.camera_x, 0);
+        this.addToMap(this.statusBar); 
+        this.addToMap(this.coinBar); 
+        this.addToMap(this.toxicBottlesBar);
         if (this.endboss.showHPfromBoss) {
             this.addToMap(this.statusBarBoss);
         }
-        this.ctx.translate(this.camera_x, 0); //verschiebt die camera, wegen einer schleife wird die camera immer um 100px weiter zu seite gerendert
+        this.ctx.translate(this.camera_x, 0); 
+    }
 
 
-        this.addToMap(this.character); // rendert character
-        this.ctx.translate(-this.camera_x, 0); //verschiebt die camera zurück, sodass die sie camera die nicht in einer schleife befindet
-
-        let self = this;
-        requestAnimationFrame(function(){ // rufe draw() wieder auf
-            self.draw();
-        });
+    loadCharObject(){
+        this.addToMap(this.character);
+        this.ctx.translate(-this.camera_x, 0); 
     }
 
 
@@ -81,8 +98,6 @@ class World {
         }
 
         movObj.draw(this.ctx);
-        // movObj.drawFrame(this.ctx);
-        // movObj.drawFrameRedFrame(this.ctx);
         
         if (movObj.otherDirection) {
             this.flipImgBack(movObj);
@@ -104,7 +119,7 @@ class World {
     }
 
 
-    run(){ // überprüfe ob der feind mit charachter kollediert anhand isColliding(enemy)
+    run(){
         saveRunningInterval(() => {
             this.checkCollisions();
             this.checkShootBubble();
@@ -112,7 +127,7 @@ class World {
             this.fillCoinBar();
             this.checkIfIsDead();
             this.checkJellyFishCollisionWithCharacter();
-            this.characterPlaySlepAnimation();
+            this.characterPlaySlapAnimation();
             this.checkEndbossCollisionWithCharacter();
         }, 200);
     }
@@ -127,11 +142,9 @@ class World {
 
     functionsWithSlowerInterval(){
         saveRunningInterval(() => {
-            this.characterIsSleppingEndboss();
+            this.characterIsSlappingEndboss();
         }, 1000);
     }
-
-
 
     
     updateParallaxEffect() {
@@ -141,51 +154,54 @@ class World {
                     bgObject.x = bgObject.start_x + (this.character.x * bgObject.parallaxFactor * 0.1);
                     bgObject.y = bgObject.start_y + (this.character.y * bgObject.parallaxFactor * 0.01);
                 }
-            });
-        }
-    }
-    
+    });}}
 
 
     checkCollisions(){
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy) && !this.character.istHitting) {
-                this.character.hit(); // wenn collision = true=> hit()
-                this.statusBar.setPercenetage(this.character.energy); //verändere hp anzeige, wenn hit(); | greift auf energy zu, weil char mir movObj verknüpft ist
+                this.character.hit(); 
+                this.statusBar.setPercenetage(this.character.energy); 
             }
         });
         if (this.character.isColliding(this.endboss) && !this.character.istHitting) {
-            this.character.hit(); // wenn collision = true=> hit()
-            this.statusBar.setPercenetage(this.character.energy); //verändere hp anzeige, wenn hit(); | greift auf energy zu, weil char mir movObj verknüpft ist
-        }
-    }
+            this.character.hit(); 
+            this.statusBar.setPercenetage(this.character.energy); 
+    }}
     
 
     checkShootBubble(){
         if (this.keyboard.SHOOT && this.toxicBottlesBar.bottleValue > 0 && !this.character.characterIsDying &&  this.character.electricDeath && this.shootOnce) {
-            this.shootOnce = false;
-            this.character.shootAnimation = true;
-            this.character.currentImage = 0;
-            this.toxicBottlesBar.bottleValue --;
-            this.toxicBottlesBar.getValueToxicBar(this.toxicBottlesBar.bottleValue);
-            audio.shootCharacterAudio.play();
-            setTimeout(() => {
-                if (!this.character.otherDirection) {
-                    let valueBubble = this.character.otherDirection;
-                    let bubble = new TrowableObjct(this.character.x + 140, this.character.y + 80, valueBubble);
-                    this.bubble.push(bubble);
-                    // this.character.shootAgain = false;
-                } else {
-                    let valueBubble = this.character.otherDirection;
-                    let bubble = new TrowableObjct(this.character.x, this.character.y + 80, valueBubble);
-                    this.bubble.push(bubble);
-                    // this.character.shootAgain = false;
-                }
-            }, 1000);
+            this.checkShootBubbleValues();
+            this.loadCheckShootBubbleTimeout();
             setTimeout(() => {
                 this.shootOnce = true;
             }, 1200);
-        }
+    }}
+
+
+    checkShootBubbleValues(){
+        this.shootOnce = false;
+        this.character.shootAnimation = true;
+        this.character.currentImage = 0;
+        this.toxicBottlesBar.bottleValue --;
+        this.toxicBottlesBar.getValueToxicBar(this.toxicBottlesBar.bottleValue);
+        audio.shootCharacterAudio.play();
+    }
+
+
+    loadCheckShootBubbleTimeout(){
+        setTimeout(() => {
+            if (!this.character.otherDirection) {
+                let valueBubble = this.character.otherDirection;
+                let bubble = new TrowableObjct(this.character.x + 140, this.character.y + 80, valueBubble);
+                this.bubble.push(bubble);
+            } else {
+                let valueBubble = this.character.otherDirection;
+                let bubble = new TrowableObjct(this.character.x, this.character.y + 80, valueBubble);
+                this.bubble.push(bubble);
+            }
+        }, 1000);
     }
 
 
@@ -195,11 +211,8 @@ class World {
                 this.toxicBottlesBar.bottleValue ++;
                 this.toxicBottlesBar.getValueToxicBar(this.toxicBottlesBar.bottleValue);
                 this.spliceBottleElemnt(currentBottle);
-                // audio.getBottle.volume = 0.1;
                 audio.getBottle.play();
-            }
-        });
-    }
+    }});}
 
 
     spliceBottleElemnt(currentBottle){
@@ -208,9 +221,7 @@ class World {
             let vlaueX = currentBottle.x;
             if (bottleValue === vlaueX) {
                 this.level.bottles.splice(i, 1);
-            }
-        }
-    }
+    }}}
 
 
     fillCoinBar(){
@@ -219,11 +230,8 @@ class World {
                 this.coinBar.oneCoin ++;
                 this.coinBar.getValueCoinBar(this.coinBar.oneCoin);
                 this.spliceCoinElemnt(currentCoir);
-                // audio.pickUpCoin.volume = 0.1;
                 audio.pickUpCoin.play();
-            }
-        });
-    }
+    }});}
 
 
     spliceCoinElemnt(currentCoin){
@@ -232,9 +240,7 @@ class World {
             let vlaueX = currentCoin.x;
             if (coinValue === vlaueX) {
                 this.level.coins.splice(i, 1);   
-            }
-        }
-    }
+    }}}
 
 
     checkIfIsDead() {
@@ -243,8 +249,7 @@ class World {
             this.character.characterIsDying = true;
             this.character.isDeadProcessed = true;
             this.character.charcterIsDead = true;
-        }
-    }
+    }}
 
 
     checkJellyFishCollisionWithCharacter(){
@@ -259,79 +264,83 @@ class World {
                     this.character.otherDeath = true;
                     if (!this.character.electricShock) {
                         this.character.currentImage = 0;
-                    }   
-                }
-            }
-        });
-    }
+    }}}});}
     
 
-    characterPlaySlepAnimation(){
-        if (this.keyboard.HIT) {
+    characterPlaySlapAnimation(){
+        if (this.keyboard.HIT && this.characterSlapAgain) {
+            this.characterSlapAgain = false;
             this.character.characterStrikes = true;
             this.character.characterStrikesValue = true; 
             this.character.currentImage = 0;
             this.character.istHitting = true;
-        }
-    }
+            setTimeout(() => {
+                this.characterSlapAgain = true;
+            }, 3000);   
+    }}
 
 
-    characterIsSlepping(){
+    characterIsSlapping(){
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy)) {
                 if (this.character.isStriking && enemy) {
                     enemy.enemyGetHit = true;
                     enemy.changeDirectionHittedEnemy = this.character.otherDirection;
-                }
-            }
-        });
-    }
+    }}});}
 
 
-    characterIsSleppingEndboss(){
+    characterIsSlappingEndboss(){
         if (this.character.isColliding(this.endboss) && this.character.istHitting) {
             if (this.character.isStriking && this.endboss) {
-                this.endboss.enbossGetSlep = true;
+                this.endboss.enbossGetSlap = true;
                 this.endboss.changeDirectionHittedEnemy = this.character.otherDirection;
                 this.endboss.currentImage = 0;
-                this.endboss.enbossGetSlepValue = true;
+                this.endboss.enbossGetSlapValue = true;
                 this.statusBarBoss.percentace --;
                 this.statusBarBoss.setPercenetage();
                 this.endboss.percentace --;
-            }
-        }
-    }
+    }}}
 
 
     checkEnemyCollisionWithBubble() {
         this.level.enemies.forEach((enemy) => {
             this.bubble.forEach((bubble, i) => {
                 if (bubble.isColliding(enemy) && enemy instanceof JellyFish) {
-                    enemy.changeAnimationJellyFish = true;
-                    enemy.currentImage = 0;
-                    audio.bubbleCatchJellyFishAudio.play();
-                    this.bubble.splice(bubble, 1);
+                    this.loadJellyFishValues(enemy, bubble);
                 } else if (bubble.isColliding(enemy) && enemy instanceof Fish) {
-                    audio.bubbleBurstAudio.play();
-                    this.bubble.splice(bubble, 1);
+                    this.loadFishValues(enemy, bubble);
                 } else if (bubble.isColliding(this.endboss)) {
-                    this.endboss.hurtWithBubble = true;
-                    this.endboss.hurtWithBubbleValue = true;
-                    this.endboss.currentImage = 0;
-                    this.statusBarBoss.percentace--;
-                    this.statusBarBoss.setPercenetage();
-                    this.endboss.percentace--;
-                    this.bubble.splice(i, 1);
-                }
-            });
-        });
+                    this.loadEndbossValues(i);
+    }});});}
+
+
+    loadJellyFishValues(enemy, bubble){
+        enemy.changeAnimationJellyFish = true;
+        enemy.currentImage = 0;
+        audio.bubbleCatchJellyFishAudio.play();
+        this.bubble.splice(bubble, 1);
     }
 
+
+    loadFishValues(bubble){
+        audio.bubbleBurstAudio.play();
+        this.bubble.splice(bubble, 1);
+    }
+
+
+    loadEndbossValues(i){
+        this.endboss.hurtWithBubble = true;
+        this.endboss.hurtWithBubbleValue = true;
+        this.endboss.currentImage = 0;
+        this.statusBarBoss.percentace--;
+        this.statusBarBoss.setPercenetage();
+        this.endboss.percentace--;
+        this.bubble.splice(i, 1);
+    }
 
     checkEndbossCollisionWithCharacter(){
         if (this.endboss.isColliding(this.character)) {
             this.bossCollistionWithCharacter = true;
-        }
-    }
+    }}
 
 }

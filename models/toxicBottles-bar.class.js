@@ -7,7 +7,6 @@ class toxicBottlesBar extends MovableObject {
 
     constructor(){
         super();
-        // this.allImgs;
         this.loadImages(allImgs.IMAGES_TOXIC_BOTTLES_BAR);
         this.x = 10;
         this.y = 70;

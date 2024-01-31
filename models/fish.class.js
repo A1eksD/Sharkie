@@ -8,13 +8,11 @@ class Fish extends MovableObject {
         right: 10,
         bottom: 15
     }
-    // changeAnimation = false;
-    // enemyGetHit = false;
+
+    
 
     constructor(y){
         super();
-        // this.allImgs;
-        // this.audio;
         this.loadImage(allImgs.FISH_IMAGES_WALIKNG[0]);
         this.loadImages(allImgs.FISH_IMAGES_WALIKNG);
         this.loadImages(allImgs.FISH_IMAGES_DEAD);
@@ -24,10 +22,11 @@ class Fish extends MovableObject {
         this.animate();
     }
 
+
     animate(){
-        // saveRunningInterval(() => { //gegener soll sich nach links bewegen mit 60fps
-        //     this.moveLeft();
-        // }, 1000 / 60);
+        saveRunningInterval(() => {
+            this.moveLeft();
+        }, 1000 / 60);
 
         saveRunningInterval(() => {
             if (!this.changeAnimation) {

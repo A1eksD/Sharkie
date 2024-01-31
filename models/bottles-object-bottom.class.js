@@ -6,7 +6,6 @@ class BottlesAtBottom extends MovableObject{
 
     constructor(){
         super();
-        // this.allImgs;
         this.loadImage(allImgs.IMAGES_BOTTLES_BOOTOM[0]);
         this.loadImages(allImgs.IMAGES_BOTTLES_BOOTOM);
         this.x = (Math.random() * 2000) * 3;
@@ -16,7 +15,7 @@ class BottlesAtBottom extends MovableObject{
 
 
     animate(){
-        saveRunningInterval( () => { //  alle 0.1s img ändern werdend
+        saveRunningInterval( () => {
             this.playAnimation(allImgs.IMAGES_BOTTLES_BOOTOM);
         }, 350 );
     }

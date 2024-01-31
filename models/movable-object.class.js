@@ -2,8 +2,6 @@ class MovableObject extends drawableObject{
 
     speed = 2;
     otherDirection = false;
-    speedY = 0; //für springen
-    acceleration = 0.1; //für springen
     energy = 100;
     lastHit = 0;
     bottleValue = 0;
@@ -51,7 +49,6 @@ class MovableObject extends drawableObject{
         this.playAnimation(imges);
   
         if (this.currentImage >= imges.length) {
-            // Animation abbrechen
             return false;
         } else {
             return true;
@@ -59,35 +56,16 @@ class MovableObject extends drawableObject{
     }
 
 
-    applyGravity(){ //für springen -- fall zu boden
+    applyGravity(){
         setInterval(() => {
-            // if (this.isAboveGround() || this.speedY > 0) {
             if ( this.speedY > 0) {
                 this.y -= this.speedY;
-                // bei jedem durchlauf wird immer +(-2px) dazuaddiert/die summe addiert sich, bis y-Wert(von MovableObject in isAboveGround) erreicht ist
                 this.speedY = this.acceleration;
             }
         }, 1000 / 25);
     }
 
-    // isAboveGround(){ //für springen
-    //     if (this instanceof TrowableObjct) { // TrowableObjct sollte immer fallen
-    //         return true;
-    //     } else {
-    //         return this.y < 280;   
-    //     }
-    // }
 
-
-    // jump(){//für springen
-    //     this.speedY = 20; //verändere den wert um höher zu springen
-    // }
-
-
-    /**
-     * Die Funktion `isColliding` überprüft, ob das aktuelle `MovableObject` 
-     * mit einem anderen beweglichen Objekt (`movObj`) kollidiert, indem sie die Positionen und Abmessungen beider Objekte vergleicht.
-     */
     isColliding(movObj) {
         return  this.x + this.width - this.offset.right > movObj.x + movObj.offset.top && 
                 this.y + this.height - this.offset.bottom > movObj.y + movObj.offset.left &&
@@ -97,7 +75,7 @@ class MovableObject extends drawableObject{
 
 
     hit(){
-        this.energy -= 5; // wenn collision = true=> -5 vom aktuellem Energiewert
+        this.energy -= 5;
         if (this.energy <= 0) {
             this.energy = 0;
         } else {
@@ -107,28 +85,10 @@ class MovableObject extends drawableObject{
 
 
     isHurt(){
-        let timePassed = new Date().getTime() - this.lastHit; //differenz in ms
-        timePassed = timePassed / 1000; // differenz in s
-        return timePassed < 1; // gebe den value true aus, wenn der Wert 1s überschreitet. ansonsten false
+        let timePassed = new Date().getTime() - this.lastHit;
+        timePassed = timePassed / 1000;
+        return timePassed < 1;
     }
-
-
-    // trow(){
-    //     this.speedTrowY = 10;
-    //     this.speedTrowX = 10;
-    //     this.showTrowAimation();
-    // }
-    
-
-    // showTrowAimation(){
-    //     setInterval(() => {
-    //         if (this.speedTrowY > 0) {
-    //             // bei jedem durchlauf wird immer +(-2px) dazuaddiert/die summe addiert sich, bis y-Wert(von MovableObject in isAboveGround) erreicht ist
-    //             this.speedTrowY -= this.acceleration;
-    //             this.speedTrowX += this.acceleration;
-    //         }
-    //     }, 1000 / 25);
-    // }
 
 
     isDead(){

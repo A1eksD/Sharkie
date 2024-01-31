@@ -14,6 +14,7 @@ setInterval(() => {
     checkIfUserUsePhone();
     chechWidthScrean();
     trunPhone();
+    checkIfIsATablet();
 }, 100);
 
 
@@ -39,19 +40,28 @@ function chechWidthScrean(){
 
 function trunPhone(){
     if (isVertical && navigator.maxTouchPoints > 0) {
-    // if (/Android|iPhone/i.test(navigator.userAgent)) {
-        document.getElementById('turnPhone').classList.add('d-none');
-        document.getElementById('turnPhone').classList.remove('d-block');
-        document.getElementById('startScreanImg').classList.add('widthHeightMax');
-        document.getElementById('startScreanBtn').classList.add('startScreanBtnMobile');
-        document.getElementById('positionAudioBtn').classList.add('positionAudioBtnMobile');
-        document.getElementById('h1').classList.add('d-none');
+        trunPhoneValuesTrue();
     } else {
-        document.getElementById('turnPhone').classList.remove('d-none');
-        document.getElementById('startScreanImg').classList.remove('widthHeightMax');
-        document.getElementById('startScreanBtn').classList.remove('startScreanBtnMobile');
-        document.getElementById('h1').classList.remove('d-none');
+        trunPhoneValuesFalse();
     }
+}
+
+
+function trunPhoneValuesTrue(){
+    document.getElementById('turnPhone').classList.add('d-none');
+    document.getElementById('turnPhone').classList.remove('d-block');
+    document.getElementById('startScreanImg').classList.add('widthHeightMax');
+    document.getElementById('startScreanBtn').classList.add('startScreanBtnMobile');
+    document.getElementById('positionAudioBtn').classList.add('positionAudioBtnMobile');
+    document.getElementById('h1').classList.add('d-none');
+}
+
+
+function trunPhoneValuesFalse(){
+    document.getElementById('turnPhone').classList.remove('d-none');
+    document.getElementById('startScreanImg').classList.remove('widthHeightMax');
+    document.getElementById('startScreanBtn').classList.remove('startScreanBtnMobile');
+    document.getElementById('h1').classList.remove('d-none');
 }
 
 
@@ -64,8 +74,8 @@ function init(){
     world = new World(canvas, keyboard);
     volumenOFF();
     setInterval(() => {
-    checkIfUserUsePhoneAtGameStart();
-}, 100);
+        checkIfUserUsePhoneAtGameStart();
+    }, 100);
 }
 
 
@@ -80,6 +90,15 @@ function checkIfUserUsePhoneAtGameStart(){
 }
 
 
+function checkIfIsATablet(){
+    if (navigator.maxTouchPoints > 0 && window.innerWidth < 800) {
+        document.getElementById('body').classList.add('positionFixed');
+    } else {
+        document.getElementById('body').classList.remove('positionFixed');
+    }
+}
+
+
 function saveRunningInterval(funktion, time){
     let id = setInterval(funktion, time);
     allMovableIntervals.push(id);
@@ -88,55 +107,42 @@ function saveRunningInterval(funktion, time){
 
 // move with keyboard
 window.addEventListener('keydown', (e) => {
-    if (e.keyCode === 38 || e.keyCode === 87) { // 38 = -y
+    if (e.keyCode === 38 || e.keyCode === 87) {
         keyboard.UP = true;   
         this.y -= 10; 
-    } else if(e.keyCode === 40 || e.keyCode === 83){ // 40 = +y
+    } else if(e.keyCode === 40 || e.keyCode === 83){
         keyboard.DOWN = true;
         this.y += 10;
-    } else if (e.keyCode === 37 || e.keyCode === 65){ // 37 = -x
+    } else if (e.keyCode === 37 || e.keyCode === 65){
         keyboard.LEFT = true;
         this.x -= 10;
-    } else if (e.keyCode === 39 || e.keyCode === 68){ // 39 = +x
+    } else if (e.keyCode === 39 || e.keyCode === 68){
         keyboard.RIGHT = true;
         this.x -= 10;
-    } else if (e.keyCode === 67){ // 67 = c
+    } else if (e.keyCode === 67){
         keyboard.HIT = true;
-    // } else if (e.keyCode === 88){ //  88 = x
-    //     keyboard.JUMP = true;
-    //     setInterval(() => {
-    //       this.y -= 10;
-    //     }, 1000 / 60);
-    } else if (e.keyCode === 32){ // 32 = space 
+    } else if (e.keyCode === 32){
         keyboard.SHOOT = true;
     }
 });
 
 // move with keyboard
 window.addEventListener('keyup', (e) => {
-    if (e.keyCode === 38 || e.keyCode === 87) { // 38 = +y
+    if (e.keyCode === 38 || e.keyCode === 87) {
         keyboard.UP = false;
             this.y -= 10;
-    } else if(e.keyCode === 40 || e.keyCode === 83){ // 40 = -y
+    } else if(e.keyCode === 40 || e.keyCode === 83){
         keyboard.DOWN = false;
           this.y += 10;
-
-    } else if (e.keyCode === 37 || e.keyCode === 65){ // 37 = -x
+    } else if (e.keyCode === 37 || e.keyCode === 65){
         keyboard.LEFT = false;
           this.x -= 10;
-
-    } else if (e.keyCode === 39 || e.keyCode === 68){ // 39 = +x
+    } else if (e.keyCode === 39 || e.keyCode === 68){
         keyboard.RIGHT = false;
           this.x -= 10;
-    
-    } else if (e.keyCode === 67){ // 67 = c
+    } else if (e.keyCode === 67){
         keyboard.HIT = false;
-    // } else if (e.keyCode === 88){ //  88 = x
-    //     keyboard.JUMP = false;
-    //     setInterval(() => {
-    //       this.y -= 10;
-    //     }, 1000 / 60);
-    } else if (e.keyCode === 32){ // 32 = space 
+    } else if (e.keyCode === 32){
         keyboard.SHOOT = false;
     }
 })
@@ -212,6 +218,7 @@ function volumenON(){
     document.getElementById('volumenON').classList.remove('d-none');
     audio.playAll();
     audio.backgroundAudio.play();
+    audio.backgroundAudio.loop = true;
 }
 
 

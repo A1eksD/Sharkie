@@ -5,7 +5,6 @@ class Coin extends MovableObject{
 
     constructor(x, y){
         super();
-        // this.allImgs;
         this.loadImage(allImgs.IMAGES_COIN[0]);
         this.loadImages(allImgs.IMAGES_COIN);
         this.x = x;
@@ -15,7 +14,7 @@ class Coin extends MovableObject{
 
 
     animate(){
-        saveRunningInterval( () => { //  alle 0.1s img ändern werdend
+        saveRunningInterval( () => {
             this.playAnimation(allImgs.IMAGES_COIN);
         }, 150 );
     }

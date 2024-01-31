@@ -6,7 +6,6 @@ class StatusBarBoss extends MovableObject {
 
     constructor(){
         super();
-        // this.allImgs;
         this.loadImages(allImgs.BOSS_IMAGES_LIFE);
         this.x = 560;
         this.y = -100;
@@ -16,12 +15,11 @@ class StatusBarBoss extends MovableObject {
 
     updateHealthBarBoss(){
         saveRunningInterval(() => {
-            let endY = 40; // Die endgültige position der bar 
-            let currentY = this.y; // Die aktuelle position der bar 
-            let speed = 20; // wie schnell der das anpasst
+            let endY = 40;
+            let currentY = this.y;
+            let speed = 20;
 
             if (currentY < endY) {
-                //  y aktualisieren bis
                 this.y = Math.min(currentY + speed, endY);
             }
         }, 110);
