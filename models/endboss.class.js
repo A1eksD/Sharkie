@@ -322,9 +322,11 @@ class Endboss extends MovableObject {
     checkIfBossIsDeadClasses(){
         document.getElementById('endScrean').classList.remove('d-none');
         document.getElementById('youWin').classList.remove('d-none');
-        document.getElementById('tryAgainImg').classList.remove('d-none');
         document.getElementById('gameOver').classList.add('d-none');
         document.getElementById('endScreanBtn').classList.add('endScreanWinBtn');
-        document.getElementById('tryAgainImg').classList.add('tryAgainImg');
+        setTimeout(() => {
+            document.getElementById('tryAgainImg').classList.remove('d-none');
+            document.getElementById('tryAgainImg').classList.add('tryAgainImg');
+        }, 3000);
     }
 }
