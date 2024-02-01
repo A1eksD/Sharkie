@@ -1,5 +1,4 @@
-class MovableObject extends drawableObject{
-
+class MovableObject extends DrawableObject {
     speed = 2;
     otherDirection = false;
     energy = 100;
@@ -16,39 +15,44 @@ class MovableObject extends drawableObject{
     gameOver = false;
 
 
+    // Method to move the object to the right
     moveRight() {
         this.x += this.speed;
     }
 
-
-    moveLeft(){
+    
+    // Method to move the object to the left
+    moveLeft() {
         this.x -= this.speed;
     }
 
 
+    // Method to move the object upwards
     moveUp() {
         this.y -= this.speed;
     }
 
 
+    // Method to move the object downwards
     moveDown() {
         this.y += this.speed;
     }
 
-
-    playAnimation(imges){
-        let i = this.currentImage % imges.length; 
-        let path = imges[i];
+    
+    // Method to play an animation from a given array of images
+    playAnimation(images) {
+        let i = this.currentImage % images.length;
+        let path = images[i];
         this.img = this.imageCache[path];
         this.currentImage++;
     }
 
 
+    // Method to play an animation from first to last image and return a boolean
+    playAnimationFirstToLastImg(images) {
+        this.playAnimation(images);
 
-    playAnimationFirstToLastImg(imges){
-        this.playAnimation(imges);
-  
-        if (this.currentImage >= imges.length) {
+        if (this.currentImage >= images.length) {
             return false;
         } else {
             return true;
@@ -56,9 +60,10 @@ class MovableObject extends drawableObject{
     }
 
 
-    applyGravity(){
+    // Method to apply gravity to the object
+    applyGravity() {
         setInterval(() => {
-            if ( this.speedY > 0) {
+            if (this.speedY > 0) {
                 this.y -= this.speedY;
                 this.speedY = this.acceleration;
             }
@@ -66,15 +71,17 @@ class MovableObject extends drawableObject{
     }
 
 
+    // Method to check if the object is colliding with another movable object
     isColliding(movObj) {
-        return  this.x + this.width - this.offset.right > movObj.x + movObj.offset.top && 
-                this.y + this.height - this.offset.bottom > movObj.y + movObj.offset.left &&
-                this.x + this.offset.top < movObj.x + movObj.width - movObj.offset.right &&
-                this.y + this.offset.left < movObj.y + movObj.height - movObj.offset.bottom;
+        return this.x + this.width - this.offset.right > movObj.x + movObj.offset.top &&
+            this.y + this.height - this.offset.bottom > movObj.y + movObj.offset.left &&
+            this.x + this.offset.top < movObj.x + movObj.width - movObj.offset.right &&
+            this.y + this.offset.left < movObj.y + movObj.height - movObj.offset.bottom;
     }
 
 
-    hit(){
+    // Method to decrease energy when the object is hit
+    hit() {
         this.energy -= 5;
         if (this.energy <= 0) {
             this.energy = 0;
@@ -84,24 +91,28 @@ class MovableObject extends drawableObject{
     }
 
 
-    isHurt(){
+    // Method to check if the object is hurt within a certain time window
+    isHurt() {
         let timePassed = new Date().getTime() - this.lastHit;
         timePassed = timePassed / 1000;
         return timePassed < 1;
     }
 
 
-    isDead(){
+    // Method to check if the object is dead
+    isDead() {
         return this.energy == 0;
     }
 
 
-    isDeadByJellyFish(){
+    // Method to set the energy to 0, indicating death by jellyfish
+    isDeadByJellyFish() {
         this.energy = 0;
     }
-    
-    
-    characterIsStamding(){
+
+
+    // Method to check if the character is standing based on keyboard input
+    characterIsStanding() {
         if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP || this.world.keyboard.DOWN) {
             return this.standingCharacter = 1;
         } else {
@@ -110,7 +121,8 @@ class MovableObject extends drawableObject{
     }
 
 
-    enemyGetSlap(){
+    // Method to handle the slap animation when the object is hit
+    enemyGetSlap() {
         if (this.enemyGetHit) {
             this.changeAnimation = true;
             this.y -= 3;
@@ -123,9 +135,8 @@ class MovableObject extends drawableObject{
     }
 
 
-    stopGame(){
-        setTimeout(() => {
-            allMovableIntervals.forEach(clearInterval);
-        }, 1000);
+    // Method to stop the game by clearing all movable intervals after a delay
+    stopGame() {
+        setTimeout(() => allMovableIntervals.forEach(clearInterval), 1000);
     }
 }

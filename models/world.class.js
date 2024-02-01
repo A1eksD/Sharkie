@@ -8,17 +8,21 @@ class World {
     statusBar = new StatusBar();
     statusBarBoss = new StatusBarBoss();
     coinBar = new CoinBar();
-    toxicBottlesBar = new toxicBottlesBar();
-    bubble = [new TrowableObjct()];
+    toxicBottlesBar = new ToxicBottlesBar();
+    bubble = [new ThrowableObject()];
     endboss = new Endboss();
     changeCurrentImgTo0 = false;
-    bossCollistionWithCharacter = false;
+    bossCollisionWithCharacter = false;
     shootOnce = true;
     characterSlapAgain = true;
 
 
-
-    constructor(canvas, keyboard){
+    /**
+     * Constructor for the World class
+     * @param {HTMLCanvasElement} canvas - The canvas element
+     * @param {Keyboard} keyboard - The keyboard object
+     */
+    constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
@@ -30,96 +34,122 @@ class World {
         this.functionsWithHigherInterval();
     }
 
-
-    setWorld(){
+    /**
+     * Set the world for the character and endboss
+     */
+    setWorld() {
         this.character.world = this;
         this.endboss.world = this;
     }
 
-
-    draw(){
+    /**
+     * Draw the game world
+     */
+    draw() {
         this.loadStaticObjects();
         this.loadEnemyObjects();
         this.loadFixedObjects();
         this.loadCharObject();
 
         let self = this;
-        requestAnimationFrame(function(){
+        requestAnimationFrame(function () {
             self.draw();
         });
     }
 
-
-    loadStaticObjects(){
+    /**
+     * Load static objects in the game world
+     */
+    loadStaticObjects() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this.ctx.translate(this.camera_x, 0); 
+        this.ctx.translate(this.camera_x, 0);
         this.updateParallaxEffect();
         this.addObjectsToMap(this.level.backgroundObject);
-        this.addObjectsToMap(this.level.bottles); 
-        this.addObjectsToMap(this.bubble); 
+        this.addObjectsToMap(this.level.bottles);
+        this.addObjectsToMap(this.bubble);
         this.addObjectsToMap(this.level.coins);
     }
 
-
-    loadEnemyObjects(){
-        this.addObjectsToMap(this.level.enemies); 
+    /**
+     * Load enemy objects in the game world
+     */
+    loadEnemyObjects() {
+        this.addObjectsToMap(this.level.enemies);
         this.addToMap(this.endboss);
     }
 
-
-    loadFixedObjects(){
+    /**
+     * Load fixed objects in the game world
+     */
+    loadFixedObjects() {
         this.ctx.translate(-this.camera_x, 0);
-        this.addToMap(this.statusBar); 
-        this.addToMap(this.coinBar); 
+        this.addToMap(this.statusBar);
+        this.addToMap(this.coinBar);
         this.addToMap(this.toxicBottlesBar);
         if (this.endboss.showHPfromBoss) {
             this.addToMap(this.statusBarBoss);
         }
-        this.ctx.translate(this.camera_x, 0); 
+        this.ctx.translate(this.camera_x, 0);
     }
 
-
-    loadCharObject(){
+    /**
+     * Load character object in the game world
+     */
+    loadCharObject() {
         this.addToMap(this.character);
-        this.ctx.translate(-this.camera_x, 0); 
+        this.ctx.translate(-this.camera_x, 0);
     }
 
-
-    addObjectsToMap(objects){
+    /**
+     * Add an array of objects to the game world
+     * @param {Array} objects - The array of objects to add
+     */
+    addObjectsToMap(objects) {
         objects.forEach(element => {
             this.addToMap(element);
         });
     }
 
-
-    addToMap(movObj){
+    /**
+     * Add a movable object to the game world
+     * @param {MovableObject} movObj - The movable object to add
+     */
+    addToMap(movObj) {
         if (movObj.otherDirection) {
             this.flipImg(movObj);
         }
 
         movObj.draw(this.ctx);
-        
+
         if (movObj.otherDirection) {
             this.flipImgBack(movObj);
         }
     }
 
-
-    flipImg(movObj){
+    /**
+     * Flip the image of a movable object
+     * @param {MovableObject} movObj - The movable object to flip
+     */
+    flipImg(movObj) {
         this.ctx.save();
         this.ctx.translate(movObj.width, 0);
         this.ctx.scale(-1, 1);
         movObj.x = movObj.x * -1;
     }
 
-
-    flipImgBack(movObj){
+    /**
+     * Flip back the image of a movable object
+     * @param {MovableObject} movObj - The movable object to flip back
+     */
+    flipImgBack(movObj) {
         this.ctx.restore();
         movObj.x = movObj.x * -1;
     }
 
-
-    run(){
+    /**
+     * Run the game loop
+     */
+    run() {
         saveRunningInterval(() => {
             this.checkCollisions();
             this.checkShootBubble();
@@ -132,52 +162,71 @@ class World {
         }, 200);
     }
 
-
-    functionsWithHigherInterval(){
-        saveRunningInterval(() => this.checkEnemyCollisionWithBubble(), 100);
+    /**
+     * Run functions with higher interval
+     */
+    functionsWithHigherInterval() {
+        saveRunningInterval(() => this.checkEnemyCollisionWithBubble(), 25);
     }
-
-
-    functionsWithSlowerInterval(){
+    
+    /**
+     * Run functions with slower interval
+     */
+    functionsWithSlowerInterval() {
         saveRunningInterval(() => this.characterIsSlappingEndboss(), 1000);
     }
 
-    
+    /**
+     * Update the parallax effect based on character movement
+     */
     updateParallaxEffect() {
-        if (this.character.x > (-720*3)-30 || this.character.x > this.level.levelEndX) {
+        if (this.character.x > (-720 * 3) - 30 || this.character.x > this.level.levelEndX) {
             this.level.backgroundObject.forEach((bgObject) => {
                 if (bgObject.parallaxFactor !== 0) {
                     bgObject.x = bgObject.start_x + (this.character.x * bgObject.parallaxFactor * 0.1);
                     bgObject.y = bgObject.start_y + (this.character.y * bgObject.parallaxFactor * 0.01);
                 }
-    });}}
+            });
+    }}
 
-
-    checkCollisions(){
+    /**
+     * Check collisions in the game world
+     */
+    checkCollisions() {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy) && !this.character.istHitting) {
-                this.character.hit(); 
-                this.statusBar.setPercenetage(this.character.energy); 
+                this.character.hit();
+                this.statusBar.setPercenetage(this.character.energy);
             }
         });
         if (this.character.isColliding(this.endboss) && !this.character.istHitting) {
-            this.character.hit(); 
-            this.statusBar.setPercenetage(this.character.energy); 
-    }}
-    
+            this.character.hit();
+            this.statusBar.setPercentage(this.character.energy);
+        }
+    }
 
-    checkShootBubble(){
+    /**
+     * Check if the character can shoot a bubble
+     */
+    checkShootBubble() {
         if (this.checkIfCanShootBubble()) {
             this.checkShootBubbleValues();
             this.loadCheckShootBubbleTimeout();
-            setTimeout(() => this.shootOnce = true , 1200);
-    }}
-
-
-    checkIfCanShootBubble(){
-        return this.keyboard.SHOOT && this.toxicBottlesBar.bottleValue > 0 && !this.character.characterIsDying &&  this.character.electricDeath && this.shootOnce;
+            setTimeout(() => this.shootOnce = true, 1200);
+        }
     }
 
+    /**
+     * Check if the character can shoot a bubble
+     * @returns {boolean} - True if the character can shoot, false otherwise
+     */
+    checkIfCanShootBubble() {
+        return this.keyboard.SHOOT && this.toxicBottlesBar.bottleValue > 0 && !this.character.characterIsDying && this.character.electricDeath && this.shootOnce;
+    }
+
+    /**
+     * Set values when shooting a bubble
+     */
     checkShootBubbleValues(){
         this.shootOnce = false;
         this.character.shootAnimation = true;
@@ -187,161 +236,185 @@ class World {
         audio.shootCharacterAudio.play();
     }
 
-
-    loadCheckShootBubbleTimeout(){
+    /**
+     * Load the timeout for shooting a bubble
+     */
+    loadCheckShootBubbleTimeout() {
         setTimeout(() => {
             if (!this.character.otherDirection) {
                 let valueBubble = this.character.otherDirection;
-                let bubble = new TrowableObjct(this.character.x + 140, this.character.y + 80, valueBubble);
+                let bubble = new ThrowableObject(this.character.x + 140, this.character.y + 80, valueBubble);
                 this.bubble.push(bubble);
             } else {
                 let valueBubble = this.character.otherDirection;
-                let bubble = new TrowableObjct(this.character.x, this.character.y + 80, valueBubble);
+                let bubble = new ThrowableObject(this.character.x, this.character.y + 80, valueBubble);
                 this.bubble.push(bubble);
             }
         }, 1000);
     }
 
-
-    fillBottlesBar(){
-        this.level.bottles.forEach((currentBottle) => {
+    /**
+     * Fill the toxic bottles bar when colliding with bottles
+     */
+    fillBottlesBar() {
+        this.level.bottles.forEach((currentBottle, i) => {
             if (this.character.isColliding(currentBottle)) {
-                this.toxicBottlesBar.bottleValue ++;
+                this.toxicBottlesBar.bottleValue++;
                 this.toxicBottlesBar.getValueToxicBar(this.toxicBottlesBar.bottleValue);
-                this.spliceBottleElemnt(currentBottle);
-                audio.getBottle.play();
-    }});}
-
-
-    spliceBottleElemnt(currentBottle){
-        for (let i = 0; i < this.level.bottles.length; i++) {
-            const bottleValue = this.level.bottles[i].x;
-            let vlaueX = currentBottle.x;
-            if (bottleValue === vlaueX) {
                 this.level.bottles.splice(i, 1);
-    }}}
+                audio.getBottle.play();
+            }
+    });}
 
-
-    fillCoinBar(){
-        this.level.coins.forEach((currentCoir) => {
-            if (this.character.isColliding(currentCoir)) {
-                this.coinBar.oneCoin ++;
+    /**
+     * Fill the coin bar when colliding with coins
+     */
+    fillCoinBar() {
+        this.level.coins.forEach((currentCoin, i) => {
+            if (this.character.isColliding(currentCoin)) {
+                this.coinBar.oneCoin++;
                 this.coinBar.getValueCoinBar(this.coinBar.oneCoin);
-                this.spliceCoinElemnt(currentCoir);
+                this.level.coins.splice(i, 1);
                 audio.pickUpCoin.play();
-    }});}
+            }
+    });}
 
-
-    spliceCoinElemnt(currentCoin){
-        for (let i = 0; i < this.level.coins.length; i++) {
-            const coinValue = this.level.coins[i].x;
-            let vlaueX = currentCoin.x;
-            if (coinValue === vlaueX) {
-                this.level.coins.splice(i, 1);   
-    }}}
-
-
+    /**
+     * Check if the character is dead
+     */
     checkIfIsDead() {
         if (this.character.isDead() && !this.character.isDeadProcessed) {
             this.character.currentImage = 0;
             this.character.characterIsDying = true;
             this.character.isDeadProcessed = true;
             this.character.charcterIsDead = true;
-    }}
+        }
+    }
 
-
-    checkJellyFishCollisionWithCharacter(){
-        this.level.enemies.forEach((JellFish) => {
-            if (this.character.isColliding(JellFish)) {
-                if (JellFish.randomNumber === 0 ) {
+    /**
+     * Check collision with jellyfish and character
+     */
+    checkJellyFishCollisionWithCharacter() {
+        this.level.enemies.forEach((jellyfish) => {
+            if (this.character.isColliding(jellyfish)) {
+                if (jellyfish.randomNumber === 0) {
                     this.character.isHurt();
                 } else {
                     this.character.isDeadByJellyFish();
-                    this.statusBar.setPercenetage(this.character.energy);
-                    this.character.isInstandDead = true;
+                    this.statusBar.setPercentage(this.character.energy);
+                    this.character.isInstantDead = true;
                     this.character.otherDeath = true;
                     if (!this.character.electricShock) {
                         this.character.currentImage = 0;
-    }}}});}
-    
+                    }
+    }}});}
 
-    characterPlaySlapAnimation(){
+    /**
+     * Play slap animation of the character
+     */
+    characterPlaySlapAnimation() {
         if (this.keyboard.HIT && this.characterSlapAgain) {
             this.characterSlapAgain = false;
             this.character.characterStrikes = true;
-            this.character.characterStrikesValue = true; 
+            this.character.characterStrikesValue = true;
             this.character.currentImage = 0;
-            this.character.istHitting = true;
-            setTimeout(() => this.characterSlapAgain = true , 3000);   
-    }}
+            this.character.isHitting = true;
+            setTimeout(() => this.characterSlapAgain = true, 3000);
+        }
+    }
 
-
-    characterIsSlapping(){
+    /**
+     * Check if the character is slapping an enemy
+     */
+    characterIsSlapping() {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy)) {
                 if (this.character.isStriking && enemy) {
                     enemy.enemyGetHit = true;
                     enemy.changeDirectionHittedEnemy = this.character.otherDirection;
-    }}});}
+                }
+    }});}
 
-
-    characterIsSlappingEndboss(){
+    /**
+     * Check if the character is slapping the endboss
+     */
+    characterIsSlappingEndboss() {
         if (this.checkSlapValue()) {
             if (this.character.isStriking && this.endboss) {
-                this.endboss.enbossGetSlap = true;
+                this.endboss.endbossGetSlap = true;
                 this.endboss.changeDirectionHittedEnemy = this.character.otherDirection;
                 this.endboss.currentImage = 0;
-                this.endboss.enbossGetSlapValue = true;
-                this.statusBarBoss.percentace --;
-                this.statusBarBoss.setPercenetage();
-                this.endboss.percentace --;
-    }}}
+                this.endboss.endbossGetSlapValue = true;
+                this.statusBarBoss.percentace--;
+                this.statusBarBoss.setPercentage();
+                this.endboss.percentace--;
+            }
+    }}
 
-
-    checkSlapValue(){
-        return this.character.isColliding(this.endboss) && this.character.istHitting;
+    /**
+     * Check if the character is slapping the endboss
+     * @returns {boolean} - True if the character is slapping, false otherwise
+     */
+    checkSlapValue() {
+        return this.character.isColliding(this.endboss) && this.character.isHitting;
     }
-    
 
+    /**
+     * Check collision of enemies with bubble
+     */
     checkEnemyCollisionWithBubble() {
         this.level.enemies.forEach((enemy) => {
             this.bubble.forEach((bubble, i) => {
                 if (bubble.isColliding(enemy) && enemy instanceof JellyFish) {
                     this.loadJellyFishValues(enemy, bubble);
                 } else if (bubble.isColliding(enemy) && enemy instanceof Fish) {
-                    this.loadFishValues(enemy, bubble);
+                    this.loadFishValues(bubble);
                 } else if (bubble.isColliding(this.endboss)) {
                     this.loadEndbossValues(i);
-    }});});}
+                }
+    });});}
 
-
-    loadJellyFishValues(enemy, bubble){
+    /**
+     * Load values when colliding with jellyfish and bubble
+     * @param {JellyFish} enemy - The jellyfish enemy
+     * @param {ThrowableObject} bubble - The bubble object
+     */
+    loadJellyFishValues(enemy, bubble) {
         enemy.changeAnimationJellyFish = true;
         enemy.currentImage = 0;
         audio.bubbleCatchJellyFishAudio.play();
         this.bubble.splice(bubble, 1);
     }
 
-
-    loadFishValues(bubble){
+    /**
+     * Load values when colliding with fish and bubble
+     * @param {ThrowableObject} bubble - The bubble object
+     */
+    loadFishValues(bubble) {
         audio.bubbleBurstAudio.play();
         this.bubble.splice(bubble, 1);
     }
 
-
-    loadEndbossValues(i){
+    /**
+     * Load values when colliding with endboss and bubble
+     * @param {number} i - The index of the bubble
+     */
+    loadEndbossValues(i) {
         this.endboss.hurtWithBubble = true;
         this.endboss.hurtWithBubbleValue = true;
         this.endboss.currentImage = 0;
         this.statusBarBoss.percentace--;
-        this.statusBarBoss.setPercenetage();
+        this.statusBarBoss.setPercentage();
         this.endboss.percentace--;
         this.bubble.splice(i, 1);
     }
 
-    checkEndbossCollisionWithCharacter(){
+    /**
+     * Check collision of endboss with character
+     */
+    checkEndbossCollisionWithCharacter() {
         if (this.endboss.isColliding(this.character)) {
-            this.bossCollistionWithCharacter = true;
-    }}
-
+            this.bossCollisionWithCharacter = true;
+        }
+    }
 }

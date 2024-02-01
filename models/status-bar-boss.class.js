@@ -1,5 +1,5 @@
+
 class StatusBarBoss extends MovableObject {
-    
     height = 40;
     width = 150;
 
@@ -13,6 +13,10 @@ class StatusBarBoss extends MovableObject {
         this.setPercenetage();
     }
 
+
+    /**
+     * Updates the health bar of the boss, animating it to the specified position.
+     */
     updateHealthBarBoss(){
         saveRunningInterval(() => {
             let endY = 40;
@@ -26,25 +30,31 @@ class StatusBarBoss extends MovableObject {
     }
 
 
+    /**
+     * Sets the percentage value of the health bar and updates the corresponding image.
+     */
     setPercenetage(){
-
         let imagePath = allImgs.BOSS_IMAGES_LIFE[this.resolveImagesIndex()];
         this.img = this.imageCache[imagePath];
     }
+    
 
-
+    /**
+     * Resolves the index of the image based on the percentage value.
+     * @returns {number} - Index of the image.
+     */
     resolveImagesIndex(){
         if (this.percentace === 5) {
             return 5;
-        }else if (this.percentace === 4) {
+        } else if (this.percentace === 4) {
             return 4;
-        }else if (this.percentace === 3) {
+        } else if (this.percentace === 3) {
             return 3;
-        }else if (this.percentace === 2) {
+        } else if (this.percentace === 2) {
             return 2;
-        }else if (this.percentace === 1) {
+        } else if (this.percentace === 1) {
             return 1;
-        }else{
+        } else {
             return 0;
         }
     }
