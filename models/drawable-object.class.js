@@ -43,7 +43,7 @@ class DrawableObject {
     */
     draw(ctx) {
         try {
-            ctx.drawImage(this.img, this.x + this.offset.left, this.y + this.offset.top, this.width, this.height);
+            ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
         } catch (e) {
             console.log('This image could not be loaded', this.img);
         }

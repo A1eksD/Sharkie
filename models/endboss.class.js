@@ -13,8 +13,8 @@ class Endboss extends MovableObject {
     hurtWithBubble = false;
     introduceToCharacter = false;
     shootBubbleOnEndboss = false;
-    enbossGetSlap = false;
-    enbossGetSlapValue = false;
+    endbossGetSlap = false;
+    endbossGetSlapValue = false;
     i = 0;
     resetCurrenImg = false;
     showHPfromBoss = false;
@@ -143,7 +143,7 @@ class Endboss extends MovableObject {
      * @returns {boolean} - True if the Endboss got hurt normally, false otherwise.
      */
     doesEndbossGetHutNormal(){
-        return this.enbossGetSlap && this.enbossGetSlapValue && !this.deadAnimation;
+        return this.endbossGetSlap && this.endbossGetSlapValue && !this.deadAnimation;
     }
 
 
@@ -152,7 +152,7 @@ class Endboss extends MovableObject {
      */
     loadEndbossGetHutNormalAnimation(){
         audio.bossGetHit.play();
-        this.enbossGetSlapValue = this.playAnimationFirstToLastImg(allImgs.BOSS_IMAGES_HURT);
+        this.endbossGetSlapValue = this.playAnimationFirstToLastImg(allImgs.BOSS_IMAGES_HURT);
     }
 
 
@@ -219,6 +219,7 @@ class Endboss extends MovableObject {
             audio.backgroundAudio.pause();
             audio.introduceBoss.play();
             audio.introduceBoss.loop = true;
+            audio.backgroundAudio.loop = false;
             this.introduceToCharacter = true;
             this.i = 0;
             this.showHPfromBoss = true;

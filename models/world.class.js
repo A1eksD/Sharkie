@@ -196,7 +196,7 @@ class World {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy) && !this.character.istHitting) {
                 this.character.hit();
-                this.statusBar.setPercenetage(this.character.energy);
+                this.statusBar.setPercentage(this.character.energy);
             }
         });
         if (this.character.isColliding(this.endboss) && !this.character.istHitting) {
@@ -302,7 +302,7 @@ class World {
                 } else {
                     this.character.isDeadByJellyFish();
                     this.statusBar.setPercentage(this.character.energy);
-                    this.character.isInstantDead = true;
+                    this.character.isInstandDead = true;
                     this.character.otherDeath = true;
                     if (!this.character.electricShock) {
                         this.character.currentImage = 0;
@@ -318,7 +318,7 @@ class World {
             this.character.characterStrikes = true;
             this.character.characterStrikesValue = true;
             this.character.currentImage = 0;
-            this.character.isHitting = true;
+            this.character.istHitting = true;
             setTimeout(() => this.characterSlapAgain = true, 3000);
         }
     }
@@ -356,7 +356,7 @@ class World {
      * @returns {boolean} - True if the character is slapping, false otherwise
      */
     checkSlapValue() {
-        return this.character.isColliding(this.endboss) && this.character.isHitting;
+        return this.character.isColliding(this.endboss) && this.character.istHitting;
     }
 
     /**

@@ -13,7 +13,7 @@ class StatusBar extends MovableObject {
         this.loadImages(allImgs.IMAGES_LIFE);
         this.x = 10;
         this.y = 10;
-        this.setPercenetage(100);
+        this.setPercentage(100);
     }
 
 
@@ -21,7 +21,7 @@ class StatusBar extends MovableObject {
      * Method to set the percentage and update the image accordingly.
      * @param {number} percentace - The percentage value to set.
      */
-    setPercenetage(percentace) {
+    setPercentage(percentace) {
         this.percentace = percentace;
         let imagePath = allImgs.IMAGES_LIFE[this.resolveImagesIndex()];
         this.img = this.imageCache[imagePath];

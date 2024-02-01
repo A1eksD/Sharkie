@@ -10,7 +10,7 @@ class StatusBarBoss extends MovableObject {
         this.x = 560;
         this.y = -100;
         this.percentace;
-        this.setPercenetage();
+        this.setPercentage();
     }
 
 
@@ -33,7 +33,7 @@ class StatusBarBoss extends MovableObject {
     /**
      * Sets the percentage value of the health bar and updates the corresponding image.
      */
-    setPercenetage(){
+    setPercentage(){
         let imagePath = allImgs.BOSS_IMAGES_LIFE[this.resolveImagesIndex()];
         this.img = this.imageCache[imagePath];
     }

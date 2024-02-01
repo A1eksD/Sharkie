@@ -135,16 +135,12 @@ function saveRunningInterval(funktion, time) {
 window.addEventListener('keydown', (e) => {
     if (e.keyCode === 38 || e.keyCode === 87) {
         keyboard.UP = true;   
-        this.y -= 10; 
     } else if(e.keyCode === 40 || e.keyCode === 83){
         keyboard.DOWN = true;
-        this.y += 10;
     } else if (e.keyCode === 37 || e.keyCode === 65){
         keyboard.LEFT = true;
-        this.x -= 10;
     } else if (e.keyCode === 39 || e.keyCode === 68){
         keyboard.RIGHT = true;
-        this.x -= 10;
     } else if (e.keyCode === 67){ 
         keyboard.HIT = true;
     } else if (e.keyCode === 32){
@@ -156,16 +152,12 @@ window.addEventListener('keydown', (e) => {
 window.addEventListener('keyup', (e) => {
     if (e.keyCode === 38 || e.keyCode === 87) {
         keyboard.UP = false;
-            this.y -= 10;
     } else if(e.keyCode === 40 || e.keyCode === 83){
-          this.y += 10;
+        keyboard.DOWN = false;
     } else if (e.keyCode === 37 || e.keyCode === 65){ 
         keyboard.LEFT = false;
-          this.x -= 10;
     } else if (e.keyCode === 39 || e.keyCode === 68){
         keyboard.RIGHT = false;
-          this.x -= 10;
-    
     } else if (e.keyCode === 67){
         keyboard.HIT = false;
     } else if (e.keyCode === 32){
