@@ -9,11 +9,6 @@ class AllImages {
         'img/1.Sharkie/3.Swim/5.png',
         'img/1.Sharkie/3.Swim/6.png' 
     ];
-    // IMAGES_JUMP = [ // spter entfernen
-    //     'img/1.Sharkie/5.Hurt/2.Electric_shock/1.png',
-    //     'img/1.Sharkie/5.Hurt/2.Electric_shock/2.png',
-    //     'img/1.Sharkie/5.Hurt/2.Electric_shock/3.png'
-    // ];
     CHARACTER_IMAGES_DEAD = [
         'img/1.Sharkie/6.dead/1.Poisoned/1.png',
         'img/1.Sharkie/6.dead/1.Poisoned/2.png',
